@@ -6,6 +6,7 @@ import { isProduction } from 'helpers/isProduction';
  * Otherwise, the link localhost:8080 will be returned (Spring server default port).
  * @returns {string}
  */
+//test
 export const getDomain = () => {
   const prodUrl = 'https://sopra-fs22-group-02-server.herokuapp.com';
   const devUrl = 'http://localhost:8080';
