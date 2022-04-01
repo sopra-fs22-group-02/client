@@ -1,4 +1,4 @@
-# SoPra FS22 - Client Template
+# SoPra FS22 Group 02 - Client
 
 ## Getting started
 
@@ -27,7 +27,7 @@ Now you can open [http://localhost:3000](http://localhost:3000) to view it in th
 Notice that the page will reload if you make any edits. You will also see any lint errors in the console (use Google Chrome).
 
 ### Testing
-Testing is optional, and you can run the tests with `npm run test`.
+You can run the tests with `npm run test`.
 This launches the test runner in an interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 > For macOS user running into a 'fsevents' error: https://github.com/jest-community/vscode-jest/issues/423
