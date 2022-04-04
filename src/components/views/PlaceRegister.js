@@ -24,6 +24,16 @@ const FormField = props => {
       </div>
     );
   };
+
+  const ImageHolder = props => {
+    return (
+        <img
+          className="place picture"
+          src="/zuri_lake.jpeg"
+          width={props.width}
+        />
+    );
+  };
   
   FormField.propTypes = {
     label: PropTypes.string,
@@ -87,6 +97,16 @@ const FormField = props => {
                 Create
               </Button>
             </div>
+          </div>
+          <div className="place form2">
+            <Box
+                className="place image-box"
+                value="Place Image"
+            />
+            <ImageHolder 
+                className="place image-holder"
+                width={250}
+            />
           </div>
         </div>
       </BaseContainer>
