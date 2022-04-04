@@ -1,10 +1,11 @@
 import "styles/ui/Box.scss";
 
-const Box = props => (
-    <h2
+export const Box = props => (
+    <h1
         {...props}
         style={{width: props.width, ...props.style}}
-        className={`primary-box ${props.className}`}>
-    
-    </h2>
+        className={`primary-box ${props.className}`}
+    >
+    {props.value}
+    </h1>
 );
