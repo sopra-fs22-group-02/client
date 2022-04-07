@@ -4,7 +4,8 @@ import { makeServer } from "helpers/server"
 import { isProduction } from "helpers/isProduction";
 
 // for the in-browser mock server, comment conditional out to interact with the real "backend"
-if (!isProduction()) {
+// set REACT_APP_MIRAGE=true in your environment variable
+if (!isProduction() && process.env.REACT_APP_MIRAGE === "true") {
   makeServer({ environment: "development" })
 }
 
