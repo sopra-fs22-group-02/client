@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
+import Calendar from './Calendar';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -82,6 +83,7 @@ const Game = () => {
             <Player user={user} key={user.id}/>
           ))}
         </ul>
+        <Calendar />
         <Button
           width="100%"
           onClick={() => logout()}
