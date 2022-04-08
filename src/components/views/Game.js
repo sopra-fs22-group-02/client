@@ -33,6 +33,7 @@ const Game = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('loggedInUserId');
     history.push('/login');
   }
 
@@ -44,7 +45,8 @@ const Game = () => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
       try {
-        const response = await api.get('/users');
+        // Return more details if the requesting user is the actual user.
+        const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`);
 
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
@@ -78,11 +80,12 @@ const Game = () => {
   if (users) {
     content = (
       <div className="game">
-        <ul className="game user-list">
+        {/* Below code not necessary */}
+        {/* <ul className="game user-list">
           {users.map(user => (
             <Player user={user} key={user.id}/>
           ))}
-        </ul>
+        </ul> */}
         <Calendar />
         <Button
           width="100%"

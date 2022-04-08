@@ -95,6 +95,8 @@ export function makeServer({ environment = "test" } = {}) {
       // get the profile details of a user
       this.get("/users/:userid/profile", (schema) => {
           // TODO: Implement
+          console.log(schema.users.find(1))
+          return schema.db.users.find(1)
       })
 
       // update the profile information of a user
