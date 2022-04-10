@@ -1,6 +1,6 @@
 @import 'styles/theme';
 
-.profile{
+.place{
   &.container {
     margin-top: 2em;
     min-height: 300px;
@@ -24,30 +24,30 @@
     border-radius: 0.05em;
     background-color: $background;
     transition: opacity 0.5s ease, transform 0.5s ease;
+    //box-shadow: $dropShadow;
   }
   &.field {
     display: inline-flex;
     flex-direction: row;
     justify-content: center;
   }
-  &.label-box {
-    color: #042825;
+  &.input {
+    height: 45px;
+    padding-left: 15px;
+    margin-left: -4px;
+    border: none;
+    border-radius: 0.75em;
     margin-bottom: 20px;
-    margin-right: 20px;
-    width: 200px;
-    text-transform: none; 
-    font-weight: 500;
+    background: transparentize(white, 0.85);
+    color: #127570;
     box-shadow: $dropShadow;
-    background-color: #0d9992;
-    justify-content: center;
   }
-  &.value-box {
-    color: #042825;
+  &.box {
+    color: #053f3c;
     margin-bottom: 20px;
     margin-right: 20px;
-    width: 200px;
-    height: 50px;
-    text-transform: none; 
+    width: 100px;
+    text-transform: uppercase;
     font-weight: 500;
     box-shadow: $dropShadow;
     background-color: #0d9992;

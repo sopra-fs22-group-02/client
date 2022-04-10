@@ -27,15 +27,11 @@ const FormField = props => {
 
   const ImageHolder = props => {
     return (
-      <div className="place field">
-        <input
-          className="place image-input"
-          placeholder="upload image"
-          type="file"
-          value={props.value}
-          onChange={e => props.onChange(e.target.value)}
+        <img
+          className="place picture"
+          src="/zuri_lake.jpeg"
+          width={props.width}
         />
-      </div>
     );
   };
   
@@ -52,10 +48,10 @@ const FormField = props => {
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
   
-    const doRegister = async () => {
+    const doUpdate = async () => {
       try {
         const requestBody = JSON.stringify({nearestTo, name, address, description});
-        const response = await api.post('/places', requestBody);
+        const response = await api.put('/places', requestBody);
   
         // Get the returned user and update a new object.
         const place = new Place(response.data);
@@ -94,11 +90,10 @@ const FormField = props => {
             />
             <div className="place button-container">
               <Button
-                disabled={!nearestTo || !name || !address}
                 width="30%"
-                onClick={() => doRegister()}
+                onClick={() => doUpdate()}
               >
-                Create
+                Update
               </Button>
             </div>
           </div>
@@ -108,7 +103,6 @@ const FormField = props => {
                 value="Place Image"
             />
             <ImageHolder 
-                className="place image-holder"
                 width={250}
             />
           </div>
