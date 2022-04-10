@@ -25,14 +25,21 @@ const Profile = () => {
                         <p className = "profile text" > I am a freelance graphic designer with over five years of industry experience.” or “My specialities include logo creation, branding concepts, vector image editing/cropping & Photoshop work.” because it can make you sound generic and boring to potential clients. </p>
                     </div>
                 <div className= "profile card-footer" >
-                </div>
-                    <Button
-                        width="100%"
-                    >
-                        Edit
-                    </Button>
+                    </div>
+                        <Button
+                            width="100%"
+                        >
+                            Edit
+                        </Button>
+                       <Button
+                            width="100%"
+                        >
+                            Back
+                       </Button>
+                    </div>
 
-                </div>
+
+
 
 
 
