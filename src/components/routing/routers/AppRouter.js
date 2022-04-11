@@ -6,6 +6,8 @@ import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
 import PlaceProfile from "components/views/PlaceProfile";
 import PlaceProfileEdit from "components/views/PlaceProfileEdit";
+import EventCreation from "components/views/EventCreation";
+import EventUpdate from "components/views/EventUpdate";
 
 
 /**
@@ -31,6 +33,9 @@ const AppRouter = () => {
             <Login/>
           </LoginGuard>
         </Route>
+        <Route exact path="/">
+          <Redirect to="/game"/>
+        </Route>
         <Route exact path="/placeRegister">
             <PlaceRegister/>
         </Route>
@@ -40,8 +45,11 @@ const AppRouter = () => {
         <Route exact path="/placeProfileEdit">
             <PlaceProfileEdit/>
         </Route>
-        <Route exact path="/">
-          <Redirect to="/game"/>
+        <Route exact path="/eventCreation">
+            <EventCreation/>
+        </Route>
+        <Route exact path="/eventUpdate">
+            <EventUpdate/>
         </Route>
       </Switch>
     </BrowserRouter>
