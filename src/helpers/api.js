@@ -6,6 +6,25 @@ export const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
+api.interceptors.request.use( (config) => {
+  // Interceptor for authentication requests
+  // console.log("Intercepted ", config.url);
+  // Add auth token only to protected API requests
+
+  // let's populate the basic auth with our token
+  let authHeader = `Basic ${localStorage.getItem('token')}`;
+
+  // formatting a string for the regex checking
+  let requestString = `${config.method}:${config.url}`;
+
+  // let us generally send the auth token (this may be insecure)
+  let requiresAuth = true;
+
+  // return config
+  return config;
+
+})
+
 export const handleError = error => {
   const response = error.response;
 
