@@ -26,7 +26,7 @@ const Profile = () => {
 
                 const user = new User(response.data);
 
-                history.push(`/game`);
+                history.push(`/profileedit`);
             } catch (error) {
                 alert(`Something went wrong during the login: \n${handleError(error)}`);
             }
@@ -56,6 +56,7 @@ const Profile = () => {
                     </div>
                         <Button
                             width="100%"
+                            onClick={() => ProfileData()}
                         >
                             Edit
                         </Button>

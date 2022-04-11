@@ -28,7 +28,7 @@ const Header = props => (
             <div className = "header profile" >
                 <div className= "header action">
                     <div className = "header profile">
-                        <img className = "header image" src="/profile.jpeg" onClick={Log}/>
+                        <img className = "header image" src="/profile.jpeg"/>
                     </div>
                     <div className = "header menu">
                         <h3> Paul Safari </h3>
