@@ -18,7 +18,6 @@ const Log = props => {
     history.push(`/profile`);
     }
 
-;
 
 const Header = props => (
     <div className="header container">

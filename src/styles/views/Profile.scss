@@ -66,10 +66,13 @@
     color: #1f4f59;
   }
   &.username {
-    font-size: 13px;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px 0 0;
     color: #1f4f59;
-    margin: 5px 0 0;
   }
+
   &.text {
     font-size: 10;
     margin: 10px ;
