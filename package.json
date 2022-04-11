@@ -31,6 +31,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
     "miragejs": "^0.1.43"
   }
 }
