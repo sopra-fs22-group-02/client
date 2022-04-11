@@ -1,0 +1,94 @@
+@import 'styles/theme';
+
+.place{
+  &.container {
+    margin-top: 2em;
+    min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+    flex-direction: row;
+  }
+  &.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    max-width: 50em;
+    height: 30em;
+    font-size: 16px;
+    font-weight: 300;
+    padding-left: 37px;
+    padding-right: 37px;
+    border-style: solid none solid solid;
+    border-color: rgb(14, 141, 146);
+    border-radius: 0.05em;
+    background-color: $background;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    //box-shadow: $dropShadow;
+  }
+  &.field {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  &.input {
+    height: 45px;
+    padding-left: 15px;
+    margin-left: -4px;
+    border: none;
+    border-radius: 0.75em;
+    margin-bottom: 20px;
+    background: transparentize(white, 0.85);
+    color: #127570;
+    box-shadow: $dropShadow;
+  }
+  &.box {
+    color: #053f3c;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 100px;
+    text-transform: uppercase;
+    font-weight: 500;
+    box-shadow: $dropShadow;
+    background-color: #0d9992;
+    justify-content: center;
+  }
+    &.form2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    max-width: 50em;
+    height: 30em;
+    font-size: 16px;
+    font-weight: 300;
+    padding-left: 37px;
+    padding-right: 37px;
+    border-style: solid solid solid none;
+    border-color: rgb(14, 141, 146);
+    border-radius: 0.05em;
+    background-color: $background;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  &.image-box {
+    color: #053f3c;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    text-transform: uppercase;
+    font-weight: 800;
+    box-shadow: $dropShadow;
+    background-color: #0d9992;
+    position: relative;
+    bottom: 75px;
+  }
+  &.button-container {
+    display: flex;
+    justify-content: end;
+    margin-top: 2em;
+  }
+  &.picture{
+    align-items: center;   
+    position: relative;
+    bottom: 75px;
+  }
+}
