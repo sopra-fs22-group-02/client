@@ -9,8 +9,8 @@ body {
   padding: 0;
   min-width: 100vw;
   min-height: 100vh;
-  font-family: "Gill Sans", sans-serif;
-  background-image: linear-gradient(135deg, $accent 10%, $accentDark 100%);
+  font-family: $fontDefault;
+  background-color: rgba(84, 192, 204, 0.2);
 }
 
 input,
