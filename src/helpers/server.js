@@ -1,14 +1,39 @@
 // src/server.js
-import { createServer, Model } from "miragejs"
+import { belongsTo, createServer, hasMany, Model, RestSerializer } from "miragejs"
 import { getDomain } from "./getDomain"
+import faker from "@faker-js/faker"
 
 // in-Browser server for frontend development
 export function makeServer({ environment = "test" } = {}) {
   let server = createServer({
+
     environment,
 
+    // Good starting point for REST API
+    serializers: {
+        application: RestSerializer
+    },
+
+    // Declaration of our models
     models: {
-      user: Model,
+      user: Model.extend({
+          events: hasMany(),
+          notifications: hasMany()
+      }),
+      event: Model,
+      notification: Model,
+      place: Model.extend({
+          user: belongsTo(),
+          events: hasMany()
+      }),
+      location: Model.extend({
+          place: belongsTo
+      })
+    },
+
+    // Declaration of model factories
+    factories: {
+        
     },
 
     // add mock instances to various resources that will be handled server-side
@@ -65,6 +90,9 @@ export function makeServer({ environment = "test" } = {}) {
     routes() {
       this.urlPrefix = getDomain()
       this.namespace = ""
+
+      // gradually include more endpoints in passthrough => real backend
+      this.passthrough()
 
       // ---- USER resource ----
 
