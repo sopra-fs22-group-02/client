@@ -6,7 +6,10 @@ import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
 import PlaceProfile from "components/views/PlaceProfile";
 import PlaceProfileEdit from "components/views/PlaceProfileEdit";
-
+import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
+import Registration from "../../views/Registration";
+import Profile from "../../views/Profile";
+import ProfileEdit from "../../views/ProfileEdit";
 
 /**
  * Main router of your application.
@@ -27,9 +30,9 @@ const AppRouter = () => {
           </GameGuard>
         </Route>
         <Route exact path="/login">
-          <LoginGuard>
+
             <Login/>
-          </LoginGuard>
+
         </Route>
         <Route exact path="/placeRegister">
             <PlaceRegister/>
@@ -42,6 +45,18 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/">
           <Redirect to="/game"/>
+        </Route>
+        <Route exact path="/registration">
+            <Registration/>
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/login"/>
+        </Route>
+        <Route exact path= "/profile">
+           <Profile/>
+        </Route>
+        <Route exact path= "/profileedit">
+           <ProfileEdit/>
         </Route>
       </Switch>
     </BrowserRouter>

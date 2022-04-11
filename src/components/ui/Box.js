@@ -6,6 +6,6 @@ export const Box = props => (
         style={{width: props.width, ...props.style}}
         className={`primary-box ${props.className}`}
     >
-    {props.value}
+        {props.value}
     </h1>
 );

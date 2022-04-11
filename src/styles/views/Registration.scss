@@ -1,6 +1,6 @@
 @import 'styles/theme';
 
-.login {
+.registration {
   &.container {
     margin-top: 2em;
     min-height: 300px;
@@ -26,12 +26,12 @@
     border-style: solid;
     border-width: 2px;
     border-color: #1F4F59FF;
-
   }
   &.field {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
   }
   &.input {
     height: 35px;
@@ -54,12 +54,12 @@
     font-weight: 600;
     text-transform: uppercase;
 
+
   }
   &.button-container {
     display: flex;
     justify-content: center;
     margin-top: 2em;
-
   }
   &.title {
     color: #1F4F59;
@@ -71,6 +71,5 @@
     font-weight: 200;
     font-size: 20px;
     text-transform: uppercase;
-
   }
 }
