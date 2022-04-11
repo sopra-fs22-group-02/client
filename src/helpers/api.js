@@ -20,6 +20,12 @@ api.interceptors.request.use( (config) => {
   // let us generally send the auth token (this may be insecure)
   let requiresAuth = true;
 
+  // add the header to the axios request
+  if(requiresAuth) {
+    config.headers.Authorization = authHeader;
+    console.log(`Sending ${authHeader}`);
+  }
+
   // return config
   return config;
 
