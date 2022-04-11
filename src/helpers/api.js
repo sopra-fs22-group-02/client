@@ -26,6 +26,18 @@ api.interceptors.request.use( (config) => {
     console.log(`Sending ${authHeader}`);
   }
 
+  // multiple regexes, based on the api request we're making we need to send the
+  // auth token with us
+  if(requestString.match(/GET:\/users.*/)) {requiresAuth = true};
+
+  if(requestString.match(/PUT:\/users\/\d+\/?$/m)) {requiresAuth = true};
+  
+  if(requestString.match(/POST:\/users\/\d+\/?$/m)) {requiresAuth = false};
+
+  if(requestString.match(/POST:\/users\/?$/m)) {requiresAuth = false};
+
+  if(requestString.match(/POST:\/users\/login\/?$/m)) { requiresAuth = false };
+
   // return config
   return config;
 
