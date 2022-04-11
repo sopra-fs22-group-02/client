@@ -1,0 +1,92 @@
+@import 'styles/theme';
+
+.profile {
+  &.card {
+    width: 500px;
+    margin: 150px auto 0;
+    background-color: rgba(84, 192, 204, 0.2);
+    box-shadow: 0 7px, rgba(0, 0, 0, .14);
+    color:#ffffff;
+    text-align: center;
+    font-size: 16px;
+    border: 2px solid #1F4F59FF;
+    border-radius: 30px;
+
+  }
+  &.card-header {
+    position: relative;
+    height: 100px;
+  }
+
+  &.image {
+    width: 200px;
+    height: 200px;
+    border-radius: 1000px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #1F4F59FF;
+    box-shadow: 0 0 20px rgba(0,0, 0, .2);
+
+  }
+  &.card-body {
+    padding: 10px 40px;
+  }
+
+  &.textbox {
+    background-color: rgba(31, 79, 89, 0.2);
+    border-radius: 0.75em;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: left;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    background-color: rgba(31, 79, 89, 0.2);
+  }
+
+  &.first-name {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px 0 0;
+    color: #1f4f59;
+  }
+  &.last-name {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px 0 0;
+    color: #1f4f59;
+  }
+  &.email {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px 0 0;
+    color: #1f4f59;
+  }
+  &.username {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px 0 0;
+    color: #1f4f59;
+  }
+
+  &.text {
+    font-size: 10;
+    margin: 10px ;
+    color: #1f4f59;
+
+  }
+  &.card-footer {
+    display: table;
+    width: 100%;
+    border-top: 2px solid #1F4F59FF;
+    margin-bottom: 20px;
+
+
+  }
+
+
+}
