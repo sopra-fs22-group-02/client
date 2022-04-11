@@ -6,6 +6,7 @@ import Login from "components/views/Login";
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
+import ProfileEdit from "../../views/ProfileEdit";
 
 /**
  * Main router of your application.
@@ -41,6 +42,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path= "/profile">
            <Profile/>
+        </Route>
+        <Route exact path= "/profileedit">
+           <ProfileEdit/>
         </Route>
       </Switch>
     </BrowserRouter>
