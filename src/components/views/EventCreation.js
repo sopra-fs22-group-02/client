@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import Place from 'models/Place';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import SleepEvent from 'models/SleepEvent';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
@@ -40,6 +41,7 @@ const FormField = props => {
     const [departureTime, setDepartureTime] = useState(null);
     const [nearestTo, setNearestTo] = useState(null);
     const [description, setDescription] = useState(null);
+    const [date, setDate] = useState(new Date());
   
     const doUpdate = async () => {
       try {
@@ -60,6 +62,17 @@ const FormField = props => {
     return (
       <BaseContainer>
         <div className="event container">
+        <div className="event form2">
+            <Box
+                className="event calendar-box"
+                value="Calendar"
+            />
+            <Calendar
+              locale='en'
+              value={date}
+              onChange={setDate}
+            />
+          </div>
           <div className="event form">
             <FormField
               label="Arrival Time"
@@ -71,16 +84,6 @@ const FormField = props => {
               value={departureTime}
               onChange={dt => setDepartureTime(dt)}
             />
-            <FormField
-              label="Nearest To"
-              value={nearestTo}
-              onChange={nt => setNearestTo(nt)}
-            />
-            <FormField
-              label="Description"
-              value={description}
-              onChange={des => setDescription(des)}
-            />
             <div className="event button-container">
               <Button
                 width="30%"
@@ -89,16 +92,6 @@ const FormField = props => {
                 Offer slot
               </Button>
             </div>
-          </div>
-          <div className="event form2">
-            <Box
-                className="event image-box"
-                value="Calendar"
-            />
-            <Box
-                className="event calendar-box"
-                value="Mon-Tue-Wen-Thu-Fri-Sat-Sun"
-            />
           </div>
         </div>
       </BaseContainer>

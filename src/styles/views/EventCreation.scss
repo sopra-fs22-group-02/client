@@ -19,10 +19,10 @@
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
-    border-style: solid none solid solid;
+    border-style: solid solid solid none;
     border-color: rgb(14, 141, 146);
     border-radius: 0.05em;
-    background-color: $background;
+    background-color: #c0ece0e8;
     transition: opacity 0.5s ease, transform 0.5s ease;
     //box-shadow: $dropShadow;
   }
@@ -64,13 +64,13 @@
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
-    border-style: solid solid solid none;
+    border-style: solid none solid solid;
     border-color: rgb(14, 141, 146);
     border-radius: 0.05em;
-    background-color: $background;
+    background-color: #c0ece0e8;
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  &.image-box {
+  &.calendar-box {
     color: #053f3c;
     margin-bottom: 20px;
     margin-right: 20px;
@@ -79,23 +79,11 @@
     box-shadow: $dropShadow;
     background-color: #0d9992;
     position: relative;
-    bottom: 75px;
-  }
-  &.calendar-box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    text-transform: none;
-    height: 10em;
-    font-weight: 500;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    position: relative;
-    bottom: 75px;
+    bottom: 30px;
   }
   &.button-container {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     margin-top: 2em;
   }
   &.picture{
@@ -103,4 +91,10 @@
     position: relative;
     bottom: 75px;
   }
+}
+.react-calendar {
+
+  background-color: rgb(228, 222, 210);
+  border-radius: 0.5em;
+  box-shadow: $dropShadow;
 }
