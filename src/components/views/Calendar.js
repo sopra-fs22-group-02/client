@@ -34,39 +34,42 @@ Event.propTypes = {
   event: PropTypes.object
 };
 
-const Calendar = () => {
-  let events = [
-    {
-      id: 1,
-      // applicants: [1], // association EVENT -> USER
-      // confirmedApplicant: null, // association: EVENT -> USER
-      // date: "2022-04-10", // let's remove this
-      starttime: "2022-04-10T20:00:00Z", // let's make this a datetime field
-      endtime: "2022-04-11T06:00:00Z", // let's make this a datetime field
-      state: "AVAILABLE",
-      provider: true
-    },
-    {
-      id: 2,
-      // applicants: [1], // association EVENT -> USER
-      // confirmedApplicant: null, // association: EVENT -> USER
-      // date: "2022-04-10", // let's remove this
-      starttime: "2022-04-08T10:00:00Z", // let's make this a datetime field
-      endtime: "2022-04-08T14:00:00Z", // let's make this a datetime field
-      state: "CONFIRMED",
-      provider: false
-    },
-    {
-      id: 3,
-      // applicants: [1], // association EVENT -> USER
-      // confirmedApplicant: null, // association: EVENT -> USER
-      // date: "2022-04-10", // let's remove this
-      starttime: "2022-04-09T15:00:00Z", // let's make this a datetime field
-      endtime: "2022-04-09T16:00:00Z", // let's make this a datetime field
-      state: "CONFIRMED",
-      provider: false
-    }
-  ];
+const Calendar = ({ events }) => {
+
+  console.log(events)
+
+  // let events = [
+  //   {
+  //     id: 1,
+  //     // applicants: [1], // association EVENT -> USER
+  //     // confirmedApplicant: null, // association: EVENT -> USER
+  //     // date: "2022-04-10", // let's remove this
+  //     starttime: "2022-04-10T20:00:00Z", // let's make this a datetime field
+  //     endtime: "2022-04-11T06:00:00Z", // let's make this a datetime field
+  //     state: "AVAILABLE",
+  //     provider: true
+  //   },
+  //   {
+  //     id: 2,
+  //     // applicants: [1], // association EVENT -> USER
+  //     // confirmedApplicant: null, // association: EVENT -> USER
+  //     // date: "2022-04-10", // let's remove this
+  //     starttime: "2022-04-08T10:00:00Z", // let's make this a datetime field
+  //     endtime: "2022-04-08T14:00:00Z", // let's make this a datetime field
+  //     state: "CONFIRMED",
+  //     provider: false
+  //   },
+  //   {
+  //     id: 3,
+  //     // applicants: [1], // association EVENT -> USER
+  //     // confirmedApplicant: null, // association: EVENT -> USER
+  //     // date: "2022-04-10", // let's remove this
+  //     starttime: "2022-04-09T15:00:00Z", // let's make this a datetime field
+  //     endtime: "2022-04-09T16:00:00Z", // let's make this a datetime field
+  //     state: "CONFIRMED",
+  //     provider: false
+  //   }
+  // ];
 
   // group the events by the date (starttime)
   const eventsGroupedByDay = _.groupBy(events, (element) =>
@@ -83,7 +86,7 @@ const Calendar = () => {
   for (let i = 1; i <= daysRequired; i++) {
     // remove params in moment(...) for production!
     weekDates.push(
-      moment("2022-04-07", "YYYY-MM-DD")
+      moment()
         .add(i, "days")
         .format()
         .substring(0, 10)
