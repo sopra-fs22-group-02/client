@@ -10,6 +10,8 @@ import 'styles/views/EventCreation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
+import TimePicker from "react-time-picker";
+
 
 const FormField = props => {
     return (
@@ -18,11 +20,9 @@ const FormField = props => {
             className="event box"
             value={props.label}
         />
-        <input
-          className="event input"
-          placeholder="enter here.."
-          value={props.value}
-          onChange={e => props.onChange(e.target.value)}
+        <TimePicker 
+            onChange={t => props.onChange(t)} 
+            value={props.value} 
         />
       </div>
     );
@@ -39,13 +39,12 @@ const FormField = props => {
     const history = useHistory();
     const [arrivalTime, setArrivalTime] = useState(null);
     const [departureTime, setDepartureTime] = useState(null);
-    const [nearestTo, setNearestTo] = useState(null);
-    const [description, setDescription] = useState(null);
     const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date());
   
-    const doUpdate = async () => {
+    const create = async () => {
       try {
-        const requestBody = JSON.stringify({nearestTo, description});
+        const requestBody = JSON.stringify({});
         const response = await api.put(`/places/${placeId}/events`, requestBody);
   
         // Get the returned user and update a new object.
@@ -87,7 +86,7 @@ const FormField = props => {
             <div className="event button-container">
               <Button
                 width="30%"
-                onClick={() => doUpdate()}
+                onClick={() => create()}
               >
                 Offer slot
               </Button>
