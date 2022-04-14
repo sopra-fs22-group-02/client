@@ -1,93 +1,87 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import SleepEvent from 'models/SleepEvent';
 import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
-import 'styles/views/EventUpdate.scss';
+import 'styles/views/EventProfile.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import TimePicker from "react-time-picker";
 
 
-const FormField = props => {
+const ProfileField = props => {
     return (
       <div className="event field">
         <Box
             className="event box"
             value={props.label}
         />
-        <TimePicker 
-            onChange={t => props.onChange(t)} 
-            value={props.value} 
+        <Box
+            className="event box"
+            value={props.value}
         />
       </div>
     );
   };
 
   
-  FormField.propTypes = {
+  ProfileField.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func
   };
   
-  const EventUpdate = () => {
+  const EventProfile = () => {
     const history = useHistory();
     const [arrivalTime, setArrivalTime] = useState(null);
     const [departureTime, setDepartureTime] = useState(null);
     const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date());
   
-    const update = async () => {
+    const display = async () => {
       try {
-        const requestBody = JSON.stringify({arrivalTime, departureTime});
-        const response = await api.put(`/places/${placeId}/events/${eventId}`, requestBody);
+        const requestBody = JSON.stringify({});
+        const response = await api.get(`/places/${placeId}/events/${eventId}`, requestBody);
   
         // Get the returned user and update a new object.
         const sleepEvent = new SleepEvent(response.data);
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        
+        history.push(`/PlaceProfile`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
     };
     let {placeId} = useParams();
     let {eventId} = useParams();
+    const goBack = () => {
+        history.push("/eventCreation")
+    }
     return (
       <BaseContainer>
         <div className="event container">
-        <div className="event form2">
-            <Box
-                className="event calendar-box"
-                value="Calendar"
-            />
-            <Calendar
-              locale='en'
-              value={date}
-              onChange={setDate}
-            />
-          </div>
+        
           <div className="event form">
-            <FormField
+            <ProfileField
               label="Arrival Time"
-              value={arrivalTime}
-              onChange={at => setArrivalTime(at)}
+              value="13:00"
             />
-            <FormField
+            <ProfileField
               label="Departure Time"
-              value={departureTime}
-              onChange={dt => setDepartureTime(dt)}
+              value="15:00"
+            />
+            <ProfileField
+              label="Date"
+              value="04.15.2022"
             />
             <div className="event button-container">
               <Button
                 width="30%"
-                onClick={() => update()}
+                onClick={() => goBack()}
               >
-                Update
+                Go back
               </Button>
             </div>
           </div>
@@ -97,4 +91,4 @@ const FormField = props => {
   };
 
 
-export default EventUpdate;
+export default EventProfile;

@@ -19,12 +19,10 @@
     font-weight: 300;
     padding-left: 37px;
     padding-right: 37px;
-    border-style: solid solid solid none;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
+    border-radius: 0.5em;
+    border-style: solid solid solid solid;
     background-color: #c0ece0e8;
     transition: opacity 0.5s ease, transform 0.5s ease;
-    //box-shadow: $dropShadow;
   }
   &.field {
     display: inline-flex;
@@ -53,53 +51,9 @@
     background-color: #0d9992;
     justify-content: center;
   }
-    &.form2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid none solid solid;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color: #c0ece0e8;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  &.calendar-box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    text-transform: uppercase;
-    font-weight: 700;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    position: relative;
-    bottom: 30px;
-  }
   &.button-container {
     display: flex;
     justify-content: center;
     margin-top: 2em;
   }
-  &.picture{
-    align-items: center;   
-    position: relative;
-    bottom: 75px;
-  }
-}
-.react-calendar {
-  background-color: rgb(228, 222, 210);
-  border-radius: 0.5em;
-  box-shadow: $dropShadow;
-}
-.react-time-picker{
-  background-color: rgb(228, 222, 210);
-  width: 10em;
-  height: 3em;
-  box-shadow: $dropShadow;
 }

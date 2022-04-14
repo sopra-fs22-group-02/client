@@ -7,6 +7,7 @@ import PlaceRegister from "components/views/PlaceRegister";
 import PlaceProfile from "components/views/PlaceProfile";
 import PlaceProfileEdit from "components/views/PlaceProfileEdit";
 import EventCreation from "components/views/EventCreation";
+import EventProfile from "components/views/EventProfile";
 import EventUpdate from "components/views/EventUpdate";
 
 import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
@@ -51,6 +52,12 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/eventCreation">
             <EventCreation/>
+        </Route>
+        <Route exact path="/eventUpdate">
+            <EventUpdate/>
+        </Route>
+        <Route exact path="/eventProfile">
+            <EventProfile/>
         </Route>
         <Route exact path="/eventUpdate">
             <EventUpdate/>
