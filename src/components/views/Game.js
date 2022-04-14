@@ -79,7 +79,7 @@ const Game = () => {
 
   if (user) {
     content = (
-      <div className="game">
+      <div className="calendar">
         {/* Below code not necessary */}
         {/* <ul className="game user-list">
           {users.map(user => (

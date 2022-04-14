@@ -1,31 +1,40 @@
 import PropTypes from "prop-types";
 import _ from "lodash";
 import moment from "moment";
+import "styles/views/Calendar.scss"
+import { Link } from "react-router-dom";
 
 const Event = ({ event }) => {
   return (
-    <div className="event container">
-      <div className="event role">
-        {event.provider ? "Provider" : "Applicant"}
-      </div>
-      <div className="event state">{event.state}</div>
-      <div className="event start-time">
-        From: {moment(event.starttime).format("LT")}
-      </div>
-      <div className="event end-time">
-        To: {moment(event.endtime).format("LT")}
-      </div>
-    </div>
+    <Link to={`/event/${event.id}`} className="event item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
+      {/* <div className="event item"> */}
+        <div className="event role">
+          {event.provider ? "Provider" : "Applicant"}
+        </div>
+        <div className="event state">{event.state}</div>
+        <div className="event start-time">
+          From: {moment(event.starttime).format("LT")}
+        </div>
+        <div className="event end-time">
+          To: {moment(event.endtime).format("LT")}
+        </div>
+      {/* </div> */}
+    </Link>
+
   );
 };
 
 const Weekday = ({ weekday }) => {
   return (
     <div className="weekday">
-      <h3>{weekday.name}</h3>
+      <div className="weekday title">
+        <h3>{weekday.name}</h3>
+      </div>
+      <div className="event container" >
       {weekday.events.map((event) => (
-        <Event event={event} key={event.id} />
+          <Event event={event} key={event.id} />
       ))}
+      </div>
     </div>
   );
 };
@@ -113,9 +122,9 @@ const Calendar = ({ events }) => {
   // console.log(days);
 
   return (
-    <div className="container">
+    <div className="calendar container">
       <h1>My Events!</h1>
-      <div className="calendar">
+      <div className="weekday container">
         {days.map((day) => (
           <Weekday weekday={day} key={day.date} />
         ))}
