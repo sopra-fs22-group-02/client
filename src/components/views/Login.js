@@ -63,6 +63,9 @@ const Login = props => {
     <BaseContainer>
       <div className="login container">
         <div className="login form">
+          <div className= "login title">
+            <h1> Login </h1>
+          </div>
           <FormField
             label="Username"
             value={username}
