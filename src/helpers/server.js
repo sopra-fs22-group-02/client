@@ -8,6 +8,10 @@ const persistLocally = (dump) => {
     localStorage.setItem('mirage', dump)
 } 
 
+const randItem = (items) => { 
+    return items[Math.floor(Math.random()*items.length)];   
+}
+
 let AppSerializer = RestSerializer.extend({
     root: false,
     embed: true
@@ -71,7 +75,7 @@ export function makeServer({ environment = "test" } = {}) {
         }),
         event: Factory.extend({
             starttime() { return faker.date.soon(6) },
-            state() { return "AVAILABLE" },
+            state() { return randItem(["AVAILABLE", "UNAVAILABLE"]) },
             confirmedApplicant() { return null },
             afterCreate(event, server) {
                 // generate some applicants (Only if no events autocreated)
