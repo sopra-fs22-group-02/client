@@ -1,0 +1,69 @@
+@import 'styles/theme';
+
+/* The '&' is a shorthand for the containing element,
+  so for example a '&.user-list' inside .game will compile to
+  .game.user-list
+
+  for more information visit https://sass-lang.com/guide
+ */
+
+.calendar {
+  &.container {
+    background: $background;
+    padding: 1.5em;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: $dropShadow;
+  }
+}
+
+.weekday {
+  &.container {
+    margin: 0.5em 0;
+    // width: 20em;
+    max-width: max-content;
+    padding: 10px;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: lighten($background, 5);
+    height: 600px;
+    overflow-y: scroll;
+  }
+  &.title {
+    color: aqua;
+    text-align: center;
+  }
+}
+
+.event {
+  &.container {
+    margin: 0.5em 0;
+    width: 20em;
+    padding: 10px;
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: lighten($background, 5);
+  }
+  &.item {
+      opacity: .7;
+      text-decoration: none;
+      background: rgb(173, 173, 0);
+      /* margin-bottom: 12%; */
+      padding: 0%;
+      /* margin-left: 0; */
+      margin: 6%;
+      width: 90%;
+      padding: 5%;
+      border-radius: 12px;
+      &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+        color: inherit;
+    }
+  }
+}
