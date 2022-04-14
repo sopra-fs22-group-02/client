@@ -7,8 +7,9 @@
   for more information visit https://sass-lang.com/guide
  */
 
-.game {
+.home {
   &.container {
+    color: white;
     background: $background;
     padding: 1.5em;
     border-radius: $borderRadius;

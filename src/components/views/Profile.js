@@ -2,7 +2,7 @@
 import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/Profile.scss";
-import "styles/views/Game.scss";
+import "styles/views/Home.scss";
 import {Button} from 'components/ui/Button';
 import {useEffect, useState} from "react";
 import {api, handleError} from "../../helpers/api";

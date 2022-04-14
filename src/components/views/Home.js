@@ -5,7 +5,7 @@ import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
+import "styles/views/Home.scss";
 import Calendar from './Calendar';
 
 const Player = ({user}) => (
@@ -20,7 +20,7 @@ Player.propTypes = {
   user: PropTypes.object
 };
 
-const Game = () => {
+const Home = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -79,7 +79,7 @@ const Game = () => {
 
   if (user) {
     content = (
-      <div className="calendar">
+      <div className="home">
         {/* Below code not necessary */}
         {/* <ul className="game user-list">
           {users.map(user => (
@@ -98,9 +98,9 @@ const Game = () => {
   }
 
   return (
-    <BaseContainer className="game container">
+    <BaseContainer className="home container">
       <h2>Happy Coding!</h2>
-      <p className="game paragraph">
+      <p className="home paragraph">
         Get all users from secure endpoint:
       </p>
       {content}
@@ -108,5 +108,5 @@ const Game = () => {
   );
 }
 
-export default Game;
+export default Home;
 
