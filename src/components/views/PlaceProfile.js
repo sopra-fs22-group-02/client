@@ -97,6 +97,12 @@ const ProfileField = props => {
               >
                 Edit
               </Button>
+              <Button
+                  width="100%"
+                  onClick={() => history.push("/")}
+              >
+                  Back
+               </Button>
             </div>
           </div>
           <div className="profile form2">

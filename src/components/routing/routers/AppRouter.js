@@ -52,10 +52,10 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-        <Route exact path= "/profile">
+        <Route exact path= "/profile/:userId">
            <Profile/>
         </Route>
-        <Route exact path= "/profileedit">
+        <Route exact path= "/profileedit/:userId">
            <ProfileEdit/>
         </Route>
       </Switch>

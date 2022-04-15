@@ -96,6 +96,7 @@ const Home = () => {
             { user.place ? <MenuItem onClick={() => history.push(`/placeprofile/${user.place.id}`)}>My Place</MenuItem> :  <MenuItem onClick={() => history.push('/placeregister')}>Create Place</MenuItem> }
             <MenuItem disabled={!user.place}>Offer Slot</MenuItem>
             <MenuItem>Find Place</MenuItem>
+            <MenuItem onClick={() => history.push(`/profile/${user.id}`)}>My Profile</MenuItem>
           </div>
         </div>
       </div>

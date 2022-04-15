@@ -61,7 +61,7 @@ const FormField = props => {
         const response = await api.put('/places', requestBody);
   
         // Get the returned user and update a new object.
-        const place = new Place(response.data);
+        // const place = new Place(response.data);
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
@@ -93,7 +93,7 @@ const FormField = props => {
 
     let { placeId } = useParams()
 
-    console.log(place)
+    // console.log(place)
   
     return (
       <BaseContainer>

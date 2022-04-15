@@ -71,9 +71,10 @@ const Registration = props => {
 
             // Store the token into the local storage.
             localStorage.setItem('token', user.token);
+            localStorage.setItem('loggedInUserId', user.id);
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
-            history.push(`/game`);
+            history.push(`/home/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }

@@ -61,11 +61,13 @@ export function makeServer({ environment = "test" } = {}) {
     factories: {
         user: Factory.extend({
             username() { return faker.internet.userName() },
-            name() {return faker.name.firstName() },
+            firstName() {return faker.name.firstName() },
+            lastName() { return faker.name.lastName() },
             email() {return faker.internet.email() },
             token() { return faker.datatype.uuid() },
             status() { return "OFFLINE" },
-            place() { return null }
+            place() { return null },
+            password() { return faker.internet.password() }
             // Only use this if no applicants autocreated
             // afterCreate(user, server) {
             //     if(!user.events) {
@@ -187,6 +189,16 @@ export function makeServer({ environment = "test" } = {}) {
         return schema.db.users
       })
 
+      this.put("/users", (schema, request) => {
+          // TODO: Implement
+        const requestBody = JSON.parse(request.requestBody)
+        let userDetails = requestBody
+        let userId = userDetails.id
+        delete userId["id"]
+        schema.db.users.update(userId, userDetails)
+        return new Response(204)
+      })
+
       // login a user
       this.post("/users/:username/login", (schema, request) => {
         const username_param = request.params.username
@@ -208,11 +220,14 @@ export function makeServer({ environment = "test" } = {}) {
       // get the profile details of a user
       this.get("/users/:userid/profile", (schema, request) => {
           let userid_param = request.params.userid
+          console.log("REQUEST USER PROFILE")
         //   console.log("USERID")
         //   console.log(userid_param)
         //   console.log(schema.db.dump())
           // TODO: Implement
-          return schema.users.find(userid_param)
+          let foundUser = schema.db.users.find(userid_param)
+        //   console.log(foundUser)
+          return foundUser
       })
 
       // update the profile information of a user
