@@ -7,6 +7,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Home.scss";
 import Calendar from './Calendar';
+import { MenuItem } from 'components/ui/MenuItem';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -79,30 +80,45 @@ const Home = () => {
 
   if (user) {
     content = (
-      <div className="home">
-        {/* Below code not necessary */}
-        {/* <ul className="game user-list">
-          {users.map(user => (
-            <Player user={user} key={user.id}/>
-          ))}
-        </ul> */}
-        <Calendar events={user.events} />
-        <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
+      <>
+      <div className='home column' >
+        <div className='notification'>
+          {/* TODO: Possibly refactor into component */}
+          <h1>Notifications!</h1>
+          <div className='notification container'>
+            <div className='notification item'><h3>Request got accepted.</h3></div>
+            <div className='notification item'><h3>Application for request.</h3></div>
+          </div>
+        </div>
+        <div className='menu'>
+          <div className='menu container'>
+            <MenuItem>Create Place</MenuItem>
+            <MenuItem>Offer Slot</MenuItem>
+            <MenuItem>Find Place</MenuItem>
+          </div>
+        </div>
       </div>
+      <div className="calendar">
+          {/* Below code not necessary */}
+          {/* <ul className="game user-list">
+      {users.map(user => (
+        <Player user={user} key={user.id}/>
+      ))}
+    </ul> */}
+          <Calendar events={user.events} />
+          <Button
+            width="100%"
+            onClick={() => logout()}
+          >
+            Logout
+          </Button>
+        </div>
+      </>
     );
   }
 
   return (
     <BaseContainer className="home container">
-      <h2>Happy Coding!</h2>
-      <p className="home paragraph">
-        Get all users from secure endpoint:
-      </p>
       {content}
     </BaseContainer>
   );

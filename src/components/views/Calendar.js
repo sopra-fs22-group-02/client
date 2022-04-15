@@ -122,14 +122,16 @@ const Calendar = ({ events }) => {
   // console.log(days);
 
   return (
-    <div className="calendar container">
-      <h1>My Events!</h1>
-      <div className="weekday container">
-        {days.map((day) => (
-          <Weekday weekday={day} key={day.date} />
-        ))}
-      </div>
+    <>
+    <h1>My Events!</h1>
+      <div className="calendar container">
+        <div className="weekday container">
+          {days.map((day) => (
+            <Weekday weekday={day} key={day.date} />
+          ))}
+        </div>
     </div>
+    </>
   );
 };
 

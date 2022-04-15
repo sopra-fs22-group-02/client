@@ -205,7 +205,7 @@ export function makeServer({ environment = "test" } = {}) {
       // get the profile details of a user
       this.get("/users/:userid/profile", (schema, request) => {
           let userid_param = request.params.userid
-          console.log("USERID")
+        //   console.log("USERID")
         //   console.log(userid_param)
         //   console.log(schema.db.dump())
           // TODO: Implement
@@ -235,9 +235,20 @@ export function makeServer({ environment = "test" } = {}) {
 
       // ---- PLACES resource ---
 
+      // create place
+      this.post("/places", (schema, request) => { 
+        const requestBody = JSON.parse(request.requestBody)
+        let placeDetails = requestBody
+        placeDetails = Object.assign({}, placeDetails, { user: schema.db.users.find(placeDetails.userid) })
+        server.create("place", placeDetails)
+        return schema.db.places.findBy({ user: placeDetails.userid }) 
+      })
+
       // get the places of the user
-      this.get("/places/:userid", (schema) => {
-          // TODO: Implement
+      this.get("/places/:userid", (schema, request) => {
+        let userid_param = request.params.userid
+        // TODO: Implement
+        return schema.db.users.findBy({ user: userid_param }) 
       })
 
       // get the place associated with a user
