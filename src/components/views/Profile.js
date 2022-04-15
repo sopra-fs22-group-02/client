@@ -20,9 +20,9 @@ const Profile = () => {
 
 
     const ProfileData =  () => {
-        useEffect( async () => {
+        useEffect( () => {
             try {
-                const response = await api.get(`/users/${userId}/profile/`); //why?
+                const response = api.get(`/users/${userId}/profile/`); //why?
 
                 const user = new User(response.data);
 
@@ -42,7 +42,7 @@ const Profile = () => {
         <BaseContainer>
             <div className= "profile card" >
                 <div className= "profile card-header" >
-                    <img className = "profile image" src="/profile.jpeg" />
+                    <img className = "profile image" src="/profile.jpeg" alt="user profile img" />
                 </div>
                 <div className= "profile card-body" >
                     <p className = "profile first-name" > Paul </p>

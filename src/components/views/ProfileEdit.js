@@ -31,6 +31,7 @@ const ImageHolder = props => {
             className="place picture"
             src="/profile.jpeg"
             width={props.width}
+            alt="set user profile"
         />
     );
 };
