@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import Place from 'models/Place';
 import {useHistory} from 'react-router-dom';
@@ -7,6 +7,7 @@ import {Box} from 'components/ui/Box';
 import 'styles/views/PlaceRegister.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import { useParams } from 'react-router-dom';
 
 const FormField = props => {
     return (
@@ -17,8 +18,9 @@ const FormField = props => {
         />
         <input
           className="place input"
-          placeholder="enter here.."
-          value={props.value}
+          // placeholder="enter here.."
+          defaultValue={props.defaultValue}
+          // value={props.value}
           onChange={e => props.onChange(e.target.value)}
         />
       </div>
@@ -47,10 +49,15 @@ const FormField = props => {
     const [nearestTo, setNearestTo] = useState(null);
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
+    const [place, setPlace] = useState(new Place());
   
     const doUpdate = async () => {
       try {
-        const requestBody = JSON.stringify({nearestTo, name, address, description});
+        // Only update non-null values (where the state is not null, partial update)
+        const requestBody = JSON.stringify({id: placeId, nearestTo, name, address, description}, 
+          (key, value) => {
+          if (value !== null) return value
+        });
         const response = await api.put('/places', requestBody);
   
         // Get the returned user and update a new object.
@@ -58,11 +65,35 @@ const FormField = props => {
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile`);
+        history.push(`/PlaceProfile/${ placeId }`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
     };
+
+    useEffect(() => {
+      async function fetchData() {
+            try {
+                const response = await api.get(`/places/${placeId}`);
+
+                console.log("Called fetchData")
+          
+                // Get the returned user and update a new object.
+                setPlace(new Place(response.data));
+                 
+                // Creation successfully worked --> navigate to the route /PlaceProfile
+              } catch (error) {
+                alert(`Something went wrong during the login: \n${handleError(error)}`);
+              }
+      }
+
+      fetchData();
+
+    }, []);
+
+    let { placeId } = useParams()
+
+    console.log(place)
   
     return (
       <BaseContainer>
@@ -70,22 +101,23 @@ const FormField = props => {
           <div className="place form">
             <FormField
               label="Name"
-              value={name}
+              defaultValue={place.name}
+              // value={place.name}
               onChange={n => setName(n)}
             />
             <FormField
               label="Nearest To"
-              value={nearestTo}
+              defaultValue={place.nearestTo}
               onChange={nt => setNearestTo(nt)}
             />
             <FormField
               label="Address"
-              value={address}
+              defaultValue={place.address}
               onChange={ads => setAddress(ads)}
             />
             <FormField
               label="Description"
-              value={description}
+              defaultValue={place.description}
               onChange={des => setDescription(des)}
             />
             <div className="place button-container">

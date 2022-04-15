@@ -1,5 +1,5 @@
 // src/server.js
-import { belongsTo, createServer, Factory, hasMany, Model, RestSerializer, association, afterCreate } from "miragejs"
+import { belongsTo, createServer, Factory, hasMany, Model, RestSerializer, Response } from "miragejs"
 import { getDomain } from "./getDomain"
 import faker from "@faker-js/faker"
 import moment from "moment"
@@ -31,7 +31,8 @@ export function makeServer({ environment = "test" } = {}) {
     models: {
       user: Model.extend({
           events: hasMany('event'),
-          notifications: hasMany('notification')
+          notifications: hasMany('notification'),
+          place: belongsTo('place')
       }),
       event: Model.extend({
           place: belongsTo('place')
@@ -52,7 +53,7 @@ export function makeServer({ environment = "test" } = {}) {
         user: AppSerializer.extend({
             // root: false,
             // embed: true,
-            include: ['events']
+            include: ['events', 'place']
         })
     },
 
@@ -61,8 +62,10 @@ export function makeServer({ environment = "test" } = {}) {
         user: Factory.extend({
             username() { return faker.internet.userName() },
             name() {return faker.name.firstName() },
+            email() {return faker.internet.email() },
             token() { return faker.datatype.uuid() },
             status() { return "OFFLINE" },
+            place() { return null }
             // Only use this if no applicants autocreated
             // afterCreate(user, server) {
             //     if(!user.events) {
@@ -239,25 +242,38 @@ export function makeServer({ environment = "test" } = {}) {
       this.post("/places", (schema, request) => { 
         const requestBody = JSON.parse(request.requestBody)
         let placeDetails = requestBody
-        placeDetails = Object.assign({}, placeDetails, { user: schema.db.users.find(placeDetails.userid) })
+        placeDetails = Object.assign({}, placeDetails, { user: schema.users.find(placeDetails.userid) })
         server.create("place", placeDetails)
-        return schema.db.places.findBy({ user: placeDetails.userid }) 
+        let createdPlace = schema.db.places.findBy({ userId: placeDetails.userid }) 
+        let ownerUser = schema.db.users.find(placeDetails.userid)
+        schema.db.users.update(ownerUser.id, { placeId: createdPlace.id })
+        return createdPlace
+      })
+
+      // update the place associated with a user
+      this.put("/places", (schema, request) => {
+        // let placeid_param = request.params.placeid
+        const requestBody = JSON.parse(request.requestBody)
+        let placeDetails = requestBody
+        let placeId = placeDetails.id
+        delete placeDetails["id"]
+        schema.db.places.update(placeId, placeDetails)
+        return new Response(204)
       })
 
       // get the places of the user
       this.get("/places/:userid", (schema, request) => {
         let userid_param = request.params.userid
         // TODO: Implement
-        return schema.db.users.findBy({ user: userid_param }) 
+        return schema.db.places.findBy({ user: userid_param }) 
       })
 
       // get the place associated with a user
-      this.get("/places/:userid/:placeid", (schema) => {
-          // TODO: Implement
-      })
-
-      // update the place associated with a user
-      this.put("places/:userid/:placeid", (schema) => {
+      this.get("/places/:placeid", (schema, request) => {
+        // let userid_param = request.params.userid
+        let placeid_param = request.params.placeid
+        // TODO: Implement
+        return schema.db.places.find(placeid_param) 
           // TODO: Implement
       })
 

@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import "styles/views/Home.scss";
 import Calendar from './Calendar';
 import { MenuItem } from 'components/ui/MenuItem';
+import User from 'models/User';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -55,7 +56,7 @@ const Home = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Get the returned users and update the state.
-        setUser(response.data);
+        setUser(new User(response.data));
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -92,8 +93,8 @@ const Home = () => {
         </div>
         <div className='menu'>
           <div className='menu container'>
-            <MenuItem>Create Place</MenuItem>
-            <MenuItem>Offer Slot</MenuItem>
+            { user.place ? <MenuItem onClick={() => history.push(`/placeprofile/${user.place.id}`)}>My Place</MenuItem> :  <MenuItem onClick={() => history.push('/placeregister')}>Create Place</MenuItem> }
+            <MenuItem disabled={!user.place}>Offer Slot</MenuItem>
             <MenuItem>Find Place</MenuItem>
           </div>
         </div>
