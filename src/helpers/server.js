@@ -202,7 +202,16 @@ export function makeServer({ environment = "test" } = {}) {
       // login a user
       this.post("/users/:username/login", (schema, request) => {
         const username_param = request.params.username
-        return schema.db.users.findBy({ username: username_param })
+        const requestBody = JSON.parse(request.requestBody)
+        let userDetails = requestBody
+        let foundUser = schema.users.findBy({ username: username_param })
+        if(!foundUser) {
+            return new Response(404, {}, { message: "User could not be found."})
+        }
+        if(foundUser.password != userDetails.password) {
+            return new Response(401, {}, { message: "Wrong details entered."})
+        }
+        return foundUser
       })
 
       // logout a user
@@ -225,7 +234,7 @@ export function makeServer({ environment = "test" } = {}) {
         //   console.log(userid_param)
         //   console.log(schema.db.dump())
           // TODO: Implement
-          let foundUser = schema.db.users.find(userid_param)
+          let foundUser = schema.users.find(userid_param)
         //   console.log(foundUser)
           return foundUser
       })
