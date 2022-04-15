@@ -37,10 +37,10 @@ const AppRouter = () => {
         <Route exact path="/placeRegister">
             <PlaceRegister/>
         </Route>
-        <Route exact path="/placeProfile">
+        <Route exact path="/placeProfile/:placeId">
             <PlaceProfile/>
         </Route>
-        <Route exact path="/placeProfileEdit">
+        <Route exact path="/placeProfileEdit/:placeId">
             <PlaceProfileEdit/>
         </Route>
         <Route exact path="/">
