@@ -4,11 +4,11 @@
  class SleepEvent {
     constructor(data = {}) {
       this.id = null;
-      this.name = null;
-      this.nearestTo = null;
-      this.address = null;
-      this.description = null;
-      this.sleepEvents = null;
+      this.starttime = null;
+      this.endtime = null;
+      this.provider = null;
+      this.applicants = null;
+      this.confirmedApplicant = null;
       Object.assign(this, data);
     }
   }

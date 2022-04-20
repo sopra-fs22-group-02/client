@@ -38,10 +38,12 @@ const ProfileField = props => {
     const [departureTime, setDepartureTime] = useState(null);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
+    const [sleepEvent, setSleepEvent] = useState(new SleepEvent())
   
     const display = async () => {
       try {
         const requestBody = JSON.stringify({});
+        
         const response = await api.get(`/places/${placeId}/events/${eventId}`, requestBody);
   
         // Get the returned user and update a new object.
@@ -54,8 +56,8 @@ const ProfileField = props => {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
     };
-    let {placeId} = useParams();
-    let {eventId} = useParams();
+    let {placeId, eventId} = useParams();
+    // let {eventId} = useParams();
     const goBack = () => {
         history.push("/eventCreation")
     }

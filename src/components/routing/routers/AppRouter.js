@@ -45,19 +45,16 @@ const AppRouter = () => {
         <Route exact path="/placeProfileEdit/:placeId?">
             <PlaceProfileEdit/>
         </Route>
-        <Route exact path="/eventCreation">
-            <EventCreation/>
-        </Route>
         <Route exact path="/">
           <Redirect to="/home"/>
         </Route>
-        <Route exact path="/eventUpdate">
-            <EventUpdate/>
+        <Route exact path="/eventCreation/:placeId?">
+            <EventCreation/>
         </Route>
-        <Route exact path="/eventProfile">
+        <Route exact path="/eventProfile/:eventId?">
             <EventProfile/>
         </Route>
-        <Route exact path="/eventUpdate">
+        <Route exact path="/eventUpdate/:eventId?">
             <EventUpdate/>
         </Route>
         <Route exact path="/registration">
