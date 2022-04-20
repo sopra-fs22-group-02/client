@@ -1,7 +1,7 @@
 /**
- * Place model
+ * Sleep event model
  */
- class Place {
+ class SleepEvent {
     constructor(data = {}) {
       this.id = null;
       this.name = null;
@@ -12,4 +12,4 @@
       Object.assign(this, data);
     }
   }
-  export default Place;
+  export default SleepEvent;
