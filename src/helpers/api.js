@@ -18,7 +18,8 @@ api.interceptors.request.use( (config) => {
   let requestString = `${config.method}:${config.url}`;
 
   // let us generally send the auth token (this may be insecure)
-  let requiresAuth = true;
+  // for this preliminary implementation we usually don't require AUTH, so false.
+  let requiresAuth = false;
 
   // add the header to the axios request
   if(requiresAuth) {
@@ -28,15 +29,16 @@ api.interceptors.request.use( (config) => {
 
   // multiple regexes, based on the api request we're making we need to send the
   // auth token with us
-  if(requestString.match(/GET:\/users.*/)) {requiresAuth = true};
+  // Toggle the flags for now
+  // if(requestString.match(/GET:\/users.*/)) {requiresAuth = true};
 
-  if(requestString.match(/PUT:\/users\/\d+\/?$/m)) {requiresAuth = true};
+  // if(requestString.match(/PUT:\/users\/\d+\/?$/m)) {requiresAuth = true};
   
-  if(requestString.match(/POST:\/users\/\d+\/?$/m)) {requiresAuth = false};
+  // if(requestString.match(/POST:\/users\/\d+\/?$/m)) {requiresAuth = false};
 
-  if(requestString.match(/POST:\/users\/?$/m)) {requiresAuth = false};
+  // if(requestString.match(/POST:\/users\/?$/m)) {requiresAuth = false};
 
-  if(requestString.match(/POST:\/users\/login\/?$/m)) { requiresAuth = false };
+  // if(requestString.match(/POST:\/users\/login\/?$/m)) { requiresAuth = false };
 
   // return config
   return config;
