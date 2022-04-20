@@ -1,7 +1,6 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {HomeGuard} from "components/routing/routeProtectors/HomeGuard";
 import HomeRouter from "components/routing/routers/HomeRouter";
-import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
 import PlaceProfile from "components/views/PlaceProfile";
@@ -10,7 +9,6 @@ import EventCreation from "components/views/EventCreation";
 import EventProfile from "components/views/EventProfile";
 import EventUpdate from "components/views/EventUpdate";
 
-import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
 import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
 import ProfileEdit from "../../views/ProfileEdit";
