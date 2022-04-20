@@ -208,7 +208,7 @@ export function makeServer({ environment = "test" } = {}) {
         if(!foundUser) {
             return new Response(404, {}, { message: "User could not be found."})
         }
-        if(foundUser.password != userDetails.password) {
+        if(foundUser.password !== userDetails.password) {
             return new Response(401, {}, { message: "Wrong details entered."})
         }
         return foundUser
