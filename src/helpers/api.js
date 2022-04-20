@@ -12,7 +12,7 @@ api.interceptors.request.use( (config) => {
   // Add auth token only to protected API requests
 
   // let's populate the basic auth with our token
-  let authHeader = `Basic ${localStorage.getItem('token')}`;
+  let authHeader = `Bearer ${localStorage.getItem('token')}`;
 
   // formatting a string for the regex checking
   let requestString = `${config.method}:${config.url}`;
