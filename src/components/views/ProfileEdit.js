@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import Place from 'models/Profile';
 import {useHistory} from 'react-router-dom';
@@ -7,6 +7,8 @@ import {Box} from 'components/ui/Box';
 import 'styles/views/ProfileEdit.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import User from 'models/User';
+import { useParams } from 'react-router-dom';
 
 const FormField = props => {
     return (
@@ -17,8 +19,9 @@ const FormField = props => {
             />
             <input
                 className="place input"
-                placeholder="enter here.."
-                value={props.value}
+                // placeholder="enter here.."
+                defaultValue={props.defaultValue}
+                // value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />
         </div>
@@ -31,6 +34,7 @@ const ImageHolder = props => {
             className="place picture"
             src="/profile.jpeg"
             width={props.width}
+            alt="set user profile"
         />
     );
 };
@@ -47,22 +51,54 @@ const ProfileEdit = () => {
     const [lastName, setLastName] = useState(null);
     const [username, setUsername] = useState(null);
     const [bio, setBio] = useState(null);
+    const [user, setUser] = useState(new User())
 
     const doUpdate = async () => {
         try {
-            const requestBody = JSON.stringify({firstName, lastName, username, bio});
-            const response = await api.put('/places', requestBody);
+            const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio}, 
+                (key, value) => {
+                    if (value !== null) return value
+            });
+
+            const response = await api.put('/users', requestBody);
 
             // Get the returned user and update a new object.
-            const place = new Place(response.data);
+            // const user = new User(response.data);
 
 
             // Creation successfully worked --> navigate to the route /PlaceProfile
-            history.push(`/PlaceProfile`);
+            history.push(`/profile/${ userId }`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
     };
+
+    useEffect(() => {
+        async function fetchData() {
+              try {
+                  const response = await api.get(`/users/${userId}/profile`);
+  
+                //   console.log("Called fetchData")
+            
+                  // Get the returned user and update a new object.
+                  setUser(new User(response.data));
+
+                //   console.log(response)
+                   
+                  // Creation successfully worked --> navigate to the route /PlaceProfile
+                } catch (error) {
+                  alert(`Something went wrong during the login: \n${handleError(error)}`);
+                }
+        }
+  
+        fetchData();
+  
+      }, []);
+
+    const { userId } = useParams()
+
+    console.log("User obj fetched")
+    console.log(user)
 
     return (
         <BaseContainer>
@@ -70,22 +106,23 @@ const ProfileEdit = () => {
                 <div className="place form">
                     <FormField
                         label="First name"
-                        value={firstName}
+                        // defaultValue="Hello"
+                        defaultValue={ user.firstName }
                         onChange={f => setFirstName(f)}
                     />
                     <FormField
                         label="Last Name"
-                        value={lastName}
+                        defaultValue={ user.lastName }
                         onChange={l => setLastName(l)}
                     />
                     <FormField
                         label="username"
-                        value={username}
+                        defaultValue={ user.username }
                         onChange={un => setUsername(un)}
                     />
                     <FormField
                         label="Description"
-                        value={bio}
+                        defaultValue={ user.bio }
                         onChange={b => setBio(b)}
                     />
                     <div className="place button-container">

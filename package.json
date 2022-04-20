@@ -8,6 +8,8 @@
     "@mui/material": "^5.6.1",
     "@mui/x-date-pickers": "^5.0.0-alpha.1",
     "axios": "^0.24.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.2",
     "date-fns": "^2.28.0",
     "mui-text-field": "^1.0.13",
     "node-gyp": "^8.4.1",
@@ -37,6 +39,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
+    "eslint": "^8.13.0",
+    "eslint-plugin-react": "^7.29.4",
     "miragejs": "^0.1.43"
   }
 }

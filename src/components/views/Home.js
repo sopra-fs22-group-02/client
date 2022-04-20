@@ -5,7 +5,10 @@ import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
+import "styles/views/Home.scss";
+import Calendar from './Calendar';
+import { MenuItem } from 'components/ui/MenuItem';
+import User from 'models/User';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -19,7 +22,7 @@ Player.propTypes = {
   user: PropTypes.object
 };
 
-const Game = () => {
+const Home = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
 
@@ -28,10 +31,11 @@ const Game = () => {
   // keep its value throughout render cycles.
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
-  const [users, setUsers] = useState(null);
+  const [user, setUser] = useState(null);
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('loggedInUserId');
     history.push('/login');
   }
 
@@ -43,15 +47,16 @@ const Game = () => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
     async function fetchData() {
       try {
-        const response = await api.get('/users');
+        // Return more details if the requesting user is the actual user.
+        const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`);
 
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 50));
 
         // Get the returned users and update the state.
-        setUsers(response.data);
+        setUser(new User(response.data));
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -74,34 +79,52 @@ const Game = () => {
 
   let content = <Spinner/>;
 
-  if (users) {
+  if (user) {
     content = (
-      <div className="game">
-        <ul className="game user-list">
-          {users.map(user => (
-            <Player user={user} key={user.id}/>
-          ))}
-        </ul>
-        <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
+      <>
+      <div className='home column' >
+        <div className='notification'>
+          {/* TODO: Possibly refactor into component */}
+          <h1>Notifications!</h1>
+          <div className='notification container'>
+            <div className='notification item'><h3>Request got accepted.</h3></div>
+            <div className='notification item'><h3>Application for request.</h3></div>
+          </div>
+        </div>
+        <div className='menu'>
+          <div className='menu container'>
+            { user.place ? <MenuItem onClick={() => history.push(`/placeprofile/${user.place.id}`)}>My Place</MenuItem> :  <MenuItem onClick={() => history.push('/placeregister')}>Create Place</MenuItem> }
+            <MenuItem disabled={!user.place}>Offer Slot</MenuItem>
+            <MenuItem>Find Place</MenuItem>
+            <MenuItem onClick={() => history.push(`/profile/${user.id}`)}>My Profile</MenuItem>
+          </div>
+        </div>
       </div>
+      <div className="calendar">
+          {/* Below code not necessary */}
+          {/* <ul className="game user-list">
+      {users.map(user => (
+        <Player user={user} key={user.id}/>
+      ))}
+    </ul> */}
+          <Calendar events={user.events} />
+          <Button
+            width="100%"
+            onClick={() => logout()}
+          >
+            Logout
+          </Button>
+        </div>
+      </>
     );
   }
 
   return (
-    <BaseContainer className="game container">
-      <h2>Happy Coding!</h2>
-      <p className="game paragraph">
-        Get all users from secure endpoint:
-      </p>
+    <BaseContainer className="home container">
       {content}
     </BaseContainer>
   );
 }
 
-export default Game;
+export default Home;
 

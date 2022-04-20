@@ -1,6 +1,6 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {GameGuard} from "components/routing/routeProtectors/GameGuard";
-import GameRouter from "components/routing/routers/GameRouter";
+import {HomeGuard} from "components/routing/routeProtectors/HomeGuard";
+import HomeRouter from "components/routing/routers/HomeRouter";
 import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
@@ -28,30 +28,30 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/game">
-          <GameGuard>
-            <GameRouter base="/game"/>
-          </GameGuard>
+        <Route path="/home">
+          <HomeGuard>
+            <HomeRouter base="/home"/>
+          </HomeGuard>
         </Route>
         <Route exact path="/login">
 
             <Login/>
 
         </Route>
-        <Route exact path="/">
-          <Redirect to="/game"/>
-        </Route>
         <Route exact path="/placeRegister">
             <PlaceRegister/>
         </Route>
-        <Route exact path="/placeProfile">
+        <Route exact path="/placeProfile/:placeId">
             <PlaceProfile/>
         </Route>
-        <Route exact path="/placeProfileEdit">
+        <Route exact path="/placeProfileEdit/:placeId">
             <PlaceProfileEdit/>
         </Route>
         <Route exact path="/eventCreation">
             <EventCreation/>
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/home"/>
         </Route>
         <Route exact path="/eventUpdate">
             <EventUpdate/>
@@ -68,10 +68,10 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-        <Route exact path= "/profile">
+        <Route exact path= "/profile/:userId">
            <Profile/>
         </Route>
-        <Route exact path= "/profileedit">
+        <Route exact path= "/profileedit/:userId">
            <ProfileEdit/>
         </Route>
       </Switch>

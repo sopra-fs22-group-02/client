@@ -54,15 +54,17 @@ const FormField = props => {
   
     const doRegister = async () => {
       try {
-        const requestBody = JSON.stringify({nearestTo, name, address, description});
+        const requestBody = JSON.stringify({userid: localStorage.getItem('loggedInUserId'), nearestTo, name, address, description});
         const response = await api.post('/places', requestBody);
   
         // Get the returned user and update a new object.
         const place = new Place(response.data);
+
+        console.log(response.data)
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile`);
+        history.push(`/PlaceProfile/${place.id}`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
