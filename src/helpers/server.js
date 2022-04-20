@@ -57,6 +57,9 @@ export function makeServer({ environment = "test" } = {}) {
             // root: false,
             // embed: true,
             include: ['events', 'place']
+        }),
+        event: AppSerializer.extend({
+          include: ['place']
         })
     },
 
@@ -331,6 +334,26 @@ export function makeServer({ environment = "test" } = {}) {
         user.update('eventIds', user.eventIds ? [...user.eventIds, event.id] : [event.id])
 
         return event
+      })
+
+      // get an event
+      this.get("/places/:placeid/events/:eventid", (schema, request) => {
+        let placeid_param = request.params.placeid
+        let eventid_param = request.params.eventid
+
+        const event = schema.events.find(eventid_param)
+
+        return event
+      })
+
+      this.put("places/:placeid/events/:eventid", (schema, request) => {
+        let eventid_param = request.params.eventid
+        const event = schema.events.find(eventid_param)
+        const requestBody = JSON.parse(request.requestBody)
+        let eventDetails = requestBody
+        // delete placeDetails["id"]
+        schema.db.events.update(eventid_param, eventDetails)
+        return new Response(204)
       })
 
       // ---- QUESTIONS resource ----

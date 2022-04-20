@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Event = ({ event }) => {
   return (
-    <Link to={`/eventprofile/${event.id}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
+    <Link to={`/eventprofile/${event.place ? event.place.id : "undef"}/${event.id}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
       {/* <div className="calevent item"> */}
         <div className="calevent role">
           {event.provider ? "Provider" : "Applicant"}
