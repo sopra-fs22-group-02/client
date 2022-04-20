@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
 
 const Event = ({ event }) => {
   return (
-    <Link to={`/event/${event.id}`} className="event item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
-      {/* <div className="event item"> */}
-        <div className="event role">
+    <Link to={`/event/${event.id}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
+      {/* <div className="calevent item"> */}
+        <div className="calevent role">
           {event.provider ? "Provider" : "Applicant"}
         </div>
-        <div className="event state">{event.state}</div>
-        <div className="event start-time">
+        <div className="calevent state">{event.state}</div>
+        <div className="calevent start-time">
           From: {moment(event.starttime).format("LT")}
         </div>
-        <div className="event end-time">
+        <div className="calevent end-time">
           To: {moment(event.endtime).format("LT")}
         </div>
       {/* </div> */}
@@ -30,7 +30,7 @@ const Weekday = ({ weekday }) => {
       <div className="weekday title">
         <h3>{weekday.name}</h3>
       </div>
-      <div className="event container" >
+      <div className="calevent container" >
       {weekday.events.map((event) => (
           <Event event={event} key={event.id} />
       ))}
@@ -107,8 +107,9 @@ const Calendar = ({ events }) => {
 
   // create a JSX friendly object
   // a lot of wrangling, I know :(
-  let days = _.map(weekDates, (weekdate, id) => {
-    let eventsOnDay = eventsGroupedByDay.hasOwnProperty(weekdate)
+  let days = _.map(weekDates, (weekdate) => {
+    // let eventsOnDay = eventsGroupedByDay.hasOwnProperty(weekdate)
+    let eventsOnDay = Object.prototype.hasOwnProperty.call(eventsGroupedByDay, weekdate)
       ? eventsGroupedByDay[weekdate]
       : [];
     return {
