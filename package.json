@@ -32,6 +32,8 @@
   ],
   "devDependencies": {
     "@faker-js/faker": "^6.1.2",
+    "eslint": "^8.13.0",
+    "eslint-plugin-react": "^7.29.4",
     "miragejs": "^0.1.43"
   }
 }
