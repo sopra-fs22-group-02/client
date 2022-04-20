@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import SleepEvent from 'models/SleepEvent';
+// import SleepEvent from 'models/SleepEvent'; 
+// eslint-disable-next-line no-unused-vars
 import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
@@ -35,7 +36,7 @@ const FormField = props => {
   };
   
   const EventUpdate = () => {
-    const history = useHistory();
+    // const history = useHistory();
     const [arrivalTime, setArrivalTime] = useState(null);
     const [departureTime, setDepartureTime] = useState(null);
     const [date, setDate] = useState(new Date());
@@ -44,9 +45,12 @@ const FormField = props => {
       try {
         const requestBody = JSON.stringify({arrivalTime, departureTime});
         const response = await api.put(`/places/${placeId}/events/${eventId}`, requestBody);
+
+        // debug
+        console.log(response)
   
         // Get the returned user and update a new object.
-        const sleepEvent = new SleepEvent(response.data);
+        // const sleepEvent = new SleepEvent(response.data);
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile

@@ -1,5 +1,5 @@
 import React from "react";
-import {ReactLogo} from "components/ui/ReactLogo";
+// import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
 import {useHistory} from "react-router-dom";
@@ -13,13 +13,14 @@ import {useHistory} from "react-router-dom";
  * @FunctionalComponent
  */
 
-const Log = props => {
+// eslint-disable-next-line no-unused-vars
+const Log = () => {
     const history = useHistory();
     history.push(`/profile`);
     }
 
 
-const Header = props => (
+const Header = () => (
     <div className="header container">
         <div className="header inner">
             <div className = "header logo">
