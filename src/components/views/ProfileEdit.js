@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
-import Place from 'models/Profile';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
@@ -62,6 +61,9 @@ const ProfileEdit = () => {
 
             const response = await api.put('/users', requestBody);
 
+            // debug
+            console.log(response)
+
             // Get the returned user and update a new object.
             // const user = new User(response.data);
 
@@ -95,7 +97,7 @@ const ProfileEdit = () => {
   
       }, []);
 
-    const { userId } = useParams()
+    const { userId  = 1 } = useParams()
 
     console.log("User obj fetched")
     console.log(user)

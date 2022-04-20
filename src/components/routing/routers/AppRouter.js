@@ -39,10 +39,10 @@ const AppRouter = () => {
         <Route exact path="/placeRegister">
             <PlaceRegister/>
         </Route>
-        <Route exact path="/placeProfile/:placeId">
+        <Route exact path="/placeProfile/:placeId?">
             <PlaceProfile/>
         </Route>
-        <Route exact path="/placeProfileEdit/:placeId">
+        <Route exact path="/placeProfileEdit/:placeId?">
             <PlaceProfileEdit/>
         </Route>
         <Route exact path="/eventCreation">
@@ -66,10 +66,10 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-        <Route exact path= "/profile/:userId">
+        <Route exact path= "/profile/:userId?">
            <Profile/>
         </Route>
-        <Route exact path= "/profileedit/:userId">
+        <Route exact path= "/profileedit/:userId?">
            <ProfileEdit/>
         </Route>
       </Switch>

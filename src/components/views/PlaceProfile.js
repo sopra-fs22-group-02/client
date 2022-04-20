@@ -61,8 +61,7 @@ const ProfileField = props => {
         fetchData();
 
       }, []);
-
-    let { placeId } = useParams();
+    let { placeId = 1 } = useParams();
 
     const toEdit = () => {
         history.push(`/placeProfileEdit/${placeId}`)
