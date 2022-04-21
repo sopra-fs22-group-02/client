@@ -1,64 +1,170 @@
 // src/server.js
-import { createServer, Model } from "miragejs"
+import { belongsTo, createServer, Factory, hasMany, Model, RestSerializer, Response } from "miragejs"
 import { getDomain } from "./getDomain"
+import faker from "@faker-js/faker"
+import moment from "moment"
+
+const persistLocally = (dump) => {
+    localStorage.setItem('mirage', dump)
+} 
+
+const randItem = (items) => { 
+    return items[Math.floor(Math.random()*items.length)];   
+}
+
+let AppSerializer = RestSerializer.extend({
+    root: false,
+    embed: true
+})
+
+
 
 // in-Browser server for frontend development
 export function makeServer({ environment = "test" } = {}) {
+    
   let server = createServer({
+
     environment,
 
+
+    // Declaration of our models
     models: {
-      user: Model,
+      user: Model.extend({
+          events: hasMany('event'),
+          notifications: hasMany('notification'),
+          place: belongsTo('place')
+      }),
+      event: Model.extend({
+          place: belongsTo('place'),
+          applicants: hasMany('user', { inverse: null }),
+          confirmedApplicant: belongsTo('user', { inverse: null }),
+          provider: belongsTo('user')
+      }),
+      notification: Model,
+      place: Model.extend({
+          user: belongsTo('user'),
+          events: hasMany('event')
+      }),
+      location: Model.extend({
+          place: belongsTo('place')
+      })
+    },
+    
+    // Good starting point for REST API
+    serializers: {
+        application: AppSerializer,
+        user: AppSerializer.extend({
+            // root: false,
+            // embed: true,
+            include: ['events', 'place']
+        }),
+        event: AppSerializer.extend({
+          include: ['place']
+        })
+    },
+
+    // Declaration of model factories
+    factories: {
+        user: Factory.extend({
+            username() { return faker.internet.userName() },
+            firstName() {return faker.name.firstName() },
+            lastName() { return faker.name.lastName() },
+            email() {return faker.internet.email() },
+            token() { return faker.datatype.uuid() },
+            status() { return "OFFLINE" },
+            place() { return null },
+            password() { return faker.internet.password() }
+            // Only use this if no applicants autocreated
+            // afterCreate(user, server) {
+            //     if(!user.events) {
+            //         user.update({
+            //             events: server.createList("event", 3)
+            //         })
+            //     }
+            // }
+            // TODO: Factory for associations notifications and events
+        }),
+        event: Factory.extend({
+            starttime() { return faker.date.soon(6) },
+            state() { return randItem(["AVAILABLE", "UNAVAILABLE"]) },
+            // applicants() { return null },
+            // confirmedApplicant() { return null },
+            // provider() { return null },
+            afterCreate(event, server) {
+                // generate some applicants (Only if no events autocreated)
+                // if(!event.applicants) {
+                //     event.update({
+                //         applicants: server.createList("user", 3)
+                //     })
+                // }
+                // add event endtime here (dependent on starttime)
+                if(!event.endtime) {
+                    event.update({
+                        endtime: moment(event.starttime).add(
+                            Math.floor(Math.random() * 12),
+                            'hours')
+                    })
+                }
+            }
+            // TODO: Link the place
+        }),
+        // TODO: Implement notification factory
+        // TODO: Implement place factory
+        // TODO: Implement location factory (weak entity)
     },
 
     // add mock instances to various resources that will be handled server-side
     seeds(server) {
-        server.db.loadData({
-            users: [
-                {   username: "peterpan" , 
-                    name: "Peter", id: 1, 
-                    token: 123, 
-                    status: "OFFLINE",
-                    calendar: [] // association USER -> EVENT
-                },
-                {
-                    username: "aliceinwonderland", 
-                    name: "Alice", 
-                    id: 2, 
-                    token: 345, 
-                    status: "ONLINE",
-                    calendar: [] // association USER -> EVENT
-                }
-            ],
-            events: [
-                {
-                    applicants: [1], // association EVENT -> USER
-                    confirmedApplicant: null, // association: EVENT -> USER
-                    date: "2022-04-10",
-                    starttime: "22:00",
-                    endtime: "06:00",
-                    state: "AVAILABLE",
-                }
-            ],
-            place: [
-                {
-                    provider: [2], // association PLACE -> USER
-                    location: null, // association PLACE -> LOCATION
-                    description: "A lovely place",
-                    picture: null,
-                    events: [1] // association PLACE -> EVENT
-                }
-            ],
-            location: [
-                {
-                    location: "Margrit-Rainer-Strasse 10B",
-                    postcode: 8050,
-                    coordinates: [47.4160277,8.5371293],
-                    closestCampus: "OERLIKON",
-                    distanceToClosestCampus: 100
-                }
-            ]
-        })
+        if(localStorage.getItem('mirage')) {
+            server.db.loadData(JSON.parse(localStorage.getItem('mirage')))
+        }
+        // server.db.loadData({
+        //     users: [
+        //         {   username: "peterpan" , 
+        //             name: "Peter", id: 1, 
+        //             token: 123, 
+        //             status: "OFFLINE",
+        //             calendar: [] // association USER -> EVENT
+        //         },
+        //         {
+        //             username: "aliceinwonderland", 
+        //             name: "Alice", 
+        //             id: 2, 
+        //             token: 345, 
+        //             status: "ONLINE",
+        //             calendar: [] // association USER -> EVENT
+        //         }
+        //     ],
+        //     events: [
+        //         {
+        //             applicants: [1], // association EVENT -> USER
+        //             confirmedApplicant: null, // association: EVENT -> USER
+        //             date: "2022-04-10",
+        //             starttime: "22:00",
+        //             endtime: "06:00",
+        //             state: "AVAILABLE",
+        //             place: "SomePlace"
+        //         }
+        //     ],
+        //     place: [
+        //         {
+        //             provider: [2], // association PLACE -> USER
+        //             location: null, // association PLACE -> LOCATION
+        //             description: "A lovely place",
+        //             picture: null,
+        //             events: [1] // association PLACE -> EVENT
+        //         }
+        //     ],
+        //     location: [
+        //         {
+        //             location: "Margrit-Rainer-Strasse 10B",
+        //             postcode: 8050,
+        //             coordinates: [47.4160277,8.5371293],
+        //             closestCampus: "OERLIKON",
+        //             distanceToClosestCampus: 100
+        //         }
+        //     ]
+        // })
     },
 
     // defined appropriate routes (as per REST spec.)
@@ -66,12 +172,23 @@ export function makeServer({ environment = "test" } = {}) {
       this.urlPrefix = getDomain()
       this.namespace = ""
 
+      this.pretender.handledRequest = () => {
+          console.log(this.db.dump())
+          persistLocally(JSON.stringify(this.db.dump()))
+      }
+
+      // gradually include more endpoints in passthrough => real backend
+      this.passthrough()
+
       // ---- USER resource ----
 
       // create new user
-      this.post("/users", (schema) => {
-          console.log(schema.users.find(1))
-          return schema.db.users.find(1)
+      this.post("/users", (schema, request) => {
+        const requestBody = JSON.parse(request.requestBody)
+        let userDetails = requestBody
+        userDetails = Object.assign({}, userDetails, { events: this.createList("event", 3) })
+        server.create("user", userDetails)
+        return schema.db.users.findBy({ username: userDetails.username })
       })
 
       // get all users
@@ -80,9 +197,29 @@ export function makeServer({ environment = "test" } = {}) {
         return schema.db.users
       })
 
-      // login a user
-      this.post("/users/:username/login", (schema) => {
+      this.put("/users", (schema, request) => {
           // TODO: Implement
+        const requestBody = JSON.parse(request.requestBody)
+        let userDetails = requestBody
+        let userId = userDetails.id
+        delete userId["id"]
+        schema.db.users.update(userId, userDetails)
+        return new Response(204)
+      })
+
+      // login a user
+      this.post("/users/:username/login", (schema, request) => {
+        const username_param = request.params.username
+        const requestBody = JSON.parse(request.requestBody)
+        let userDetails = requestBody
+        let foundUser = schema.users.findBy({ username: username_param })
+        if(!foundUser) {
+            return new Response(404, {}, { message: "User could not be found."})
+        }
+        if(foundUser.password !== userDetails.password) {
+            return new Response(401, {}, { message: "Wrong details entered."})
+        }
+        return foundUser
       })
 
       // logout a user
@@ -90,11 +227,24 @@ export function makeServer({ environment = "test" } = {}) {
           // TODO: Implement
       })
 
+      // ---- USERS PERSONAL PAGE? ----
+      this.get("/users/:userid", (schema) => {
+        // TODO: Implement
+    })
+
       // ---- USERS PROFILE ----
 
       // get the profile details of a user
-      this.get("/users/:userid/profile", (schema) => {
+      this.get("/users/:userid/profile", (schema, request) => {
+          let userid_param = request.params.userid
+          console.log("REQUEST USER PROFILE")
+        //   console.log("USERID")
+        //   console.log(userid_param)
+        //   console.log(schema.db.dump())
           // TODO: Implement
+          let foundUser = schema.users.find(userid_param)
+        //   console.log(foundUser)
+          return foundUser
       })
 
       // update the profile information of a user
@@ -120,19 +270,90 @@ export function makeServer({ environment = "test" } = {}) {
 
       // ---- PLACES resource ---
 
-      // get the places of the user
-      this.get("/places/:userid", (schema) => {
-          // TODO: Implement
-      })
-
-      // get the place associated with a user
-      this.get("/places/:userid/:placeid", (schema) => {
-          // TODO: Implement
+      // create place
+      this.post("/places", (schema, request) => { 
+        const requestBody = JSON.parse(request.requestBody)
+        let placeDetails = requestBody
+        placeDetails = Object.assign({}, placeDetails, { user: schema.users.find(placeDetails.userid) })
+        server.create("place", placeDetails)
+        let createdPlace = schema.db.places.findBy({ userId: placeDetails.userid }) 
+        let ownerUser = schema.db.users.find(placeDetails.userid)
+        schema.db.users.update(ownerUser.id, { placeId: createdPlace.id })
+        return createdPlace
       })
 
       // update the place associated with a user
-      this.put("places/:userid/:placeid", (schema) => {
+      this.put("/places", (schema, request) => {
+        // let placeid_param = request.params.placeid
+        const requestBody = JSON.parse(request.requestBody)
+        let placeDetails = requestBody
+        let placeId = placeDetails.id
+        delete placeDetails["id"]
+        schema.db.places.update(placeId, placeDetails)
+        return new Response(204)
+      })
+
+      // get the places of the user
+      this.get("/places/:userid", (schema, request) => {
+        let userid_param = request.params.userid
+        // TODO: Implement
+        return schema.db.places.findBy({ user: userid_param }) 
+      })
+
+      // get the place associated with a user
+      this.get("/places/:placeid", (schema, request) => {
+        // let userid_param = request.params.userid
+        let placeid_param = request.params.placeid
+        // TODO: Implement
+        return schema.db.places.find(placeid_param) 
           // TODO: Implement
+      })
+
+      // create an event for a place
+      this.post("/places/:placeid/events", (schema, request) => {
+        // get the place details and user
+        let placeid_param = request.params.placeid
+        const place = schema.places.find(placeid_param)
+        console.log(`Found place: ${JSON.stringify(place)}`)
+        const user = schema.users.find(place.userId)
+
+        // create the new place
+        const requestBody = JSON.parse(request.requestBody)
+        let eventDetails = requestBody
+        eventDetails = Object.assign({}, eventDetails, { provider: user , place: place })
+        // eventDetails = Object.assign({}, eventDetails, { provider: null , place: null })
+        let event = server.create("event", eventDetails)
+
+        // debug
+        console.log(`Successfully created event: ${event}`)
+        console.log(`Events User: ${JSON.stringify(user.eventIds)}`)
+        console.log(`Events Place: ${JSON.stringify(place.eventIds)}`)
+
+        // update place and user
+        place.update('eventIds', place.eventIds ? [...place.eventIds, event.id] : [event.id])
+        user.update('eventIds', user.eventIds ? [...user.eventIds, event.id] : [event.id])
+
+        return event
+      })
+
+      // get an event
+      this.get("/places/:placeid/events/:eventid", (schema, request) => {
+        let placeid_param = request.params.placeid
+        let eventid_param = request.params.eventid
+
+        const event = schema.events.find(eventid_param)
+
+        return event
+      })
+
+      this.put("places/:placeid/events/:eventid", (schema, request) => {
+        let eventid_param = request.params.eventid
+        const event = schema.events.find(eventid_param)
+        const requestBody = JSON.parse(request.requestBody)
+        let eventDetails = requestBody
+        // delete placeDetails["id"]
+        schema.db.events.update(eventid_param, eventDetails)
+        return new Response(204)
       })
 
       // ---- QUESTIONS resource ----

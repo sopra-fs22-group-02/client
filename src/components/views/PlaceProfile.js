@@ -29,6 +29,7 @@ const ProfileField = props => {
           className="profile picture"
           src="/zuri_lake.jpeg"
           width={props.width}
+          alt="the lake zurich"
         />
     );
   };
@@ -40,31 +41,32 @@ const ProfileField = props => {
   
   const PlaceProfile = () => {
     const history = useHistory();
-    const [name, setName] = useState(null);
-    const [nearestTo, setNearestTo] = useState(null);
-    const [address, setAddress] = useState(null);
-    const [description, setDescription] = useState(null);
+    const [place, setPlace] = useState(new Place());
   
-    const ProfileData = () => {
-        useEffect( async () => {
-            try {
-                const response = await api.get(`/places${placeId}/`);
-          
-                // Get the returned user and update a new object.
-                const place = new Place(response.data);
-                
-          
-                // Creation successfully worked --> navigate to the route /PlaceProfile
-                history.push(`/game`);
-              } catch (error) {
-                alert(`Something went wrong during the login: \n${handleError(error)}`);
-              }
-        }, [])
-    };
-    let {placeId} = useParams();
+    useEffect(() => {
+        async function fetchData() {
+              try {
+                  const response = await api.get(`/places/${placeId}`);
+            
+                  // Get the returned user and update a new object.
+                  setPlace(new Place(response.data));
+                   
+                  // Creation successfully worked --> navigate to the route /PlaceProfile
+                  // history.push(`/home`);
+                } catch (error) {
+                  alert(`Something went wrong during the login: \n${handleError(error)}`);
+                }
+        }
+
+        fetchData();
+
+      }, []);
+    let { placeId = 1 } = useParams();
+
     const toEdit = () => {
-        history.push(`/placeProfileEdit`)
+        history.push(`/placeProfileEdit/${placeId}`)
       }
+    
     return (
       <div>
       {/* <ProfileData/> */}
@@ -73,27 +75,33 @@ const ProfileField = props => {
           <div className="profile form">
             <ProfileField
                 label="Name: "
-                value="Big House"
+                value={place.name}
             />  
             <ProfileField
                 label="Nearest to: "
-                value="Zentrum"
+                value={place.nearestTo}
             />
             <ProfileField
                 label="Address: "
-                value="Bahnhofstrasse 120"
+                value={place.address}
             />
             <ProfileField
                 label="Description: "
-                value="Really nice place to stay"
+                value={place.description}
             />
             <div className="profile button-container">
               <Button
                 width="30%"
                 onClick={() => toEdit()}
               >
-                Eidt
+                Edit
               </Button>
+              <Button
+                  width="100%"
+                  onClick={() => history.push("/")}
+              >
+                  Back
+               </Button>
             </div>
           </div>
           <div className="profile form2">

@@ -1,7 +1,7 @@
 /**
  * Place model
  */
- class User {
+ class Place {
     constructor(data = {}) {
       this.id = null;
       this.name = null;
@@ -12,4 +12,4 @@
       Object.assign(this, data);
     }
   }
-  export default User;
+  export default Place;

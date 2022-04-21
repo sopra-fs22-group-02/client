@@ -1,12 +1,14 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {GameGuard} from "components/routing/routeProtectors/GameGuard";
-import GameRouter from "components/routing/routers/GameRouter";
-import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
+import {HomeGuard} from "components/routing/routeProtectors/HomeGuard";
+import HomeRouter from "components/routing/routers/HomeRouter";
 import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
 import PlaceProfile from "components/views/PlaceProfile";
 import PlaceProfileEdit from "components/views/PlaceProfileEdit";
-import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
+import EventCreation from "components/views/EventCreation";
+import EventProfile from "components/views/EventProfile";
+import EventUpdate from "components/views/EventUpdate";
+
 import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
 import ProfileEdit from "../../views/ProfileEdit";
@@ -24,10 +26,10 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/game">
-          <GameGuard>
-            <GameRouter base="/game"/>
-          </GameGuard>
+        <Route path="/home">
+          <HomeGuard>
+            <HomeRouter base="/home"/>
+          </HomeGuard>
         </Route>
         <Route exact path="/login">
 
@@ -37,14 +39,23 @@ const AppRouter = () => {
         <Route exact path="/placeRegister">
             <PlaceRegister/>
         </Route>
-        <Route exact path="/placeProfile">
+        <Route exact path="/placeProfile/:placeId?">
             <PlaceProfile/>
         </Route>
-        <Route exact path="/placeProfileEdit">
+        <Route exact path="/placeProfileEdit/:placeId?">
             <PlaceProfileEdit/>
         </Route>
         <Route exact path="/">
-          <Redirect to="/game"/>
+          <Redirect to="/home"/>
+        </Route>
+        <Route exact path="/eventCreation/:placeId?">
+            <EventCreation/>
+        </Route>
+        <Route exact path="/eventProfile/:placeId?/:eventId?">
+            <EventProfile/>
+        </Route>
+        <Route exact path="/eventUpdate/:eventId?/:eventId?">
+            <EventUpdate/>
         </Route>
         <Route exact path="/registration">
             <Registration/>
@@ -52,10 +63,10 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-        <Route exact path= "/profile">
+        <Route exact path= "/profile/:userId?">
            <Profile/>
         </Route>
-        <Route exact path= "/profileedit">
+        <Route exact path= "/profileedit/:userId?">
            <ProfileEdit/>
         </Route>
       </Switch>
