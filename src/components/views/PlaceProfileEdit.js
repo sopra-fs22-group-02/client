@@ -59,6 +59,9 @@ const FormField = props => {
           if (value !== null) return value
         });
         const response = await api.put('/places', requestBody);
+
+        // debug
+        console.log(response)
   
         // Get the returned user and update a new object.
         // const place = new Place(response.data);
@@ -91,7 +94,7 @@ const FormField = props => {
 
     }, []);
 
-    let { placeId } = useParams()
+    let { placeId = 1 } = useParams()
 
     // console.log(place)
   

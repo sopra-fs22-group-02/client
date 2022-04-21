@@ -35,7 +35,10 @@ export function makeServer({ environment = "test" } = {}) {
           place: belongsTo('place')
       }),
       event: Model.extend({
-          place: belongsTo('place')
+          place: belongsTo('place'),
+          applicants: hasMany('user', { inverse: null }),
+          confirmedApplicant: belongsTo('user', { inverse: null }),
+          provider: belongsTo('user')
       }),
       notification: Model,
       place: Model.extend({
@@ -54,6 +57,9 @@ export function makeServer({ environment = "test" } = {}) {
             // root: false,
             // embed: true,
             include: ['events', 'place']
+        }),
+        event: AppSerializer.extend({
+          include: ['place']
         })
     },
 
@@ -81,7 +87,9 @@ export function makeServer({ environment = "test" } = {}) {
         event: Factory.extend({
             starttime() { return faker.date.soon(6) },
             state() { return randItem(["AVAILABLE", "UNAVAILABLE"]) },
-            confirmedApplicant() { return null },
+            // applicants() { return null },
+            // confirmedApplicant() { return null },
+            // provider() { return null },
             afterCreate(event, server) {
                 // generate some applicants (Only if no events autocreated)
                 // if(!event.applicants) {
@@ -299,6 +307,53 @@ export function makeServer({ environment = "test" } = {}) {
         // TODO: Implement
         return schema.db.places.find(placeid_param) 
           // TODO: Implement
+      })
+
+      // create an event for a place
+      this.post("/places/:placeid/events", (schema, request) => {
+        // get the place details and user
+        let placeid_param = request.params.placeid
+        const place = schema.places.find(placeid_param)
+        console.log(`Found place: ${JSON.stringify(place)}`)
+        const user = schema.users.find(place.userId)
+
+        // create the new place
+        const requestBody = JSON.parse(request.requestBody)
+        let eventDetails = requestBody
+        eventDetails = Object.assign({}, eventDetails, { provider: user , place: place })
+        // eventDetails = Object.assign({}, eventDetails, { provider: null , place: null })
+        let event = server.create("event", eventDetails)
+
+        // debug
+        console.log(`Successfully created event: ${event}`)
+        console.log(`Events User: ${JSON.stringify(user.eventIds)}`)
+        console.log(`Events Place: ${JSON.stringify(place.eventIds)}`)
+
+        // update place and user
+        place.update('eventIds', place.eventIds ? [...place.eventIds, event.id] : [event.id])
+        user.update('eventIds', user.eventIds ? [...user.eventIds, event.id] : [event.id])
+
+        return event
+      })
+
+      // get an event
+      this.get("/places/:placeid/events/:eventid", (schema, request) => {
+        let placeid_param = request.params.placeid
+        let eventid_param = request.params.eventid
+
+        const event = schema.events.find(eventid_param)
+
+        return event
+      })
+
+      this.put("places/:placeid/events/:eventid", (schema, request) => {
+        let eventid_param = request.params.eventid
+        const event = schema.events.find(eventid_param)
+        const requestBody = JSON.parse(request.requestBody)
+        let eventDetails = requestBody
+        // delete placeDetails["id"]
+        schema.db.events.update(eventid_param, eventDetails)
+        return new Response(204)
       })
 
       // ---- QUESTIONS resource ----

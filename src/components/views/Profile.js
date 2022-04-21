@@ -33,7 +33,7 @@ const Profile = () => {
         
     }, [])
 
-    let { userId } = useParams();
+    let { userId = 1 } = useParams();
 
     const toEdit = () => {
         history.push(`/profileedit/${ userId }`)
