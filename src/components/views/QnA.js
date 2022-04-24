@@ -49,7 +49,7 @@ const QnA = ( { props }) => {
         // suscribe to topic
         stompClient.subscribe(`/channel/${qaSessionId}`, onAnswer);
 
-        const topic = `/app/chat/${qaSessionId}`;
+        const topic = `/app/qna/${qaSessionId}`;
 
         // inform that you have joined to session
         stompClient.send(`${topic}/addUser`,
@@ -197,7 +197,7 @@ const QnA = ( { props }) => {
 
     function sendMessage(sessionInstance) {
 
-        const topic = `/app/chat/${qaSessionId}`;
+        const topic = `/app/qna/${qaSessionId}`;
 
         console.log("Trigger: Sendmessage")
         // send the message with the STOMP client of the mutated QnAObject
