@@ -336,6 +336,10 @@ export function makeServer({ environment = "test" } = {}) {
         return event
       })
 
+      this.get("/events", (schema, request) => {
+        return schema.events.all()
+      })
+
       // get an event
       this.get("/places/:placeid/events/:eventid", (schema, request) => {
         let placeid_param = request.params.placeid
