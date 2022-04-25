@@ -1,0 +1,112 @@
+@import 'styles/theme';
+
+.apply {
+  &.stack {
+    flex-shrink: 0;
+    height: 107px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+
+  &.frame h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  &.box1h {
+    width: 200px;
+    height: 40px;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+
+  }
+  &.box1h h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: auto;
+  }
+  &.box {
+    height: 580px;
+    background-color: rgba(84, 192, 204, 0.02);
+    overflow: visible;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-row: repeat(2, 1fr);
+    row-gap: 1em;
+    column-gap: 1em;
+
+  }
+  &.box1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    border: 2px solid #222;
+    border-radius: 30px;
+
+  }
+
+  &.box2 {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    border: 2px solid #222;
+    border-radius: 30px;
+  }
+
+  &.box3 {
+    grid-column-start: 2;
+    grid-row-start: 3;
+    grid-row-end: 5;
+    border: 2px solid #222;
+    border-radius: 30px;
+  }
+  &.im {
+    width: 450px;
+    height: 250px;
+    position: center;
+    border: 2px solid #1F4F59FF;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0,0, 0, .2);
+    margin-left: 50px ;
+    margin-top: 10px;
+
+  }
+  &.textbox {
+    background-color: rgba(31, 79, 89, 0.2);
+    border-radius: 0.75em;
+    width: 450px;
+    height: 190px;
+    margin-top: 10px;
+    text-align: left;
+    margin-left: 50px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    background-color: rgba(31, 79, 89, 0.2);
+  }
+
+
+  &.footer {
+  }
+
+
+}
