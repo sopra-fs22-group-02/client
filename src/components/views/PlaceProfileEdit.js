@@ -46,7 +46,7 @@ const FormField = props => {
   const PlaceRegister = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
-    const [nearestTo, setNearestTo] = useState(null);
+    const [closestCampus, setClosestCampus] = useState(null);
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
     const [place, setPlace] = useState(new Place());
@@ -54,11 +54,13 @@ const FormField = props => {
     const doUpdate = async () => {
       try {
         // Only update non-null values (where the state is not null, partial update)
-        // TODO: Checkup formats
-        const requestBody = JSON.stringify({id: placeId, nearestTo, name, address, description}, 
+        // FIXME: Potentially partial update?
+        const requestBody = JSON.stringify({closestCampus, name, address, description}, 
           (key, value) => {
-          if (value !== null) return value
+          if (value !== null) { return value } else { return place[key] }
         });
+
+        console.log(`Sending: ${requestBody}`)
         const response = await api.put(`/places/${ placeId }`, requestBody);
 
         // debug
@@ -112,8 +114,8 @@ const FormField = props => {
             />
             <FormField
               label="Nearest To"
-              defaultValue={place.nearestTo}
-              onChange={nt => setNearestTo(nt)}
+              defaultValue={place.closestCampus}
+              onChange={nt => setClosestCampus(nt)}
             />
             <FormField
               label="Address"

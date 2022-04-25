@@ -82,7 +82,7 @@ const ProfileField = props => {
             />  
             <ProfileField
                 label="Nearest to: "
-                value={place.nearestTo}
+                value={place.closestCampus}
             />
             <ProfileField
                 label="Address: "

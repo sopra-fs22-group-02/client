@@ -89,7 +89,7 @@ const FormField = props => {
             comment: "None"
           });
 
-        const response = await api.post(`/places/${placeId}/events`, requestBody);
+        const response = await api.post(`/places/${ localStorage.getItem('loggedInUserId') }/${placeId}/events`, requestBody);
 
         console.log(`Sending: Starttime: ${starttime} and \n Endtime: ${endtime}`)
 

@@ -48,15 +48,15 @@ const FormField = props => {
   const PlaceRegister = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
-    const [nearestTo, setNearestTo] = useState(null);
+    const [closestCampus, setClosestCampus] = useState(null);
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
   
     const doRegister = async () => {
       try {
         // TODO: Make sure address and nearestTo is included
-        // const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), nearestTo, name, address, description});
-        const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), name, description}); 
+        const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), closestCampus, name, address, description});
+        // const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), name, description}); 
         const response = await api.post('/places', requestBody);
   
         // Get the returned user and update a new object.
@@ -84,8 +84,8 @@ const FormField = props => {
             {/* TODO: This is supposed to be a dropdown of 4 options. */}
             <FormField
               label="Nearest To"
-              value={nearestTo}
-              onChange={nt => setNearestTo(nt)}
+              value={closestCampus}
+              onChange={nt => setClosestCampus(nt)}
             />
             <FormField
               label="Address"
@@ -99,7 +99,7 @@ const FormField = props => {
             />
             <div className="place button-container">
               <Button
-                disabled={!nearestTo || !name || !address}
+                disabled={!closestCampus || !name || !address}
                 width="30%"
                 onClick={() => doRegister()}
               >
