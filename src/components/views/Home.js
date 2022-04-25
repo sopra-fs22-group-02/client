@@ -56,7 +56,11 @@ const Home = () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         // Get the returned users and update the state.
-        setUser(new User(response.data));
+        const updUser = new User(response.data);
+        // embed necessary attribute place
+        await updUser.embed_place()
+
+        setUser(updUser)
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -66,7 +70,7 @@ const Home = () => {
         console.log('requested data:', response.data);
 
         // See here to get more data.
-        console.log(response);
+        console.log(user);
       } catch (error) {
         console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
         console.error("Details:", error);
@@ -76,6 +80,10 @@ const Home = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log(`Updated user ${JSON.stringify(user)}`)
+  }, [user])
 
   let content = <Spinner/>;
 
@@ -87,16 +95,17 @@ const Home = () => {
           {/* TODO: Possibly refactor into component */}
           <h1>Notifications!</h1>
           <div className='notification container'>
+            {/* TODO: Only get the last 3 notifications & display as link */}
             <div className='notification item'><h3>Request got accepted.</h3></div>
             <div className='notification item'><h3>Application for request.</h3></div>
           </div>
         </div>
         <div className='menu'>
           <div className='menu container'>
-            { user.place ? <MenuItem onClick={() => history.push(`/placeprofile/${user.place.id}`)}>My Place</MenuItem> :  <MenuItem onClick={() => history.push('/placeregister')}>Create Place</MenuItem> }
-            <MenuItem onClick={() => history.push(`/eventcreation/${user.place ? user.place.id : ""}`)} disabled={!user.place}>Offer Slot</MenuItem>
+            { user.place ? <MenuItem onClick={() => history.push(`/placeprofile/${user.place.placeId}`)}>My Place</MenuItem> :  <MenuItem onClick={() => history.push('/placeregister')}>Create Place</MenuItem> }
+            <MenuItem onClick={() => history.push(`/eventcreation/${user.place ? user.place.placeId : ""}`)} disabled={!user.place}>Offer Slot</MenuItem>
             <MenuItem>Find Place</MenuItem>
-            <MenuItem onClick={() => history.push(`/profile/${user.id}`)}>My Profile</MenuItem>
+            <MenuItem onClick={() => history.push(`/profile/${user.userId}`)}>My Profile</MenuItem>
           </div>
         </div>
       </div>

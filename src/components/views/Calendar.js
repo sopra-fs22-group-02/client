@@ -89,10 +89,11 @@ const Calendar = ({ events }) => {
   // console.log(eventsGroupedByDay);
 
   let weekDates = [];
-  let daysRequired = 7;
+  // first day + the additional days required
+  let daysRequired = 6;
 
   // get the locale of the next 7 days
-  for (let i = 1; i <= daysRequired; i++) {
+  for (let i = 0; i <= daysRequired; i++) {
     // remove params in moment(...) for production!
     weekDates.push(
       moment()

@@ -63,6 +63,7 @@ const Registration = props => {
 
     const doLogin = async () => {
         try {
+            // TODO: Are firstname and lastname part of the registration?
             const requestBody = JSON.stringify({firstName, lastName, username, email, password});
             const response = await api.post('/users', requestBody);
 
@@ -71,7 +72,7 @@ const Registration = props => {
 
             // Store the token into the local storage.
             localStorage.setItem('token', user.token);
-            localStorage.setItem('loggedInUserId', user.id);
+            localStorage.setItem('loggedInUserId', user.userId);
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
             history.push(`/home/dashboard`);
@@ -104,6 +105,7 @@ const Registration = props => {
                         value={username}
                         onChange={u => setUsername(u)}
                     />
+                    {/* Validate UZH Email */}
                     <FormField
                         label="Email"
                         value={email}
@@ -116,7 +118,7 @@ const Registration = props => {
                     />
                     <div className="registration button-container">
                         <Button
-                            disabled={!firstName || !lastName || !username || !email || !password}
+                            disabled={!firstName || !lastName || !username || !email || !password || !email.endsWith("@uzh.ch") }
                             width="100%"
                             onClick={() => doLogin()}
                         >
