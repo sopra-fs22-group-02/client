@@ -81,7 +81,13 @@ const FormField = props => {
   
     const create = async () => {
       try {
-        const requestBody = JSON.stringify({starttime, endtime});
+        const requestBody = JSON.stringify({
+            startTime: moment(starttime).format('HH:mm'), 
+            endTime: moment(endtime).format('HH:mm'),
+            startDate: moment(starttime).format('YYYY-MM-DD'),
+            endDate: moment(endtime).format('YYYY-MM-DD'),
+            comment: "None"
+          });
 
         const response = await api.post(`/places/${placeId}/events`, requestBody);
 
@@ -95,7 +101,7 @@ const FormField = props => {
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile/${placeId}`);
+        history.push(`/`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }

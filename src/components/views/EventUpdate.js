@@ -55,12 +55,17 @@ const FormField = props => {
         try {
           // const requestBody = JSON.stringify({});
 
-          const response = await api.get(`/places/${placeId}/events/${eventId}`);
+          const response = await api.get(`/places/events/${eventId}`);
 
           console.log(`Response: ${JSON.stringify(response.data)}`)
+
+          const repolate = {
+            starttime: moment(`${response.data.startDate} ${response.data.startTime}`, "YYYY-MM-DD HH:mm").toISOString(),
+            endtime: moment(`${response.data.endDate} ${response.data.endTime}`, "YYYY-MM-DD HH:mm").toISOString()
+          }
     
           // Get the returned user and update a new object`
-          let sl = new SleepEvent(response.data)
+          let sl = new SleepEvent(repolate)
 
           // set editable attributes:
           setDate(moment(sl.starttime).toDate())
@@ -112,9 +117,16 @@ const FormField = props => {
   
     const update = async () => {
       try {
-        const requestBody = JSON.stringify({starttime, endtime});
+        // const requestBody = JSON.stringify({starttime, endtime});
+        const requestBody = JSON.stringify({
+          startTime: moment(starttime).format('HH:mm'), 
+          endTime: moment(endtime).format('HH:mm'),
+          startDate: moment(starttime).format('YYYY-MM-DD'),
+          endDate: moment(endtime).format('YYYY-MM-DD'),
+          comment: "None"
+        });
 
-        const response = await api.put(`/places/${placeId}/events/${eventId}`, requestBody);
+        const response = await api.put(`/places/${ localStorage.getItem('loggedInUserId') }/${placeId}/events/${eventId}`, requestBody);
 
         console.log(`Sending: Starttime: ${starttime} and \n Endtime: ${endtime}`)
 

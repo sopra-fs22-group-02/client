@@ -59,7 +59,7 @@ const ProfileEdit = () => {
                     if (value !== null) return value
             });
 
-            const response = await api.put('/users', requestBody);
+            const response = await api.put(`/users/${ userId }/profile`, requestBody);
 
             // debug
             console.log(response)
@@ -123,7 +123,7 @@ const ProfileEdit = () => {
                         onChange={un => setUsername(un)}
                     />
                     <FormField
-                        label="Description"
+                        label="Bio"
                         defaultValue={ user.bio }
                         onChange={b => setBio(b)}
                     />

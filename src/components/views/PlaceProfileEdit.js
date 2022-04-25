@@ -54,11 +54,12 @@ const FormField = props => {
     const doUpdate = async () => {
       try {
         // Only update non-null values (where the state is not null, partial update)
+        // TODO: Checkup formats
         const requestBody = JSON.stringify({id: placeId, nearestTo, name, address, description}, 
           (key, value) => {
           if (value !== null) return value
         });
-        const response = await api.put('/places', requestBody);
+        const response = await api.put(`/places/${ placeId }`, requestBody);
 
         // debug
         console.log(response)
@@ -77,12 +78,13 @@ const FormField = props => {
     useEffect(() => {
       async function fetchData() {
             try {
-                const response = await api.get(`/places/${placeId}`);
+                const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }`);
 
                 console.log("Called fetchData")
           
                 // Get the returned user and update a new object.
-                setPlace(new Place(response.data));
+                // FIXME: Trick so far
+                setPlace(new Place(response.data[0]));
                  
                 // Creation successfully worked --> navigate to the route /PlaceProfile
               } catch (error) {

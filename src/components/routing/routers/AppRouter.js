@@ -13,7 +13,6 @@ import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
 import ProfileEdit from "../../views/ProfileEdit";
 import QnA from "components/views/QnA";
-import EventList from "components/views/EventList";
 
 /**
  * Main router of your application.
@@ -56,7 +55,7 @@ const AppRouter = () => {
         <Route exact path="/eventProfile/:placeId?/:eventId?">
             <EventProfile/>
         </Route>
-        <Route exact path="/eventUpdate/:eventId?/:eventId?">
+        <Route exact path="/eventUpdate/:placeId?/:eventId?">
             <EventUpdate/>
         </Route>
         <Route exact path="/qa/:eventId">
@@ -68,9 +67,6 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/registration">
             <Registration/>
-        </Route>
-        <Route exact path="/eventlist">
-          <EventList />
         </Route>
         <Route exact path="/">
           <Redirect to="/login"/>

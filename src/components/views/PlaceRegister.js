@@ -54,7 +54,9 @@ const FormField = props => {
   
     const doRegister = async () => {
       try {
-        const requestBody = JSON.stringify({userid: localStorage.getItem('loggedInUserId'), nearestTo, name, address, description});
+        // TODO: Make sure address and nearestTo is included
+        // const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), nearestTo, name, address, description});
+        const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), name, description}); 
         const response = await api.post('/places', requestBody);
   
         // Get the returned user and update a new object.
@@ -64,7 +66,7 @@ const FormField = props => {
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile/${place.id}`);
+        history.push(`/PlaceProfile/${place.placeId}`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
@@ -79,6 +81,7 @@ const FormField = props => {
               value={name}
               onChange={n => setName(n)}
             />
+            {/* TODO: This is supposed to be a dropdown of 4 options. */}
             <FormField
               label="Nearest To"
               value={nearestTo}
@@ -104,6 +107,7 @@ const FormField = props => {
               </Button>
             </div>
           </div>
+          {/* TODO: Manage image*/}
           <div className="place form2">
             <Box
                 className="place image-box"
