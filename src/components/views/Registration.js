@@ -64,7 +64,7 @@ const Registration = props => {
     const doLogin = async () => {
         try {
             // TODO: Are firstname and lastname part of the registration?
-            const requestBody = JSON.stringify({firstName, lastName, username, email, password});
+            const requestBody = JSON.stringify({username, email, password});
             const response = await api.post('/users', requestBody);
 
             // Get the returned user and update a new object.
@@ -90,7 +90,8 @@ const Registration = props => {
                         <h1> Registration </h1>
                     </div>
 
-                    <FormField
+                    {/* TODO: Remove
+                        <FormField
                         label="First Name"
                         value={firstName}
                         onChange={fn => setFirstName(fn)}
@@ -99,7 +100,7 @@ const Registration = props => {
                         label="Last Name"
                         value={lastName}
                         onChange={ln => setLastName(ln)}
-                    />
+                    /> */}
                     <FormField
                         label="Username"
                         value={username}
@@ -118,7 +119,7 @@ const Registration = props => {
                     />
                     <div className="registration button-container">
                         <Button
-                            disabled={!firstName || !lastName || !username || !email || !password || !email.endsWith("@uzh.ch") }
+                            disabled={ !username || !email || !password || !email.endsWith("@uzh.ch") }
                             width="100%"
                             onClick={() => doLogin()}
                         >

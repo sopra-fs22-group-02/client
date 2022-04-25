@@ -56,7 +56,7 @@ const ProfileEdit = () => {
         try {
             const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio}, 
                 (key, value) => {
-                    if (value !== null) return value
+                    if (value !== null) { return value } else { return user[key] }
             });
 
             const response = await api.put(`/users/${ userId }/profile`, requestBody);

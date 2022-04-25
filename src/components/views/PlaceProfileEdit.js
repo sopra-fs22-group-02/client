@@ -85,7 +85,6 @@ const FormField = props => {
                 console.log("Called fetchData")
           
                 // Get the returned user and update a new object.
-                // FIXME: Trick so far
                 setPlace(new Place(response.data[0]));
                  
                 // Creation successfully worked --> navigate to the route /PlaceProfile
@@ -112,6 +111,7 @@ const FormField = props => {
               // value={place.name}
               onChange={n => setName(n)}
             />
+            {/* TODO: Change to dropdown */}
             <FormField
               label="Nearest To"
               defaultValue={place.closestCampus}
