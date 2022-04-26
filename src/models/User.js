@@ -14,6 +14,7 @@ class User {
     this.status = null;
     this.events = null;
     this.place = null;
+    this.password = null;
 
     // declare fun to embed place
     this.embed_place = async function() {

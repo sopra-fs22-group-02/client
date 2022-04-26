@@ -1,6 +1,6 @@
 @import 'styles/theme';
 
-.place{
+.profile{
   &.container {
     margin-top: 2em;
     min-height: 300px;
@@ -44,9 +44,6 @@
     border-style: solid;
     border-width: 2px;
     border-color:#053f3c;
-
-
-
   }
   &.box {
     color: #ffff;
@@ -96,11 +93,12 @@
   &.picture{
     align-items: center;
     position: relative;
-    bottom: 75px;
+    bottom: 35px;
+    left: 40px;
     border-radius: 30px;
     border-style: solid;
     border-width: 2px;
     border-color:#053f3c;
-
   }
+
 }

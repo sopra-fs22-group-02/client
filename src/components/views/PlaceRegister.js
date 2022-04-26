@@ -72,7 +72,7 @@ const FormField = props => {
     };
     console.log(image);
     const handleSubmit = () => {
-      const imageRef = ref(storage, 'placeProfile');
+      const imageRef = ref(storage, `place/${localStorage.getItem('loggedInUserId')}`);
       uploadBytes(imageRef, image).then(() => {
         getDownloadURL(imageRef)
           .then((url) => {

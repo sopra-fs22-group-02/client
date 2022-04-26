@@ -15,13 +15,13 @@ import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
-        <div className="place field">
+        <div className="profile field">
             <Box
-                className="place box"
+                className="profile box"
                 value={props.label}
             />
             <input
-                className="place input"
+                className="profile input"
                 // placeholder="enter here.."
                 defaultValue={props.defaultValue}
                 // value={props.value}
@@ -44,14 +44,16 @@ const ProfileEdit = () => {
     const [lastName, setLastName] = useState(null);
     const [username, setUsername] = useState(null);
     const [bio, setBio] = useState(null);
+    const [password, setPassword] = useState(null);
     const [user, setUser] = useState(new User())
 
     const doUpdate = async () => {
         try {
-            const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio}, 
+            const requestBody = JSON.stringify({firstName, lastName, username, bio, password}, 
                 (key, value) => {
                     if (value !== null) { return value } else { return user[key] }
-            });
+            }
+            );
 
             const response = await api.put(`/users/${ userId }/profile`, requestBody);
 
@@ -65,7 +67,7 @@ const ProfileEdit = () => {
             // Creation successfully worked --> navigate to the route /PlaceProfile
             history.push(`/profile/${ userId }`);
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            alert(`Something went wrong during the updating: \n${handleError(error)}`);
         }
     };
 
@@ -91,7 +93,7 @@ const ProfileEdit = () => {
   
       }, []);
 
-    const { userId  = 1 } = useParams()
+    let { userId  = 1 } = useParams()
     
     console.log("User obj fetched")
     console.log(user)
@@ -106,7 +108,7 @@ const ProfileEdit = () => {
     };
     console.log(image);
     const handleSubmit = () => {
-      const imageRef = ref(storage, 'userProfile');
+      const imageRef = ref(storage, `user/${userId}`);
       uploadBytes(imageRef, image).then(() => {
         getDownloadURL(imageRef)
           .then((url) => {
@@ -123,8 +125,8 @@ const ProfileEdit = () => {
     };
     return (
         <BaseContainer>
-            <div className="place container">
-                <div className="place form">
+            <div className="profile container">
+                <div className="profile form">
                     <FormField
                         label="First name"
                         // defaultValue="Hello"
@@ -146,7 +148,7 @@ const ProfileEdit = () => {
                         defaultValue={ user.bio }
                         onChange={b => setBio(b)}
                     />
-                    <div className="place button-container">
+                    <div className="profile button-container">
                         <Button
                             width="30%"
                             onClick={() => doUpdate()}
@@ -155,22 +157,29 @@ const ProfileEdit = () => {
                         </Button>
                     </div>
                 </div>
-                <div className="place form2">
+                <div className="profile form2">
                     <Box
-                        className="place image-box"
-                        value="Place Image"
+                        className="profile image-box"
+                        value="profile Image"
                     />
                     <Avatar
+                        className="profile picture"
                         src={url}
                         sx={{ width: 150, height: 150 }}
                         variant="square"
                     />
-                    <input type="file" onChange={handleImageChange}/>
-                    <button 
-                        className='place image-button'
-                        onClick={handleSubmit}>
+                    <input 
+                        className="profile picture-input"
+                        type="file" 
+                        onChange={handleImageChange}
+                    />
+                    <Button 
+                        className="profile image-submit"
+                        onClick={handleSubmit}
+                        width="50%"
+                    >
                         Submit
-                    </button>
+                    </Button>
                 </div>
             </div>
         </BaseContainer>

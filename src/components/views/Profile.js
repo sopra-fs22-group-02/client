@@ -39,10 +39,10 @@ const Profile = () => {
     let { userId = 1 } = useParams();
 
     const toEdit = () => {
-        history.push(`/profileedit/${ userId }`)
+        history.push(`/profileEdit/${userId}`)
     }
 
-    getDownloadURL(ref(storage, 'userProfile'))
+    getDownloadURL(ref(storage, `user/${userId}`))
       .then((url) => {
         setUrl(url);
       })

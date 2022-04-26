@@ -25,12 +25,12 @@ const Log = () => {
 
 
 const Header = () => {
-    const [url, setUrl] = useState(null);
+    // const [url, setUrl] = useState(null);
 
-    getDownloadURL(ref(storage, 'userProfile'))
-    .then((url) => {
-        setUrl(url);
-    })
+    // getDownloadURL(ref(storage, 'userProfile'))
+    // .then((url) => {
+    //     setUrl(url);
+    // })
 
     return(
     <div className="header container">
@@ -40,13 +40,13 @@ const Header = () => {
             </div>
             <div className = "header profile" >
                 <div className= "header action">
-                    <div className = "header profile">
+                    {/* <div className = "header profile">
                         <Avatar
                             className="header image"
                             src={url}
                             sx={{ width: 50, height: 50}}
                         />       
-                    </div>
+                    </div> */}
                     <div className = "header menu">
                         <h3> Paul Safari </h3>
                         <ul>
