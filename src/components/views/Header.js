@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 // import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { storage } from 'helpers/firebase';
+import { ref, getDownloadURL } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -20,7 +23,16 @@ const Log = () => {
     }
 
 
-const Header = () => (
+
+const Header = () => {
+    const [url, setUrl] = useState(null);
+
+    getDownloadURL(ref(storage, 'userProfile'))
+    .then((url) => {
+        setUrl(url);
+    })
+
+    return(
     <div className="header container">
         <div className="header inner">
             <div className = "header logo">
@@ -29,7 +41,11 @@ const Header = () => (
             <div className = "header profile" >
                 <div className= "header action">
                     <div className = "header profile">
-                        <img className = "header image" src="/profile.jpeg"/>
+                        <Avatar
+                            className="header image"
+                            src={url}
+                            sx={{ width: 50, height: 50}}
+                        />       
                     </div>
                     <div className = "header menu">
                         <h3> Paul Safari </h3>
@@ -44,7 +60,8 @@ const Header = () => (
 
         </div>
     </div>
-);
+    )
+};
 
 Header.propTypes = {
     height: PropTypes.string

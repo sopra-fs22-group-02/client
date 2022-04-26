@@ -7,12 +7,15 @@ import "styles/views/Home.scss";
 import {Button} from 'components/ui/Button';
 import {api, handleError} from "../../helpers/api";
 import User from "../../models/User";
-
+import { storage } from 'helpers/firebase';
+import { ref, getDownloadURL } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
 
 
 const Profile = () => {
     const history = useHistory();
     const [user, setUser] = useState(new User())
+    const [url, setUrl] = useState(null);
 
     useEffect( () => {
         async function fetchData() {
@@ -39,11 +42,21 @@ const Profile = () => {
         history.push(`/profileedit/${ userId }`)
     }
 
+    getDownloadURL(ref(storage, 'userProfile'))
+      .then((url) => {
+        setUrl(url);
+      })
+
     return (
         <BaseContainer>
             <div className= "profile card" >
                 <div className= "profile card-header" >
-                    <img className = "profile image" src="/profile.jpeg" alt="user profile img" />
+                    <Avatar
+                        className="profile image"
+                        src={url}
+                        sx={{ width: 150, height: 150}}
+                        variant="square"
+                    />                
                 </div>
                 <div className= "profile card-body" >
                     <p className = "profile first-name" >{ user.firstName }</p>
@@ -62,12 +75,12 @@ const Profile = () => {
                         >
                             Edit
                         </Button>
-                       <Button
+                        <Button
                             width="100%"
                             onClick={() => history.push("/")}
                         >
                             Back
-                       </Button>
+                        </Button>
                     </div>
             </div>
         </BaseContainer>
