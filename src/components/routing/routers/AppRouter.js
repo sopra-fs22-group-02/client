@@ -12,6 +12,7 @@ import EventUpdate from "components/views/EventUpdate";
 import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
 import ProfileEdit from "../../views/ProfileEdit";
+import QnA from "components/views/QnA";
 
 /**
  * Main router of your application.
@@ -54,8 +55,15 @@ const AppRouter = () => {
         <Route exact path="/eventProfile/:placeId?/:eventId?">
             <EventProfile/>
         </Route>
-        <Route exact path="/eventUpdate/:eventId?/:eventId?">
+        <Route exact path="/eventUpdate/:placeId?/:eventId?">
             <EventUpdate/>
+        </Route>
+        <Route exact path="/qa/:eventId">
+          <QnA/>
+        </Route>
+        <Route exact path="/qa/:eventId/:qaSessionId">
+          {/* Later refactor this into an embedded component */}
+          <QnA/>
         </Route>
         <Route exact path="/registration">
             <Registration/>

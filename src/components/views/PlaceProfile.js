@@ -40,12 +40,14 @@ const ProfileField = props => {
     useEffect(() => {
         async function fetchData() {
               try {
-                  
-                  const response = await api.get(`/places/${placeId}`);
+                // TODO: Get a single place, currently we are tricking
+                // const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }/${placeId}`);
+                const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }`);
             
                   // Get the returned user and update a new object.
-                  setPlace(new Place(response.data));
-                  
+                  // FIXME: This is a workaround, just getting the first place.
+                  setPlace(new Place(response.data[0]));
+                   
                   // Creation successfully worked --> navigate to the route /PlaceProfile
                   // history.push(`/home`);
                 } catch (error) {
@@ -79,7 +81,7 @@ const ProfileField = props => {
             />  
             <ProfileField
                 label="Nearest to: "
-                value={place.nearestTo}
+                value={place.closestCampus}
             />
             <ProfileField
                 label="Address: "

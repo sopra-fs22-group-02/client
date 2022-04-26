@@ -50,10 +50,10 @@ const ProfileEdit = () => {
         try {
             const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio}, 
                 (key, value) => {
-                    if (value !== null) return value
+                    if (value !== null) { return value } else { return user[key] }
             });
 
-            const response = await api.put('/users', requestBody);
+            const response = await api.put(`/users/${ userId }/profile`, requestBody);
 
             // debug
             console.log(response)
@@ -142,7 +142,7 @@ const ProfileEdit = () => {
                         onChange={un => setUsername(un)}
                     />
                     <FormField
-                        label="Description"
+                        label="Bio"
                         defaultValue={ user.bio }
                         onChange={b => setBio(b)}
                     />

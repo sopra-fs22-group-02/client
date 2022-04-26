@@ -39,7 +39,7 @@ const FormField = props => {
   const PlaceRegister = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
-    const [nearestTo, setNearestTo] = useState(null);
+    const [closestCampus, setClosestCampus] = useState(null);
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
     const [place, setPlace] = useState(new Place());
@@ -47,11 +47,14 @@ const FormField = props => {
     const doUpdate = async () => {
       try {
         // Only update non-null values (where the state is not null, partial update)
-        const requestBody = JSON.stringify({id: placeId, nearestTo, name, address, description}, 
+        // FIXME: Potentially partial update?
+        const requestBody = JSON.stringify({closestCampus, name, address, description}, 
           (key, value) => {
-          if (value !== null) return value
+          if (value !== null) { return value } else { return place[key] }
         });
-        const response = await api.put('/places', requestBody);
+
+        console.log(`Sending: ${requestBody}`)
+        const response = await api.put(`/places/${ placeId }`, requestBody);
 
         // debug
         console.log(response)
@@ -70,12 +73,12 @@ const FormField = props => {
     useEffect(() => {
       async function fetchData() {
             try {
-                const response = await api.get(`/places/${placeId}`);
+                const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }`);
 
                 console.log("Called fetchData")
           
                 // Get the returned user and update a new object.
-                setPlace(new Place(response.data));
+                setPlace(new Place(response.data[0]));
                  
                 // Creation successfully worked --> navigate to the route /PlaceProfile
               } catch (error) {
@@ -127,10 +130,11 @@ const FormField = props => {
               // value={place.name}
               onChange={n => setName(n)}
             />
+            {/* TODO: Change to dropdown */}
             <FormField
               label="Nearest To"
-              defaultValue={place.nearestTo}
-              onChange={nt => setNearestTo(nt)}
+              defaultValue={place.closestCampus}
+              onChange={nt => setClosestCampus(nt)}
             />
             <FormField
               label="Address"

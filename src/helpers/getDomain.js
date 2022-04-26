@@ -9,7 +9,12 @@ import { isProduction } from 'helpers/isProduction';
 //test 2 SonarQube after configuration
 export const getDomain = () => {
   const prodUrl = 'https://sopra-fs22-group-02-server.herokuapp.com';
-  const devUrl = 'http://localhost:8080';
 
+  let devUrl = 'http://localhost:8080';
+
+  if(process.env.REACT_APP_VM) {
+    devUrl = 'http://10.211.55.4:8080';
+  }
+  console.log(`DevUrl set: ${devUrl}`)
   return isProduction() ? prodUrl : devUrl;
 };
