@@ -22,7 +22,7 @@
     border-style: solid none solid solid;
     border-color: rgb(14, 141, 146);
     border-radius: 0.05em;
-    background-color: $background;
+    background-color: rgb(188, 236, 231);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
   &.field {
@@ -67,7 +67,7 @@
     border-style: solid solid solid none;
     border-color: rgb(14, 141, 146);
     border-radius: 0.05em;
-    background-color: $background;
+    background-color:  rgb(188, 236, 231);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
   &.image-box {

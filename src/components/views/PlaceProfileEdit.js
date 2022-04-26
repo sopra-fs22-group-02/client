@@ -8,6 +8,9 @@ import 'styles/views/PlaceRegister.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
+import { storage } from 'helpers/firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
@@ -24,16 +27,6 @@ const FormField = props => {
           onChange={e => props.onChange(e.target.value)}
         />
       </div>
-    );
-  };
-
-  const ImageHolder = props => {
-    return (
-        <img
-          className="place picture"
-          src="/zuri_lake.jpeg"
-          width={props.width}
-        />
     );
   };
   
@@ -68,7 +61,7 @@ const FormField = props => {
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile/${ placeId }`);
+        history.push(`/placeProfile/${ placeId }`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
@@ -97,6 +90,32 @@ const FormField = props => {
     let { placeId = 1 } = useParams()
 
     // console.log(place)
+
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState(null);
+
+    const handleImageChange = (e) => {
+      if (e.target.files[0]){
+        setImage(e.target.files[0]);
+      }
+    };
+    console.log(image);
+    const handleSubmit = () => {
+      const imageRef = ref(storage, 'placeProfile');
+      uploadBytes(imageRef, image).then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url);
+          })
+          .catch(error => {
+            console.log(error.message, "error getting the image url");
+          });
+          setImage(null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
   
     return (
       <BaseContainer>
@@ -137,9 +156,17 @@ const FormField = props => {
                 className="place image-box"
                 value="Place Image"
             />
-            <ImageHolder 
-                width={250}
+            <Avatar
+              src={url}
+              sx={{ width: 150, height: 150}}
+              variant="square"
             />
+            <input type="file" onChange={handleImageChange}/>
+            <button 
+              className='place image-button'
+              onClick={handleSubmit}>
+              Submit
+            </button>
           </div>
         </div>
       </BaseContainer>

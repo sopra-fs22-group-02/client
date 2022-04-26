@@ -7,6 +7,9 @@ import {Box} from 'components/ui/Box';
 import 'styles/views/PlaceProfile.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import { storage } from 'helpers/firebase';
+import { ref, getDownloadURL } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
 
 const ProfileField = props => {
     return (
@@ -22,17 +25,6 @@ const ProfileField = props => {
       </div>
     );
   };
-
-  const ImageHolder = props => {
-    return (
-        <img
-          className="profile picture"
-          src="/zuri_lake.jpeg"
-          width={props.width}
-          alt="the lake zurich"
-        />
-    );
-  };
   
   ProfileField.propTypes = {
     label: PropTypes.string,
@@ -42,15 +34,18 @@ const ProfileField = props => {
   const PlaceProfile = () => {
     const history = useHistory();
     const [place, setPlace] = useState(new Place());
-  
+    const [url, setUrl] = useState(null);
+
+
     useEffect(() => {
         async function fetchData() {
               try {
+                  
                   const response = await api.get(`/places/${placeId}`);
             
                   // Get the returned user and update a new object.
                   setPlace(new Place(response.data));
-                   
+                  
                   // Creation successfully worked --> navigate to the route /PlaceProfile
                   // history.push(`/home`);
                 } catch (error) {
@@ -59,14 +54,19 @@ const ProfileField = props => {
         }
 
         fetchData();
-
       }, []);
+
     let { placeId = 1 } = useParams();
 
     const toEdit = () => {
         history.push(`/placeProfileEdit/${placeId}`)
-      }
+      };
     
+    getDownloadURL(ref(storage, 'placeProfile'))
+      .then((url) => {
+        setUrl(url);
+      })
+
     return (
       <div>
       {/* <ProfileData/> */}
@@ -97,7 +97,7 @@ const ProfileField = props => {
                 Edit
               </Button>
               <Button
-                  width="100%"
+                  width="30%"
                   onClick={() => history.push("/")}
               >
                   Back
@@ -109,9 +109,10 @@ const ProfileField = props => {
                 className="profile image-box"
                 value="profile image"
             />
-            <ImageHolder 
-                className="profile image-holder"
-                width={250}
+            <Avatar
+              src={url}
+              sx={{ width: 150, height: 150 }}
+              variant="square"
             />
           </div>
         </div>
