@@ -27,6 +27,29 @@ const FormField = props => {
     );
   };
 
+  const SelectField = props => {
+    return (
+      <div className="place field">
+        <Box
+            className="place box"
+            value={props.label}
+        />
+        <select className="place select" onChange={(e) => props.onChange(e.target.value)} >
+            { Place.getClosestCampi().map((c) =>
+            {
+              console.log(`selected value: ${props.value}`)
+              return (
+              <option key={c.id} value={c.campus} selected={c.campus === props.value}>
+                  {c.campus}
+              </option>
+              )
+            })
+          }
+        </select>
+      </div>
+    );
+  };
+
   const ImageHolder = props => {
     return (
         <img
@@ -112,9 +135,9 @@ const FormField = props => {
               onChange={n => setName(n)}
             />
             {/* TODO: Change to dropdown */}
-            <FormField
+            <SelectField
               label="Nearest To"
-              defaultValue={place.closestCampus}
+              value={place.closestCampus}
               onChange={nt => setClosestCampus(nt)}
             />
             <FormField

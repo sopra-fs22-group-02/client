@@ -17,6 +17,7 @@ const FormField = props => {
                 value={props.label}
             />
             <input
+                type={props.type ? props.type : "text"}
                 className="place input"
                 // placeholder="enter here.."
                 defaultValue={props.defaultValue}
@@ -50,11 +51,12 @@ const ProfileEdit = () => {
     const [lastName, setLastName] = useState(null);
     const [username, setUsername] = useState(null);
     const [bio, setBio] = useState(null);
+    const [password, setPassword] = useState(null)
     const [user, setUser] = useState(new User())
 
     const doUpdate = async () => {
         try {
-            const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio}, 
+            const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio, password}, 
                 (key, value) => {
                     if (value !== null) { return value } else { return user[key] }
             });
@@ -121,6 +123,12 @@ const ProfileEdit = () => {
                         label="username"
                         defaultValue={ user.username }
                         onChange={un => setUsername(un)}
+                    />
+                    <FormField
+                        type="password"
+                        label="password"
+                        defaultValue={ user.password }
+                        onChange={b => setPassword(b)}
                     />
                     <FormField
                         label="Bio"

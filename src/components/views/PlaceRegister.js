@@ -25,6 +25,22 @@ const FormField = props => {
     );
   };
 
+  const SelectField = props => {
+    return (
+      <div className="place field">
+        <Box
+            className="place box"
+            value={props.label}
+        />
+        <select className="place select" onChange={(e) => props.onChange(e.target.value)}>
+            { Place.getClosestCampi().map((c) =>
+              (<option key={c.id} value={c.campus}>{c.campus}</option>)
+            )}
+        </select>
+      </div>
+    );
+  };
+
   const ImageHolder = props => {
     return (
       <div className="place field">
@@ -82,11 +98,16 @@ const FormField = props => {
               onChange={n => setName(n)}
             />
             {/* TODO: This is supposed to be a dropdown of 4 options. */}
-            <FormField
+            <SelectField
               label="Nearest To"
               value={closestCampus}
               onChange={nt => setClosestCampus(nt)}
             />
+            {/* <FormField
+              label="Nearest To"
+              value={closestCampus}
+              onChange={nt => setClosestCampus(nt)}
+            /> */}
             <FormField
               label="Address"
               value={address}
