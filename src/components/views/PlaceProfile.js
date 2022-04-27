@@ -63,7 +63,7 @@ const ProfileField = props => {
         history.push(`/placeProfileEdit/${localStorage.getItem('placeIdOfLoggedInUser')}`)
       };
     
-    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}-place-${localStorage.getItem('placeIdOfLoggedInUser')}`))
+    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`))
       .then((url) => {
         setUrl(url);
       })
