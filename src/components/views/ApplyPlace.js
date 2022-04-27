@@ -67,6 +67,11 @@ const ApplyPlace = props => {
                 </div>
             </div>
             <div className = "apply footer" >
+                <div className= "placeholder" >
+                </div>
+                <Button>
+                    Start Q&A
+                </Button>
                 <Button>
                     Apply
                 </Button>
