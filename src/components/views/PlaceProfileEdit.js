@@ -4,10 +4,13 @@ import Place from 'models/Place';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
-import 'styles/views/PlaceRegister.scss';
+import 'styles/views/PlaceProfileEdit.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
+import { storage } from 'helpers/firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
@@ -66,7 +69,7 @@ const FormField = props => {
     onChange: PropTypes.func
   };
   
-  const PlaceRegister = () => {
+  const PlaceProfileEdit = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
     const [closestCampus, setClosestCampus] = useState(null);
@@ -84,7 +87,7 @@ const FormField = props => {
         });
 
         console.log(`Sending: ${requestBody}`)
-        const response = await api.put(`/places/${ placeId }`, requestBody);
+        const response = await api.put(`/places/${ localStorage.getItem('placeIdOfLoggedInUser') }`, requestBody);
 
         // debug
         console.log(response)
@@ -94,9 +97,9 @@ const FormField = props => {
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile/${ placeId }`);
+        history.push(`/placeProfile/${ placeId }`);
       } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong during the update: \n${handleError(error)}`);
       }
     };
 
@@ -120,9 +123,35 @@ const FormField = props => {
 
     }, []);
 
-    let { placeId = 1 } = useParams()
+    let { placeId } = useParams()
 
     // console.log(place)
+
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState(null);
+
+    const handleImageChange = (e) => {
+      if (e.target.files[0]){
+        setImage(e.target.files[0]);
+      }
+    };
+    console.log(image);
+    const handleSubmit = () => {
+      const imageRef = ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`);
+      uploadBytes(imageRef, image).then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url);
+          })
+          .catch(error => {
+            console.log(error.message, "error getting the image url");
+          });
+          setImage(null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
   
     return (
       <BaseContainer>
@@ -164,9 +193,18 @@ const FormField = props => {
                 className="place image-box"
                 value="Place Image"
             />
-            <ImageHolder 
-                width={250}
+            <Avatar
+              className="place picture"
+              src={url}
+              sx={{ width: 150, height: 150}}
+              variant="square"
             />
+            <input type="file" onChange={handleImageChange}/>
+            <button 
+              className='place image-button'
+              onClick={handleSubmit}>
+              Submit
+            </button>
           </div>
         </div>
       </BaseContainer>
@@ -174,4 +212,4 @@ const FormField = props => {
   };
 
 
-export default PlaceRegister;
+export default PlaceProfileEdit;

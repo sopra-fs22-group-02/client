@@ -74,7 +74,7 @@ const AppRouter = () => {
         <Route exact path= "/profile/:userId?">
            <Profile/>
         </Route>
-        <Route exact path= "/profileedit/:userId?">
+        <Route exact path= "/profileEdit/:userId?">
            <ProfileEdit/>
         </Route>
       </Switch>
