@@ -26,21 +26,6 @@ const Header = () => (
             <div className = "header logo">
                 <h1>FIND <span>A PLACE</span></h1>
             </div>
-            <div className = "header profile" >
-                <div className= "header action">
-                    <div className = "header profile">
-                        <img className = "header image" src="/profile.jpeg"/>
-                    </div>
-                    <div className = "header menu">
-                        <h3> Paul Safari </h3>
-                        <ul>
-                            <li> <img src= "profile.png" /> <a href= "#">My Profile</a> </li>
-
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
 
         </div>
     </div>
