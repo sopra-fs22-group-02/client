@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
+import { useParams } from 'react-router-dom';
 
 const FormField = props => {
     return (
@@ -52,16 +53,15 @@ const FormField = props => {
         // Get the returned user and update a new object.
         const place = new Place(response.data);
 
-        console.log(response.data)
-  
-  
+        console.log(response.data);
+        localStorage.setItem('placeIdOfLoggedInUser', place.placeId)
         // Creation successfully worked --> navigate to the route /PlaceProfile
         history.push(`/PlaceProfile/${place.placeId}`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
     };
-
+    // let { placeId } = useParams();
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState(null);
 
@@ -72,7 +72,7 @@ const FormField = props => {
     };
     console.log(image);
     const handleSubmit = () => {
-      const imageRef = ref(storage, `place/${localStorage.getItem('loggedInUserId')}`);
+      const imageRef = ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}-place-${localStorage.getItem('placeIdOfLoggedInUser')}`);
       uploadBytes(imageRef, image).then(() => {
         getDownloadURL(imageRef)
           .then((url) => {
@@ -131,6 +131,7 @@ const FormField = props => {
                 value="Place Image"
             />
             <Avatar
+              className="place picture"
               src={url}
               sx={{ width: 150, height: 150}}
               variant="square"

@@ -4,7 +4,7 @@ import Place from 'models/Place';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
-import 'styles/views/PlaceRegister.scss';
+import 'styles/views/PlaceProfileEdit.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
@@ -36,7 +36,7 @@ const FormField = props => {
     onChange: PropTypes.func
   };
   
-  const PlaceRegister = () => {
+  const PlaceProfileEdit = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
     const [closestCampus, setClosestCampus] = useState(null);
@@ -54,7 +54,7 @@ const FormField = props => {
         });
 
         console.log(`Sending: ${requestBody}`)
-        const response = await api.put(`/places/${ placeId }`, requestBody);
+        const response = await api.put(`/places/${ localStorage.getItem('placeIdOfLoggedInUser') }`, requestBody);
 
         // debug
         console.log(response)
@@ -66,7 +66,7 @@ const FormField = props => {
         // Creation successfully worked --> navigate to the route /PlaceProfile
         history.push(`/placeProfile/${ placeId }`);
       } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong during the update: \n${handleError(error)}`);
       }
     };
 
@@ -90,7 +90,7 @@ const FormField = props => {
 
     }, []);
 
-    let { placeId = 1 } = useParams()
+    let { placeId } = useParams()
 
     // console.log(place)
 
@@ -104,7 +104,7 @@ const FormField = props => {
     };
     console.log(image);
     const handleSubmit = () => {
-      const imageRef = ref(storage, 'placeProfile');
+      const imageRef = ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}-place-${localStorage.getItem('placeIdOfLoggedInUser')}`);
       uploadBytes(imageRef, image).then(() => {
         getDownloadURL(imageRef)
           .then((url) => {
@@ -161,6 +161,7 @@ const FormField = props => {
                 value="Place Image"
             />
             <Avatar
+              className="place picture"
               src={url}
               sx={{ width: 150, height: 150}}
               variant="square"
@@ -178,4 +179,4 @@ const FormField = props => {
   };
 
 
-export default PlaceRegister;
+export default PlaceProfileEdit;

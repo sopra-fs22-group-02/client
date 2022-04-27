@@ -58,13 +58,12 @@ const ProfileField = props => {
         fetchData();
       }, []);
 
-    let { placeId = 1 } = useParams();
-
     const toEdit = () => {
-        history.push(`/placeProfileEdit/${placeId}`)
+        console.log(localStorage.getItem('placeIdOfLoggedInUser'))
+        history.push(`/placeProfileEdit/${localStorage.getItem('placeIdOfLoggedInUser')}`)
       };
     
-    getDownloadURL(ref(storage, 'placeProfile'))
+    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}-place-${localStorage.getItem('placeIdOfLoggedInUser')}`))
       .then((url) => {
         setUrl(url);
       })
@@ -112,6 +111,7 @@ const ProfileField = props => {
                 value="profile image"
             />
             <Avatar
+              className="profile picture"
               src={url}
               sx={{ width: 150, height: 150 }}
               variant="square"
