@@ -93,7 +93,7 @@ const ProfileEdit = () => {
   
       }, []);
 
-    let { userId  = 1 } = useParams()
+    let { userId } = useParams()
     
     console.log("User obj fetched")
     console.log(user)
