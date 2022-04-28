@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
-import { useParams } from 'react-router-dom';
 
 const FormField = props => {
     return (
