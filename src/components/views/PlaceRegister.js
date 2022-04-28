@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
-import { useParams } from 'react-router-dom';
 
 const FormField = props => {
     return (
@@ -45,19 +44,6 @@ const FormField = props => {
     );
   };
 
-  const ImageHolder = props => {
-    return (
-      <div className="place field">
-        <input
-          className="place image-input"
-          placeholder="upload image"
-          type="file"
-          value={props.value}
-          onChange={e => props.onChange(e.target.value)}
-        />
-      </div>
-    );
-  };
   
   FormField.propTypes = {
     label: PropTypes.string,

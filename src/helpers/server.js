@@ -231,6 +231,9 @@ export function makeServer({ environment = "test" } = {}) {
       this.get("/users/:userid", (schema) => {
         // TODO: Implement
     })
+      this.get("/events", (schema, request) => {
+          return schema.events.all()
+        })
 
       // ---- USERS PROFILE ----
 

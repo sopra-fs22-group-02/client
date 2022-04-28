@@ -12,6 +12,8 @@ import EventUpdate from "components/views/EventUpdate";
 import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
 import ProfileEdit from "../../views/ProfileEdit";
+import FindPlace from "../../views/FindPlace";
+import ApplyPlace from "../../views/ApplyPlace";
 import QnA from "components/views/QnA";
 
 /**
@@ -42,6 +44,12 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/placeProfile/:placeId?">
             <PlaceProfile/>
+        </Route>
+        <Route exact path="/FindPlace">
+            <FindPlace/>
+        </Route>
+        <Route exact path="/applyPlace">
+            <ApplyPlace/>
         </Route>
         <Route exact path="/placeProfileEdit/:placeId?">
             <PlaceProfileEdit/>

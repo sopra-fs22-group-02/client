@@ -37,6 +37,7 @@ const Header = () => {
         <div className="header inner">
             <div className = "header logo">
                 <h1>FIND <span>A PLACE</span></h1>
+                {/* <img src="/find_a_place.jpg" width={85}/> */}
             </div>
             <div className = "header profile" >
                 <div className= "header action">

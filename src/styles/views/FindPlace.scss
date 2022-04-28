@@ -1,0 +1,100 @@
+@import 'styles/theme';
+
+.find {
+  &.text {
+  }
+  &.frame h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+
+  }
+  &.text h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Bungee", serif;
+    color: #1f4f59;
+    font-size: 38px;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    margin-left: 20px;
+  }
+  &.text h2 {
+
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Bungee", serif;
+    color: #1f4f59;
+    font-size: 20px;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    margin-left: 20px;
+  }
+
+
+  &.stack {
+    flex-shrink: 0;
+    height: 107px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+  &.frame {
+    flex-shrink: 0;
+    width: 400px;
+    height: 70px;
+    background-color: #1f4f59;
+    overflow: hidden;
+
+  }
+  &.box {
+    flex-shrink: 0;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(84, 192, 204, 0.02);
+    overflow: visible;
+    overflow-y: scroll;
+  }
+  &.insidefields {
+    box-sizing: border-box;
+    width: 700px;
+    height: 250px;
+    display: grid;
+    grid-template-columns: fit-content(300px) fit-content(300px) fit-content(300px);
+    column-gap: 50px;
+    align-items: center;
+    background-color: rgba(84, 192, 204, 0.2);
+    overflow: visible;
+    border-radius: 30px;
+    border: 2px solid #222;
+    margin: 0.5em 0;
+  }
+  &.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 1000px;
+    left: 15%;
+    margin-left: 20px;
+    border: 2px solid #1F4F59FF;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  }
+
+}
