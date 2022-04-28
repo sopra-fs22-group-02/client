@@ -4,10 +4,13 @@ import Place from 'models/Place';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
-import 'styles/views/PlaceRegister.scss';
+import 'styles/views/PlaceProfileEdit.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
+import { storage } from 'helpers/firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
@@ -23,6 +26,29 @@ const FormField = props => {
           // value={props.value}
           onChange={e => props.onChange(e.target.value)}
         />
+      </div>
+    );
+  };
+
+  const SelectField = props => {
+    return (
+      <div className="place field">
+        <Box
+            className="place box"
+            value={props.label}
+        />
+        <select className="place select" onChange={(e) => props.onChange(e.target.value)} >
+            { Place.getClosestCampi().map((c) =>
+            {
+              console.log(`selected value: ${props.value}`)
+              return (
+              <option key={c.id} value={c.campus} selected={c.campus === props.value}>
+                  {c.campus}
+              </option>
+              )
+            })
+          }
+        </select>
       </div>
     );
   };
@@ -43,10 +69,10 @@ const FormField = props => {
     onChange: PropTypes.func
   };
   
-  const PlaceRegister = () => {
+  const PlaceProfileEdit = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
-    const [nearestTo, setNearestTo] = useState(null);
+    const [closestCampus, setClosestCampus] = useState(null);
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
     const [place, setPlace] = useState(new Place());
@@ -54,11 +80,14 @@ const FormField = props => {
     const doUpdate = async () => {
       try {
         // Only update non-null values (where the state is not null, partial update)
-        const requestBody = JSON.stringify({id: placeId, nearestTo, name, address, description}, 
+        // FIXME: Potentially partial update?
+        const requestBody = JSON.stringify({closestCampus, name, address, description}, 
           (key, value) => {
-          if (value !== null) return value
+          if (value !== null) { return value } else { return place[key] }
         });
-        const response = await api.put('/places', requestBody);
+
+        console.log(`Sending: ${requestBody}`)
+        const response = await api.put(`/places/${ localStorage.getItem('placeIdOfLoggedInUser') }`, requestBody);
 
         // debug
         console.log(response)
@@ -68,21 +97,21 @@ const FormField = props => {
   
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
-        history.push(`/PlaceProfile/${ placeId }`);
+        history.push(`/placeProfile/${ placeId }`);
       } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong during the update: \n${handleError(error)}`);
       }
     };
 
     useEffect(() => {
       async function fetchData() {
             try {
-                const response = await api.get(`/places/${placeId}`);
+                const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }`);
 
                 console.log("Called fetchData")
           
                 // Get the returned user and update a new object.
-                setPlace(new Place(response.data));
+                setPlace(new Place(response.data[0]));
                  
                 // Creation successfully worked --> navigate to the route /PlaceProfile
               } catch (error) {
@@ -94,9 +123,35 @@ const FormField = props => {
 
     }, []);
 
-    let { placeId = 1 } = useParams()
+    let { placeId } = useParams()
 
     // console.log(place)
+
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState(null);
+
+    const handleImageChange = (e) => {
+      if (e.target.files[0]){
+        setImage(e.target.files[0]);
+      }
+    };
+    console.log(image);
+    const handleSubmit = () => {
+      const imageRef = ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`);
+      uploadBytes(imageRef, image).then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url);
+          })
+          .catch(error => {
+            console.log(error.message, "error getting the image url");
+          });
+          setImage(null);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
   
     return (
       <BaseContainer>
@@ -108,10 +163,11 @@ const FormField = props => {
               // value={place.name}
               onChange={n => setName(n)}
             />
-            <FormField
+            {/* TODO: Change to dropdown */}
+            <SelectField
               label="Nearest To"
-              defaultValue={place.nearestTo}
-              onChange={nt => setNearestTo(nt)}
+              value={place.closestCampus}
+              onChange={nt => setClosestCampus(nt)}
             />
             <FormField
               label="Address"
@@ -137,9 +193,18 @@ const FormField = props => {
                 className="place image-box"
                 value="Place Image"
             />
-            <ImageHolder 
-                width={250}
+            <Avatar
+              className="place picture"
+              src={url}
+              sx={{ width: 150, height: 150}}
+              variant="square"
             />
+            <input type="file" onChange={handleImageChange}/>
+            <button 
+              className='place image-button'
+              onClick={handleSubmit}>
+              Submit
+            </button>
           </div>
         </div>
       </BaseContainer>
@@ -147,4 +212,4 @@ const FormField = props => {
   };
 
 
-export default PlaceRegister;
+export default PlaceProfileEdit;

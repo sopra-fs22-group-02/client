@@ -22,7 +22,7 @@
     border-style: solid none solid solid;
     border-color: rgb(14, 141, 146);
     border-radius: 0.05em;
-    background-color: $background;
+    background-color: rgb(188, 236, 231);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
   &.field {
@@ -67,7 +67,7 @@
     border-style: solid solid solid none;
     border-color: rgb(14, 141, 146);
     border-radius: 0.05em;
-    background-color: $background;
+    background-color:  rgb(188, 236, 231);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
   &.image-box {
@@ -87,8 +87,13 @@
     margin-top: 2em;
   }
   &.picture{
-    align-items: center;   
+    align-items: center;
     position: relative;
-    bottom: 75px;
+    bottom: 35px;
+    left: 40px;
+    border-radius: 30px;
+    border-style: solid;
+    border-width: 2px;
+    border-color:#053f3c;
   }
 }

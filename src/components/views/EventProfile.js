@@ -46,12 +46,17 @@ const ProfileField = props => {
         try {
           // const requestBody = JSON.stringify({});
 
-          const response = await api.get(`/places/${placeId}/events/${eventId}`);
+          const response = await api.get(`/places/events/${eventId}`);
 
           console.log(`Response: ${JSON.stringify(response.data)}`)
+
+          const repolate = {
+            starttime: moment(`${response.data.startDate} ${response.data.startTime}`, "YYYY-MM-DD HH:mm").toISOString(),
+            endtime: moment(`${response.data.endDate} ${response.data.endTime}`, "YYYY-MM-DD HH:mm").toISOString()
+          }
     
           // Get the returned user and update a new object`
-          setSleepEvent(new SleepEvent(response.data))
+          setSleepEvent(new SleepEvent(repolate))
      
           // Creation successfully worked --> navigate to the route /PlaceProfile
           console.log(`Retrieval worked: ${JSON.stringify(response.data)}`);
