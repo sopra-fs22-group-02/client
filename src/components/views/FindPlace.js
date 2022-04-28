@@ -8,19 +8,33 @@ import {useHistory} from 'react-router-dom';
 import Place from "models/Place";
 import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
-import { id } from 'date-fns/locale';
 
-const PlaceBox = ({ place }) => {
+const PlaceBox = ({ place, history }) => {
+    const [url, setUrl] = useState(null);
+    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`))
+      .then((url) => {
+        setUrl(url);
+      })
+    
+    const selectPlace = () => {
+        history.push(`/placeprofile/${place.placeId}`);
+    }
     return (
         <div className= "find insidefields">
-            <img className = "find profile-ima" src="/zuri_lake.jpeg" alt="user profile img" />
+            <Avatar
+                className='find avatar'
+                src={url}
+                variant="square"
+            />
             <div className = "find text" >
                 <h1>{place.name}</h1>
-                <h2>Nearest campus: {place.cloestCampus}</h2>
+                <h2>Nearest campus: {place.closestCampus}</h2>
             </div>
-            <Button>
+            <Button
+                onClick={() => selectPlace()}
+            >
                 Select
             </Button>
         </div>
@@ -65,11 +79,12 @@ const FindPlace = () => {
 
         fetchData()
     }, [])
+
     let placeContent = <EmptyPlaceBox/>
     if (places) {
         placeContent = (
             places.map(place => (
-                <PlaceBox key={place.placeId} place={place}/>
+                <PlaceBox key={place.placeId} place={place} history={history}/>
             ))
         );
     }
@@ -84,7 +99,7 @@ const FindPlace = () => {
             </div>
             <div className = "find stack" >
                 <div className= "find frame" >
-                    <h1>Select an event</h1>
+                    <h1>Choose your place</h1>
                 </div>
             </div>
             <div className = "find box" >

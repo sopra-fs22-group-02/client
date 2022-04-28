@@ -70,7 +70,7 @@ const ApplyPlace = props => {
                 <div className= "placeholder" >
                 </div>
                 <Button>
-                    Start Q&A
+                    Start QnA
                 </Button>
                 <Button>
                     Apply
