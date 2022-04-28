@@ -1,26 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import BaseContainer from "../ui/BaseContainer";
-import {Button} from "../ui/Button";
+import BaseContainer from '../ui/BaseContainer';
+import {Button} from '../ui/Button';
+import {Box} from '../ui/Box';
 import {api, handleError} from "../../helpers/api";
 import "styles/views/FindPlace.scss";
+import {useHistory} from 'react-router-dom';
+import Place from "models/Place";
 
 
+const FindPlace = () => {
 
-const FindPlace = props => {
-    let events = null
+    const places = [];
+    const history = useHistory();
 
     useEffect( () => {
         async function fetchData() {
             try {
-                //const response = await api.get(`/users/${userId}/profile`); //why?
-
-                //setUser(new User(response.data));
-
-                //console.log(response)
-
+                const response = await api.get('/places'); 
+                for (let resp in response.data) {
+                    places.push(new Place(resp));
+                }
+                console.log(places)
                 // history.push(`/profileedit/${ userId }`);
             } catch (error) {
-                alert(`Something went wrong during the login: \n${handleError(error)}`);
+                alert(`Something went wrong during the fetching: \n${handleError(error)}`);
             }
         }
 
@@ -30,7 +33,9 @@ const FindPlace = props => {
     return (
         <BaseContainer>
             <div className = "find firststack" >
-                <Button>
+                <Button 
+                    onClick={() => history.push('/home')}
+                >
                     Return
                 </Button>
             </div>

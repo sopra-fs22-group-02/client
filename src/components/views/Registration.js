@@ -61,7 +61,7 @@ const Registration = props => {
     const [password, setPassword] = useState(null)
 
 
-    const doLogin = async () => {
+    const register = async () => {
         try {
             // TODO: Are firstname and lastname part of the registration?
             const requestBody = JSON.stringify({username, email, password});
@@ -121,7 +121,7 @@ const Registration = props => {
                         <Button
                             disabled={ !username || !email || !password || !email.endsWith("@uzh.ch") }
                             width="100%"
-                            onClick={() => doLogin()}
+                            onClick={() => register()}
                         >
                             Registration
                         </Button>
