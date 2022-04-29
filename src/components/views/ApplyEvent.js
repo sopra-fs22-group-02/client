@@ -50,11 +50,10 @@ const EmptyEventBox = () => {
 const ApplyEvent = () => {
     const [events, setEvents] = useState(null); 
     const history = useHistory();
-    const [url, setUrl] = useState(null);
-    getDownloadURL(ref(storage, `place/user-3`))
-      .then((url) => {
-        setUrl(url);
-      });
+    const [userUrl, setUserUrl] = useState(null);
+    const [placeUrl, setPlaceUrl] = useState(null);
+    const [userDescription, setUserDescription] = useState(null);
+    const [placeDescription, setPlaceDescription] = useState(null);
 
     useEffect( () => {
         async function fetchData() {
@@ -63,6 +62,15 @@ const ApplyEvent = () => {
                 console.log(response.data); 
                 setEvents(response.data);
                 console.log(events);
+
+                const responseUser = await api.get(`/users/${providerId}/profile`);
+                setUserDescription(responseUser.data.bio)
+                console.log(userDescription);
+
+                const responsePlace = await api.get(`/places/${providerId}`);
+                setPlaceDescription(responsePlace.data[0].description)
+                console.log(responsePlace.data[0].description);
+    
             } catch (error) {
                 alert(`Something went wrong during the events fetching: \n${handleError(error)}`);
             }
@@ -71,6 +79,16 @@ const ApplyEvent = () => {
         fetchData()
     }, [])
     let { placeId, providerId } = useParams();
+
+    getDownloadURL(ref(storage, `user/${providerId}`))
+      .then((userUrl) => {
+        setUserUrl(userUrl);
+      });
+    getDownloadURL(ref(storage, `place/user-${providerId}`))
+      .then((placeUrl) => {
+        setPlaceUrl(placeUrl);
+    });
+
     let eventContent = <EmptyEventBox/>
     if(events) {
         let availableEvents = events.filter(function(value, index, arr) {
@@ -93,13 +111,13 @@ const ApplyEvent = () => {
                     />
                     <Avatar 
                         className = "apply place-avatar" 
-                        src={url}
+                        src={placeUrl}
                         variant="square"
                         sx={{ width: 150, height: 150}}
                     />
                     <Box
                         className="apply place-description"
-                        value="This is a nice place to stay, This is a nice place to stay, This is a nice place to stay"
+                        value={placeDescription}
                     />
                     <Box
                         className="apply provider-title"
@@ -107,13 +125,13 @@ const ApplyEvent = () => {
                     />
                     <Avatar 
                         className = "apply provider-avatar" 
-                        src={url}
+                        src={userUrl}
                         variant="square"
                         sx={{ width: 150, height: 150}}
                     />
                     <Box
                         className="apply provider-description"
-                        value="Student at university"
+                        value={userDescription}
                     />
                 </div>
                 <div className= "apply event-container" >
