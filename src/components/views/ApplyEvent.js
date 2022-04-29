@@ -15,11 +15,16 @@ const EventBox = ({ event, providerId }) => {
     const apply = async () => {
         try {
             const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
+
             setMessage(`${response.data.username} wants to apply for your sleep event`)
+            if (message) {
             const requestBody = JSON.stringify({message});
             const response2 = await api.post(`users/${providerId}/notifications`, requestBody);
-            console.log(message);
             console.log(response2);
+            }
+            console.log(message); // click apply twice
+            const requestBody = JSON.stringify({});
+            const response3 = await api.post(`places/${localStorage.getItem('loggedInUserId')}/events/${event.eventId}`, requestBody)
         } catch (error) {
             alert(`Something went wrong during application: \n${handleError(error)}`);
         }
