@@ -1,20 +1,69 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from "../ui/BaseContainer";
-
+import {api, handleError} from "../../helpers/api";
 import "styles/views/ApplyEvent.scss";
 import {Button} from "../ui/Button";
 import {Box} from "../ui/Box";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
+import {useHistory} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+const EventBox = ({event}) => {
+    return (
+        <div className='apply event'>
+            <h2 className='apply text'>Date: {event.startDate}</h2>
+            <h3 className='apply text'>From: {event.startTime}</h3>
+            <h3 className='apply text'>Till: {event.endTime}</h3>
+            <Button
+            className='apply button'
+            onClick={() => history.push('/findplace')}
+            >
+                apply
+            </Button>
+        </div>
+    )
+}
+
+const EmptyEventBox = () => {
+    return (
+        <div className='apply emptyy-event'>
+        </div>
+    )
+};
 
 const ApplyEvent = () => {
+    const [events, setEvents] = useState(null); 
+    const history = useHistory();
     const [url, setUrl] = useState(null);
-    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`))
+    getDownloadURL(ref(storage, `place/user-3`))
       .then((url) => {
         setUrl(url);
-      })
+      });
+
+    useEffect( () => {
+        async function fetchData() {
+            try {
+                const response = await api.get(`/places/${placeId}/events`);
+                console.log(response.data); 
+                setEvents(response.data);
+            } catch (error) {
+                alert(`Something went wrong during the events fetching: \n${handleError(error)}`);
+            }
+        }
+
+        fetchData()
+    }, [])
+    let { placeId = 2 } = useParams();
+    let eventContent = <EmptyEventBox/>
+    if(events) {
+        eventContent = (
+            events.map(event => (
+                <EventBox key={event.eventId} event={event} />
+            ))
+        )
+    }
     return (
         <BaseContainer>
             <div className="apply container">
@@ -51,14 +100,18 @@ const ApplyEvent = () => {
                 <div className= "apply event-container" >
                     <Box
                         className="apply event-title"
-                        value="Available events"
+                        value="Available slots"
                     />
+                    <div className="apply list-container">
+                        {eventContent}
+                    </div>
                 </div>
             </div>
             <div className = "apply footer" >
-                <div className= "placeholder" >
-                </div>
-                <Button>
+                <Button
+                    onClick={() => history.push('/findplace')}
+                    width='30%'
+                >
                     Return
                 </Button>
             </div>

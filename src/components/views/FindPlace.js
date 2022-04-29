@@ -16,10 +16,10 @@ const PlaceBox = ({ place, history }) => {
     getDownloadURL(ref(storage, `place/user-${place.providerId}`))
       .then((url) => {
         setUrl(url);
-      })
+      });
     
     const selectPlace = () => {
-        history.push(`/placeprofile/${place.placeId}`);
+        history.push(`/applyEvent/${place.placeId}`);
     }
     return (
         <div className= "find insidefields">
