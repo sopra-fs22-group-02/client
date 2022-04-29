@@ -1,0 +1,36 @@
+@import 'styles/theme';
+
+.events{
+  &.base {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &.container {
+    height: 700px;
+    // border-style: solid;
+    // border-color: black;
+    overflow-y: scroll;
+  }
+  &.box {
+    border-style: none none dashed none;
+    // border-color: black;
+    display: flex;
+    flex-direction: row;
+
+  }
+  &.info {
+    color: white;
+    position: relative;
+    top: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  &.button {
+    position: relative;
+    left: 5em;
+  }
+  &.back-button {
+    justify-content: center;
+  }
+}

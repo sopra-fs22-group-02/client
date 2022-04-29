@@ -45,7 +45,7 @@ const RequestBox = ({ event, providerId }) => {
     )
 }
 
-const EmptyEventBox = () => {
+const EmptyRequestBox = () => {
     return (
         <div className='apply empty-event'>
         </div>
@@ -94,7 +94,7 @@ const ChooseApplicant = () => {
         setPlaceUrl(placeUrl);
     });
 
-    let eventContent = <EmptyEventBox/>
+    let eventContent = <EmptyRequestBox/>
     if(events) {
         let availableEvents = events.filter(function(value, index, arr) {
             return value.state != "EXPIRED";
