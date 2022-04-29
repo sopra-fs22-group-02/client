@@ -19,7 +19,7 @@ const PlaceBox = ({ place, history }) => {
       });
     
     const selectPlace = () => {
-        history.push(`/applyEvent/${place.placeId}`);
+        history.push(`/applyEvent/${place.placeId}/${place.providerId}`);
     }
     return (
         <div className= "find insidefields">

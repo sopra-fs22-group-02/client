@@ -52,7 +52,7 @@ const AppRouter = () => {
         <Route exact path="/eventaccepted">
             <EventAccepted/>
         </Route>
-        <Route exact path="/applyEvent/:placeId">
+        <Route exact path="/applyEvent/:placeId/:providerId">
             <ApplyEvent/>
         </Route>
         <Route exact path="/placeProfileEdit/:placeId?">

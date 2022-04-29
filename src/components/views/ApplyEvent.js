@@ -10,7 +10,12 @@ import Avatar from "@mui/material/Avatar";
 import {useHistory} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-const EventBox = ({event}) => {
+const EventBox = ({ event, providerId }) => {
+
+    const apply = () => {
+
+    }
+
     return (
         <div className='apply event'>
             <h2 className='apply text'>Date: {event.startDate}</h2>
@@ -28,7 +33,7 @@ const EventBox = ({event}) => {
 
 const EmptyEventBox = () => {
     return (
-        <div className='apply emptyy-event'>
+        <div className='apply empty-event'>
         </div>
     )
 };
@@ -48,6 +53,7 @@ const ApplyEvent = () => {
                 const response = await api.get(`/places/${placeId}/events`);
                 console.log(response.data); 
                 setEvents(response.data);
+                console.log(events);
             } catch (error) {
                 alert(`Something went wrong during the events fetching: \n${handleError(error)}`);
             }
@@ -55,12 +61,16 @@ const ApplyEvent = () => {
 
         fetchData()
     }, [])
-    let { placeId = 2 } = useParams();
+    let { placeId, providerId } = useParams();
     let eventContent = <EmptyEventBox/>
     if(events) {
+        let availableEvents = events.filter(function(value, index, arr) {
+            return value.state != "EXPIRED";
+        })
+        console.log(availableEvents);
         eventContent = (
-            events.map(event => (
-                <EventBox key={event.eventId} event={event} />
+            availableEvents.map(event => (
+                <EventBox key={event.eventId} event={event} providerId={providerId}/>
             ))
         )
     }
