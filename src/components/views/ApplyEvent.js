@@ -11,9 +11,18 @@ import {useHistory} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 const EventBox = ({ event, providerId }) => {
-
-    const apply = () => {
-
+    const [message, setMessage] = useState(null);
+    const apply = async () => {
+        try {
+            const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
+            setMessage(`${response.data.username} wants to apply for your sleep event`)
+            const requestBody = JSON.stringify({message});
+            const response2 = await api.post(`users/${providerId}/notifications`, requestBody);
+            console.log(message);
+            console.log(response2);
+        } catch (error) {
+            alert(`Something went wrong during application: \n${handleError(error)}`);
+        }
     }
 
     return (
@@ -23,7 +32,7 @@ const EventBox = ({ event, providerId }) => {
             <h3 className='apply text'>Till: {event.endTime}</h3>
             <Button
             className='apply button'
-            onClick={() => history.push('/findplace')}
+            onClick={() => apply()}
             >
                 apply
             </Button>
