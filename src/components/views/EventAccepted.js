@@ -51,13 +51,13 @@ const EventAccepted = props => {
                     </div>
                 </div>
 
-                <div className="apply box3">
-                    <div className= "apply box1h1">
+                <div className="accept box3">
+                    <div className= "accept box1h1">
                         <h1>About the provider</h1>
                     </div>
-                    <div className= "apply insidebox" >
-                        <img className = "apply ima" src="/profile.png" alt="user profile img" />
-                        <div className= "apply textboxprof">
+                    <div className= "accept insidebox" >
+                        <img className = "accept ima" src="/profile.png" alt="user profile img" />
+                        <div className= "accept textboxprof">
                             <p className = "profile text" > I am a freelance graphic designer with over five years of industry experience.” or “My specialities include logo creation, branding concepts, vector image editing/cropping & Photoshop work.” because it can make you sound generic and boring to potential clients. </p>
                         </div>
                     </div>
@@ -66,7 +66,7 @@ const EventAccepted = props => {
 
                 </div>
             </div>
-            <div className = "apply footer" >
+            <div className = "accept footer" >
                 <div className= "placeholder" >
                 </div>
                 <Button>

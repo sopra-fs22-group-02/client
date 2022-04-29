@@ -35,10 +35,6 @@ const ProfileField = props => {
   
   const EventProfile = () => {
     const history = useHistory();
-    const [arrivalTime, setArrivalTime] = useState(null);
-    const [departureTime, setDepartureTime] = useState(null);
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState(new Date());
     const [sleepEvent, setSleepEvent] = useState(new SleepEvent());
 
     useEffect(() => {

@@ -86,7 +86,7 @@
     justify-content: end;
     margin-top: 2em;
   }
-  &.picture{
+  &.picture {
     align-items: center;
     position: relative;
     bottom: 35px;
@@ -95,5 +95,10 @@
     border-style: solid;
     border-width: 2px;
     border-color:#053f3c;
+  }
+  &.event-button {
+    position: relative;
+    top: 68px;
+    left: 45px;
   }
 }

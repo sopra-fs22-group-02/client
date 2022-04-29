@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from "../ui/BaseContainer";
 import {api, handleError} from "../../helpers/api";
-import "styles/views/ApplyEvent.scss";
+import "styles/views/ChooseApplicant.scss";
 import {Button} from "../ui/Button";
 import {Box} from "../ui/Box";
 import { storage } from 'helpers/firebase';
@@ -10,7 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import {useHistory} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-const EventBox = ({ event, providerId }) => {
+const RequestBox = ({ event, providerId }) => {
     const [message, setMessage] = useState(null);
     const apply = async () => {
         try {
@@ -18,9 +18,9 @@ const EventBox = ({ event, providerId }) => {
 
             setMessage(`${response.data.username} wants to apply for your sleep event`)
             if (message) {
-                const requestBody = JSON.stringify({message});
-                const response2 = await api.post(`users/${providerId}/notifications`, requestBody);
-                console.log(response2);
+            const requestBody = JSON.stringify({message});
+            const response2 = await api.post(`users/${providerId}/notifications`, requestBody);
+            console.log(response2);
             }
             console.log(message); // click apply twice
             const requestBody = JSON.stringify({});
@@ -52,7 +52,7 @@ const EmptyEventBox = () => {
     )
 };
 
-const ApplyEvent = () => {
+const ChooseApplicant = () => {
     const [events, setEvents] = useState(null); 
     const history = useHistory();
     const [userUrl, setUserUrl] = useState(null);
@@ -102,7 +102,7 @@ const ApplyEvent = () => {
         console.log(availableEvents);
         eventContent = (
             availableEvents.map(event => (
-                <EventBox key={event.eventId} event={event} providerId={providerId}/>
+                <RequestBox key={event.eventId} event={event} providerId={providerId}/>
             ))
         )
     }
@@ -164,4 +164,4 @@ const ApplyEvent = () => {
 
 };
 
-export default ApplyEvent;
+export default ChooseApplicant;

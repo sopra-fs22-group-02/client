@@ -102,7 +102,7 @@ const ProfileField = props => {
                   onClick={() => history.push("/")}
               >
                   Back
-               </Button>
+              </Button>
             </div>
           </div>
           <div className="profile form2">
@@ -116,6 +116,13 @@ const ProfileField = props => {
               sx={{ width: 150, height: 150 }}
               variant="square"
             />
+            <Button
+              className='profile event-button'
+              width="50%"
+              onClick={() => history.push(`/events/${place.placeId}`)}
+            >
+                view events
+            </Button>
           </div>
         </div>
       </BaseContainer>

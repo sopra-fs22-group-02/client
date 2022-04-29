@@ -8,7 +8,7 @@ import PlaceProfileEdit from "components/views/PlaceProfileEdit";
 import EventCreation from "components/views/EventCreation";
 import EventProfile from "components/views/EventProfile";
 import EventUpdate from "components/views/EventUpdate";
-
+import Events from "components/views/Events";
 import Registration from "../../views/Registration";
 import Profile from "../../views/Profile";
 import ProfileEdit from "../../views/ProfileEdit";
@@ -16,6 +16,7 @@ import FindPlace from "../../views/FindPlace";
 import ApplyEvent from "../../views/ApplyEvent";
 import QnA from "components/views/QnA";
 import EventAccepted from "../../views/EventAccepted";
+import ChooseApplicant from "components/views/ChooseApplicant";
 
 /**
  * Main router of your application.
@@ -45,6 +46,12 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/placeProfile/:placeId?">
             <PlaceProfile/>
+        </Route>
+        <Route exact path="/events/:placeId">
+            <Events/>
+        </Route>
+        <Route exact path="/chooseApplicants/:eventId">
+            <ChooseApplicant/>
         </Route>
         <Route exact path="/FindPlace">
             <FindPlace/>
