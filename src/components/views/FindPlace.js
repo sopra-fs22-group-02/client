@@ -13,7 +13,7 @@ import Avatar from "@mui/material/Avatar";
 
 const PlaceBox = ({ place, history }) => {
     const [url, setUrl] = useState(null);
-    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`))
+    getDownloadURL(ref(storage, `place/user-${place.providerId}`))
       .then((url) => {
         setUrl(url);
       })

@@ -70,7 +70,7 @@
     overflow: visible;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-row: repeat(2, 1fr);
+    // grid-template-row: repeat(2, 1fr);
     row-gap: 1em;
     column-gap: 1em;
 
@@ -258,16 +258,9 @@
     height: 40px;
     background-color: #1f4f59;
     overflow: hidden;
-    margin-top: 5px;
+    top: 100px;
+    position: relative;
     margin-left: 50px;
-  }
-  &.grid-title2 {
-    width: 200px;
-    height: 40px;
-    margin-left: 20px;
-    background-color: #1f4f59;
-    overflow: hidden;
-    margin-top: 5px;
   }
   &.grid-item2 h1 {
     font-weight: 400;
@@ -287,7 +280,8 @@
     height: 40px;
     background-color: #1f4f59;
     overflow: hidden;
-    margin-top: 5px;
+    top: 100px;
+    position: relative;
     margin-left: 50px;
   }
   &.grid-title4 {
