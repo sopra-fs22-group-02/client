@@ -13,13 +13,13 @@ import Avatar from "@mui/material/Avatar";
 
 const PlaceBox = ({ place, history }) => {
     const [url, setUrl] = useState(null);
-    getDownloadURL(ref(storage, `place/user-${localStorage.getItem('loggedInUserId')}`))
+    getDownloadURL(ref(storage, `place/user-${place.providerId}`))
       .then((url) => {
         setUrl(url);
-      })
+      });
     
     const selectPlace = () => {
-        history.push(`/placeprofile/${place.placeId}`);
+        history.push(`/applyEvent/${place.placeId}/${place.providerId}`);
     }
     return (
         <div className= "find insidefields">

@@ -1,52 +1,52 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from "../ui/BaseContainer";
 
-import "styles/views/ApplyPlace.scss";
+import "styles/views/EventAccepted.scss";
 import {Button} from "../ui/Button";
 
 
 
-const ApplyPlace = props => {
+const EventAccepted = props => {
 
     return (
         <BaseContainer>
-            <div className = "apply firststack" >
+            <div className = "accept firststack" >
                 <Button>
                     Return
                 </Button>
             </div>
-            <div className= "apply box" >
-                <div className="apply box1">
-                    <div className= "apply grid-title1" >
+            <div className= "accept box" >
+                <div className="accept box1">
+                    <div className= "accept grid-title1" >
                         <h1>Picture</h1>
                     </div>
-                    <div className= "apply grid-title2" >
+                    <div className= "accept grid-title2" >
                         <h1>Adress</h1>
                     </div>
-                    <img className = "apply ima2" src="/zuri_lake.jpeg" alt="user profile img" />
-                    <div className="apply grid-item2">
-                        <h1 className = "apply grid-item2-text" > Margrit-Reinerstrasse 10 oerlikon </h1>
+                    <img className = "accept ima2" src="/zuri_lake.jpeg" alt="user profile img" />
+                    <div className="accept grid-item2">
+                        <h1 className = "accept grid-item2-text" > Margrit-Reinerstrasse 10 oerlikon </h1>
                     </div>
-                    <div className= "apply grid-title3" >
+                    <div className= "accept grid-title3" >
                         <h1>Description</h1>
                     </div>
-                    <div className= "apply grid-title4" >
+                    <div className= "accept grid-title4" >
                         <h1>Map</h1>
                     </div>
-                    <div className="apply grid-item3">
+                    <div className="accept grid-item3">
                         <p className = "profile text" > A neat place in Oerlikon. Tidiness can`t be guaranteed </p>
                     </div>
-                    <img className = "apply ima3" src="/map.jpeg" alt="user profile img" />
+                    <img className = "accept ima3" src="/map.jpeg" alt="user profile img" />
                 </div>
 
-                <div className="apply box2">
-                    <div className= "apply box1h">
+                <div className="accept box2">
+                    <div className= "accept box1h">
                         <h1>Avilability</h1>
                     </div>
-                    <div className = "apply from">
+                    <div className = "accept from">
                         <h1>From: <span>28.03.2020</span> <span> 20:00</span> </h1>
                     </div>
-                    <div className = "apply from">
+                    <div className = "accept from">
                         <h1>From: <span>28.03.2020</span> <span> 20:00</span> </h1>
                     </div>
                 </div>
@@ -84,4 +84,4 @@ const ApplyPlace = props => {
 
 };
 
-export default ApplyPlace;
+export default EventAccepted;
