@@ -34,7 +34,7 @@ const EventAccepted = props => {
                         <h1>Map</h1>
                     </div>
                     <div className="accept grid-item3">
-                        <p className = "acept text" > A neat place in Oerlikon. Tidiness can`t be guaranteed </p>
+                        <p className = "accept text" > A neat place in Oerlikon. Tidiness can`t be guaranteed </p>
                     </div>
                     <img className = "accept ima3" src="/map.jpeg" alt="user profile img" />
                 </div>
