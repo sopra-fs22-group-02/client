@@ -69,7 +69,7 @@
     overflow: visible;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-row: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     row-gap: 1em;
     column-gap: 1em;
   }

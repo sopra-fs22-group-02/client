@@ -48,18 +48,18 @@ const ApplicantBox = ({ applicant, history }) => {
     }
 
     return (
-        <div className='accept box'>
+        <div className='choice box'>
             <Avatar
-                className='accept avatar'
+                className='choice avatar'
                 src={userUrl}
                 sx={{ width: 150, height: 150}}
             />
             <Box
-                className='accept username'
+                className='choice username'
                 value={username}
             />
             <Button
-                className='accept button'
+                className='choice button'
                 onClick={() => accept()}
             >
                 accept
@@ -70,7 +70,7 @@ const ApplicantBox = ({ applicant, history }) => {
 
 const EmptyApplicantBox = () => {
     return (
-        <div className='apply empty-applicant'>
+        <div className='choice empty-applicant'>
         </div>
     )
 };
@@ -110,14 +110,14 @@ const ChooseApplicant = () => {
         )
     }
     return (
-        <BaseContainer className='accept base-container'>
-            <div className='accept user-container'>
+        <BaseContainer className='choice base-container'>
+            <div className='choice user-container'>
                 {applicantContent}
             </div>
-            <div className='accept event-container'>
-                <h2 className='accept text'>Date: {startDate}</h2>
-                <h3 className='accept text'>From: {startTime}</h3>
-                <h3 className='accept text'>Till: {endTime}</h3>
+            <div className='choice event-container'>
+                <h2 className='choice text'>Date: {startDate}</h2>
+                <h3 className='choice text'>From: {startTime}</h3>
+                <h3 className='choice text'>Till: {endTime}</h3>
             </div>
             <Button
                 onClick={() => history.push(`/events/${placeId}`)}

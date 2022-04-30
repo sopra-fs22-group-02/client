@@ -101,6 +101,9 @@ const AppRouter = () => {
         <Route exact path= "/profileEdit/:userId?">
            <ProfileEdit/>
         </Route>
+        <Route exact path="/chooseapplicant/:eventId">
+          <ChooseApplicant />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
