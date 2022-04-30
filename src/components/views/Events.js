@@ -10,7 +10,7 @@ import BaseContainer from "components/ui/BaseContainer";
 
   const Event = ({ event, history }) => {
     const checkRequests = () => {
-        history.push(`/chooseApplicant/${event.eventId}`)
+        history.push(`/chooseApplicants/${event.eventId}`)
     }
     return (
         <div className='events box'>
