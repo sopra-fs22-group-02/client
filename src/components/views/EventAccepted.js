@@ -61,9 +61,6 @@ const EventAccepted = props => {
                             <p className = "profile text" > I am a freelance graphic designer with over five years of industry experience.” or “My specialities include logo creation, branding concepts, vector image editing/cropping & Photoshop work.” because it can make you sound generic and boring to potential clients. </p>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
             <div className = "accept footer" >

@@ -56,11 +56,18 @@ const ProfileField = props => {
 
           // modified injections to call based on need of data
           sl.constructDateTime();
+          sl.embed_place();
+          sl.embed_applicants();
+          sl.embed_confirmed_applicant();
+          sl.embed_provider();
 
           setSleepEvent(sl)
+
+          // debug
+          console.log(`Construced full object: ${JSON.stringify(sl)}`)
      
           // Creation successfully worked --> navigate to the route /PlaceProfile
-          console.log(`Retrieval worked: ${JSON.stringify(response.data)}`);
+          // console.log(`Retrieval worked: ${JSON.stringify(response.data)}`);
         } catch (error) {
           alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -91,15 +98,22 @@ const ProfileField = props => {
       // TODO: Implement
     }
 
-    const providerView = () => {
-      return (
-      <h1>Is Provider</h1>
-      )
-    }
+    const providerView = () => 
+    ( <>{ 
+      sleepEvent.confirmedApplicant != 0
+      ? (<h2>Provider has chosen</h2>)
+      : (<h2>Provider has not yet chosen</h2>)
+    }</>
+    )
+  
 
-    const applicantView = () => {
-      return (<h2>Is Applicant</h2>)
-    }
+    const applicantView = () => 
+    ( <>{ 
+        localStorage.getItem('loggedInUserId') == sleepEvent.confirmedApplicant
+        ? (<h2>Is Confirmed Applicant</h2>)
+        : (<h2>Is Unconfirmed Applicant</h2>)
+      }</>
+    )
 
     return (
       <BaseContainer>
