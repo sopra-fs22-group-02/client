@@ -59,6 +59,7 @@ import BaseContainer from "components/ui/BaseContainer";
 
           console.log(response.data);
           setSleepEvents(response.data);
+          console.log(sleepEvents);
           // Creation successfully worked --> navigate to the route /PlaceProfile
           console.log(`Retrieval worked: ${JSON.stringify(response.data)}`);
         } catch (error) {
