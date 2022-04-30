@@ -9,6 +9,7 @@ import 'styles/views/EventProfile.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import moment from "moment"
+import EventAccepted from './EventAccepted';
 
 
 const ProfileField = props => {
@@ -43,6 +44,7 @@ const ProfileField = props => {
           // const requestBody = JSON.stringify({});
 
           const response = await api.get(`/places/events/${eventId}`);
+          // user
 
           console.log(`Response: ${JSON.stringify(response.data)}`)
 
@@ -55,11 +57,11 @@ const ProfileField = props => {
           let sl = new SleepEvent(response.data)
 
           // modified injections to call based on need of data
-          sl.constructDateTime();
-          sl.embed_place();
-          sl.embed_applicants();
-          sl.embed_confirmed_applicant();
-          sl.embed_provider();
+          await sl.constructDateTime();
+          await sl.embed_place();
+          await sl.embed_applicants();
+          await sl.embed_confirmed_applicant();
+          await sl.embed_provider();
 
           setSleepEvent(sl)
 
@@ -76,6 +78,33 @@ const ProfileField = props => {
       fetchData()
 
     }, [])
+
+    const apply = async () => {
+
+      try {
+          const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
+
+          const message = JSON.stringify({
+              messageContent: `${response.data.firstName} applied to one of your events.`,
+              link: `/eventprofile/${sleepEvent.placeId}/${sleepEvent.eventId}`
+          })
+          // setMessage(`${response.data.username} wants to apply for your sleep event`)
+          if (message) {
+              const requestBody = JSON.stringify({message});
+              const response2 = await api.post(`/users/${sleepEvent.providerId}/notifications`, requestBody);
+              // debug
+              // console.log(response2);
+          }
+          console.log(message); // click apply twice
+          // const requestBody = JSON.stringify({});
+          // console.log(`Making request to: places/${localStorage.getItem('loggedInUserId')}/events/${sleepEvent.eventId}`)
+          const response3 = await api.post(`/places/${localStorage.getItem('loggedInUserId')}/events/${sleepEvent.eventId}`);
+          // debug
+          // console.log(response3);
+      } catch (error) {
+          alert(`Something went wrong during application: \n${handleError(error)}`);
+      }
+  }
 
     // effect hook for sleep event
     useEffect(() => {
@@ -100,28 +129,63 @@ const ProfileField = props => {
 
     const providerView = () => 
     ( <>{ 
-      sleepEvent.confirmedApplicant != 0
-      ? (<h2>Provider has chosen</h2>)
-      : (<h2>Provider has not yet chosen</h2>)
+      // sleepEvent.confirmedApplicant != 0
+      // ? (<h2>Provider has chosen</h2>)
+      // : (<h2>Provider has not yet chosen</h2>)
+      // <EventAccepted sleepEvent={sleepEvent} />
     }</>
     )
   
 
     const applicantView = () => 
     ( <>{ 
-        localStorage.getItem('loggedInUserId') == sleepEvent.confirmedApplicant
-        ? (<h2>Is Confirmed Applicant</h2>)
-        : (<h2>Is Unconfirmed Applicant</h2>)
+        // localStorage.getItem('loggedInUserId') == sleepEvent.confirmedApplicant
+        // ? (<h2>Is Confirmed Applicant</h2>)
+        // : (<h2>Is Unconfirmed Applicant</h2>)
+        <>
+        <EventAccepted sleepEvent={sleepEvent} />
+        <div className = "accept footer" >
+        <div className= "placeholder" >
+        </div>
+        {/* Only show QnA Button when applicant is confirmed */}
+        { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId')
+        ? (<Button>
+            Start QnA
+        </Button>)
+        : (<></>)
+        }
+        {/* Show the different states of the buttons depending on the state */}
+        { sleepEvent.applicants.includes(parseInt(localStorage.getItem('loggedInUserId')))
+        ? 
+        (<Button disabled={true}>
+            Applied
+        </Button>)
+        : sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId')
+        ? 
+        (<Button disabled={true}>
+            Confirmed
+        </Button>)
+        : (
+        <Button
+            onClick={() => {apply()}}
+            >
+            Apply
+        </Button>
+        )}
+        </div>
+        </>
       }</>
     )
 
     return (
       <BaseContainer>
-        <div className="event container">
           { localStorage.getItem('loggedInUserId') == sleepEvent.providerId
             ? providerView()
-            : applicantView()
+            : localStorage.getItem('loggedInUserId') != sleepEvent.providerId && sleepEvent.providerId
+            ? applicantView()
+            : (<></>)
           }
+        <div className="event container">
           <div className="event form">
             <ProfileField
               label="Arrival Time"

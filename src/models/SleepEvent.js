@@ -1,5 +1,6 @@
 import { api } from "helpers/api";
 import moment from "moment";
+import Place from "./Place";
 
 /**
  * Sleep event model
@@ -16,7 +17,10 @@ import moment from "moment";
       this.startTime = null;
       this.endTime = null;
       this.applicants = null;
+      this.applicantsEntities = null;
       this.confirmedApplicant = null;
+      this.confirmedApplicantEntity = null;
+      // this.place = new Place();
 
       this.constructDateTime = () => {
         this.starttime =  moment(`${this.startDate} ${this.startTime}`, "YYYY-MM-DD HH:mm").toISOString(),
@@ -71,7 +75,7 @@ import moment from "moment";
             //debug
             // console.log(res.data)
             // assign first place to the user
-            this.confirmedApplicant = res.data ? res.data : null
+            this.confirmedApplicantEntity = res.data ? res.data : null
             // debug
             // console.log("Triggered")
           } catch {
@@ -94,7 +98,7 @@ import moment from "moment";
             //debug
             // console.log(res.data)
             // assign first place to the user
-            this.applicants = aA.length > 0 ? aA : null
+            this.applicantsEntities = aA.length > 0 ? aA : null
             // debug
             // console.log("Triggered")
           } catch {
