@@ -97,7 +97,7 @@ const FormField = props => {
     useEffect(() => {
       let generatedStartDate = moment(`${moment(date).format("DD-MM-YYYY")} ${starthour}`, "DD-MM-YYYY HH:mm").toDate();
       console.log(generatedStartDate);
-      setStartTime(generatedStartDate); 
+      setStartTime(generatedStartDate);
       // debug
       console.log(starthour)
     }, [starthour])
@@ -126,7 +126,7 @@ const FormField = props => {
           comment: "None"
         });
 
-        const response = await api.put(`/places/${placeId}/events/${eventId}`, requestBody);
+        const response = await api.put(`/places/${localStorage.getItem('loggedInUserId')}/events/${eventId}`, requestBody);
 
         console.log(`Sending: Starttime: ${starttime} and \n Endtime: ${endtime}`)
 

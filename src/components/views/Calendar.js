@@ -5,11 +5,13 @@ import "styles/views/Calendar.scss"
 import { Link } from "react-router-dom";
 
 const Event = ({ event }) => {
+  console.log("Rendering event:")
+  console.log(event)
   return (
-    <Link to={`/eventprofile/${event.place ? event.place.id : "undef"}/${event.id}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
+    <Link to={`/eventprofile/${event.placeId ? event.placeId : "undef"}/${event.eventId}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
       {/* <div className="calevent item"> */}
         <div className="calevent role">
-          {event.provider ? "Provider" : "Applicant"}
+          {event.providerId == localStorage.getItem('loggedInUserId') ? "Provider" : "Applicant"}
         </div>
         <div className="calevent state">{event.state}</div>
         <div className="calevent start-time">
@@ -32,7 +34,7 @@ const Weekday = ({ weekday }) => {
       </div>
       <div className="calevent container" >
       {weekday.events.map((event) => (
-          <Event event={event} key={event.id} />
+          <Event event={event} key={event.eventId} />
       ))}
       </div>
     </div>
@@ -44,7 +46,7 @@ Event.propTypes = {
 };
 
 const Calendar = ({ events }) => {
-
+  console.log("Debug events:")
   console.log(events)
 
   // let events = [

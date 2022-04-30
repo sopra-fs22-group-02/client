@@ -9,6 +9,9 @@ import "styles/views/Home.scss";
 import Calendar from './Calendar';
 import { MenuItem } from 'components/ui/MenuItem';
 import User from 'models/User';
+import { responsiveFontSizes } from '@mui/material';
+import { Link } from 'react-router-dom';
+import Message from 'models/Message';
 
 const Player = ({user}) => (
   <div className="player container">
@@ -55,6 +58,11 @@ const Home = () => {
         // feel free to remove it :)
         await new Promise(resolve => setTimeout(resolve, 50));
 
+        // debug
+        // let events = [...response.data.myCalendarAsApplicant, ...response.data.myCalendarAsApplicant];
+        // console.log("Events")
+        // console.log(events)
+
         // Get the returned users and update the state.
         const updUser = new User(response.data);
         // embed necessary attribute place
@@ -96,8 +104,17 @@ const Home = () => {
           <h1>Notifications!</h1>
           <div className='notification container'>
             {/* TODO: Only get the last 3 notifications & display as link */}
-            <div className='notification item'><h3>Request got accepted.</h3></div>
-            <div className='notification item'><h3>Application for request.</h3></div>
+            { 
+            user.myNotifications.slice(0,3).map((n) => {
+              let msg = null;
+              try {
+                msg = new Message(JSON.parse(n.message))
+              } catch {
+                msg = new Message({link: "/", messageContent: n.message})
+              }
+              return (<Link to={`${ msg.link }`} key={n.notificationId} className="notification item"><h3>{ msg.messageContent }</h3></Link>)
+              })
+            }
           </div>
         </div>
         <div className='menu'>

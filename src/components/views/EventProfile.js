@@ -52,7 +52,12 @@ const ProfileField = props => {
           }
     
           // Get the returned user and update a new object`
-          setSleepEvent(new SleepEvent(repolate))
+          let sl = new SleepEvent(response.data)
+
+          // modified injections to call based on need of data
+          sl.constructDateTime();
+
+          setSleepEvent(sl)
      
           // Creation successfully worked --> navigate to the route /PlaceProfile
           console.log(`Retrieval worked: ${JSON.stringify(response.data)}`);
@@ -85,10 +90,24 @@ const ProfileField = props => {
     const doDelete = () => {
       // TODO: Implement
     }
+
+    const providerView = () => {
+      return (
+      <h1>Is Provider</h1>
+      )
+    }
+
+    const applicantView = () => {
+      return (<h2>Is Applicant</h2>)
+    }
+
     return (
       <BaseContainer>
         <div className="event container">
-        
+          { localStorage.getItem('loggedInUserId') == sleepEvent.providerId
+            ? providerView()
+            : applicantView()
+          }
           <div className="event form">
             <ProfileField
               label="Arrival Time"
@@ -109,12 +128,15 @@ const ProfileField = props => {
               >
                 Go back
               </Button>
-              <Button
-                width="30%"
-                onClick={() => toEdit()}
-              >
-                Edit
-              </Button>
+              { localStorage.getItem('loggedInUserId') == sleepEvent.providerId 
+              ? (<Button
+                  width="30%"
+                  onClick={() => toEdit()}
+                >
+                  Edit
+                </Button>)
+              : (<></>)
+              }
             </div>
           </div>
         </div>
