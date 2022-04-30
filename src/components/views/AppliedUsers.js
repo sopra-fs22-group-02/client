@@ -16,8 +16,28 @@ const AppliedUsers = props => {
             </div>
             <div className= "applied box" >
                 <div className="applied box1">
+                    <div className= "applied insideboxes">
+                        <img className = "applied avatar" src="/profile.png" alt="user profile img" />
+                        <h1>Anna</h1>
+                        <Button>
+                            Accept
+                        </Button>
+                    </div>
+
                 </div>
                 <div className="applied box2">
+                    <div className= "applied box2-title">
+                        <h1>Event Time</h1>
+                        <div className= "applied insideframes">
+                            <h1>Anna</h1>
+                        </div>
+                    </div>
+                    <div className= "applied insideboxesframe1">
+                        <h1> From: <span>28.03.2020</span> <span> 20:00</span> </h1>
+                    </div>
+                    <div className= "applied insideboxesframe2">
+                        <h1> To:<span>28.03.2020</span> <span> 20:00</span> </h1>
+                    </div>
                 </div>
             </div>
             <div className = "apply footer" >
@@ -30,8 +50,6 @@ const AppliedUsers = props => {
                     Apply
                 </Button>
             </div>
-
-
         </BaseContainer>
     );
 };
