@@ -80,6 +80,7 @@ const ChooseApplicant = () => {
     const [startTime, setStartTime] = useState(null); 
     const [endTime, setEndTime] = useState(null); 
     const [applicants, setApplicants] = useState(null);
+    const [placeId, setPlaceId] = useState(null);
     const history = useHistory();
 
     useEffect( () => {
@@ -91,7 +92,7 @@ const ChooseApplicant = () => {
                 setStartTime(response.data.startTime);
                 setEndTime(response.data.endTime);
                 setApplicants(response.data.applicants);
-                
+                setPlaceId(response.data.placeId)
             } catch (error) {
                 alert(`Something went wrong during the events fetching: \n${handleError(error)}`);
             }
@@ -118,6 +119,11 @@ const ChooseApplicant = () => {
                 <h3 className='accept text'>From: {startTime}</h3>
                 <h3 className='accept text'>Till: {endTime}</h3>
             </div>
+            <Button
+                onClick={() => history.push(`/events/${placeId}`)}
+            >
+                return
+            </Button>
         </BaseContainer>
     );
 
