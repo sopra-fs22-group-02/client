@@ -24,7 +24,8 @@ const EventBox = ({ event, providerId }) => {
             }
             console.log(message); // click apply twice
             const requestBody = JSON.stringify({});
-            const response3 = await api.post(`places/${localStorage.getItem('loggedInUserId')}/events/${event.eventId}`, requestBody)
+            const response3 = await api.post(`places/${localStorage.getItem('loggedInUserId')}/events/${event.eventId}`);
+            console.log(response3);
         } catch (error) {
             alert(`Something went wrong during application: \n${handleError(error)}`);
         }
