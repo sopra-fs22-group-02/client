@@ -1,0 +1,33 @@
+@import 'styles/theme';
+
+.accept {
+    &.base-container {
+        display: flex;
+        flex-direction: row;
+        border-style: solid;
+        border-color: black;
+    }
+    &.user-container {
+        border-style: solid;
+        border-color: black;
+    }
+    &.event {
+        border-style: solid;
+        border-color: black;
+    }
+    &.box {
+        display: flex;
+        flex-direction: row;
+        border-style: solid;
+        border-color: black;
+    }
+    &.avatar {
+
+    }
+    &.username {
+        color: white;
+    }
+    &.button {
+
+    }
+}
