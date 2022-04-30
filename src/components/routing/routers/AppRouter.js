@@ -16,6 +16,8 @@ import FindPlace from "../../views/FindPlace";
 import ApplyEvent from "../../views/ApplyEvent";
 import QnA from "components/views/QnA";
 import EventAccepted from "../../views/EventAccepted";
+import AppliedUsers from "../../views/AppliedUsers";
+
 
 /**
  * Main router of your application.
@@ -79,6 +81,9 @@ const AppRouter = () => {
         </Route>
         <Route exact path="/registration">
             <Registration/>
+        </Route>
+        <Route exact path="/appliedUsers">
+            <AppliedUsers/>
         </Route>
         <Route exact path="/">
           <Redirect to="/login"/>

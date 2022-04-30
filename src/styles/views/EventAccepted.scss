@@ -10,7 +10,6 @@
     align-items: center;
     overflow: visible;
   }
-
   &.frame h1 {
     font-weight: 400;
     font-style: normal;
@@ -73,7 +72,6 @@
     grid-template-row: repeat(2, 1fr);
     row-gap: 1em;
     column-gap: 1em;
-
   }
   &.box1 {
     grid-column-start: 1;
@@ -85,10 +83,7 @@
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 5px;
-
-
   }
-
   &.box2 {
     grid-column-start: 2;
     grid-row-start: 1;
