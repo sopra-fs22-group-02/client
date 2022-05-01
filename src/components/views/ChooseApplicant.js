@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import SleepEvent from 'models/SleepEvent';
 
 
-const ApplicantBox = ({ applicant, history }) => {
+const ApplicantBox = ({ applicant, history, eventId }) => {
     const [userUrl, setUserUrl] = useState(null);
     const [username, setUsername] = useState(null);
     const [message, setMessage] = useState(null);
@@ -23,7 +23,7 @@ const ApplicantBox = ({ applicant, history }) => {
     useEffect ( () => {
         async function fetchUser() {
             try {
-                const response = await api.get(`users/${applicant}/profile`);
+                const response = await api.get(`/users/${applicant}/profile`);
                 setUsername(response.data.username);
                
             } catch (error) {
@@ -35,13 +35,14 @@ const ApplicantBox = ({ applicant, history }) => {
 
     const accept = async () => {
         try {
-            const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
+            const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`)
             setMessage(`${response.data.username} accepted your application`)
             if (message) {
                 const requestBody = JSON.stringify({message});
-                const response2 = await api.post(`users/${applicant}/notifications`, requestBody);
+                const response2 = await api.post(`/users/${applicant}/notifications`, requestBody);
                 console.log(response2);
             }
+            const response3 = await api.get(`/places/${applicant}/events/${eventId}/accept`)
         } catch (error) {
             alert(`Something went wrong during sending notifications: \n${handleError(error)}`);
         }
@@ -105,7 +106,7 @@ const ChooseApplicant = () => {
     if (applicants) {
         applicantContent = (
             applicants.map(applicant => (
-                <ApplicantBox key={applicant} applicant={applicant} history={history}/>
+                <ApplicantBox key={applicant} applicant={applicant} history={history} eventId={eventId}/>
             ))
         )
     }

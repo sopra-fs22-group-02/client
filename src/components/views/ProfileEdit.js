@@ -50,7 +50,7 @@ const ProfileEdit = () => {
 
     const doUpdate = async () => {
         try {
-            const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio, password}, 
+            const requestBody = JSON.stringify({id: userId, firstName, lastName, username, bio, password, profilePicture: url}, 
                 (key, value) => {
                     if (value !== null) { return value } else { return user[key] }
             }

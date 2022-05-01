@@ -10,6 +10,7 @@ import { Stomp } from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 import faker from "@faker-js/faker";
 import { Spinner } from "components/ui/Spinner";
+import { getDomain } from "helpers/getDomain";
 
 
 const QnA = ( { props }) => {
@@ -23,6 +24,7 @@ const QnA = ( { props }) => {
     // initialize empty SockJS and StompClient
     let [socket, setSocket] = useState(null);
     let [stompClient, setStompClient] = useState(null);
+    const [placeId, setPlaceId] = useState(null);
 
     // get this from localStorage later
     // let userId = `User${Math.random()}`; 
@@ -31,7 +33,7 @@ const QnA = ( { props }) => {
     // session.turn = userId;
 
     // use params
-    const { qaSessionId } = useParams();
+    const { qaSessionId , eventId } = useParams();
 
     function onConnected() {
 
@@ -129,7 +131,7 @@ const QnA = ( { props }) => {
     function connect(sessionid) {
 
         // assign SockJS
-        var socket = new SockJS('http://10.211.55.4:8080/ws');
+        var socket = new SockJS(`${getDomain()}/ws`);
         setSocket(socket)
 
         // assign StompClient
@@ -166,7 +168,19 @@ const QnA = ( { props }) => {
                     },
                     {
                         id: 3,
-                        question: "Are you single?"
+                        question: "Do you like gardening?"
+                    },
+                    {
+                        id: 4,
+                        question: "Do you like traveling?"
+                    },
+                    {
+                        id: 5,
+                        question: "Do you like literature?"
+                    },
+                    {
+                        id: 6,
+                        question: "Do you like software engineering?"
                     }
                 ])
 
@@ -195,6 +209,34 @@ const QnA = ( { props }) => {
         
     }, [location.key])
 
+
+    const notifyCounterparty = async (qaSessionId) => {
+        try {
+            const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`)
+
+            const response_event = await api.get(`/places/events/${eventId}`);
+
+            let sendToUser = response_event.data.providerId;
+
+            if(localStorage.getItem('loggedInUserId') == response_event.data.providerId) {
+                sendToUser = response_event.data.confirmedApplicant
+            }
+
+            const message = JSON.stringify({
+                messageContent: `${ response.data.username } invites you to a QnA Session.`,
+                link: `/qa/${eventId}/${qaSessionId}`
+            })
+
+            const requestBody = JSON.stringify({message});
+            const response2 = await api.post(`/users/${sendToUser}/notifications`, requestBody);
+            console.log(response2);
+
+
+        } catch (error) {
+            alert(`Something went wrong during sending notifications: \n${handleError(error)}`);
+        }
+    }
+
     function sendMessage(sessionInstance) {
 
         const topic = `/app/qna/${qaSessionId}`;
@@ -211,6 +253,19 @@ const QnA = ( { props }) => {
             stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
         }
     }
+
+    // function sendLeaveMessage() {
+    //     const topic = `/app/qna/${qaSessionId}`;
+    //     if(stompClient) {
+    //         console.log("StompClient Active")
+    //         var chatMessage = {
+    //             sender: userId,
+    //             content: "void",
+    //             type: 'LEAVE'
+    //         };
+    //         stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
+    //     } 
+    // }
 
     useEffect(() => {
         console.log("New question selected.");
@@ -261,8 +316,10 @@ const QnA = ( { props }) => {
     const doExit = () => {
         // trigger client exit message => TODO: Broadcast to WS Server
         console.log("Want to exit")
+
+        // sendLeaveMessage();
         // push to the exit session
-        history.push(`/qa/1`)
+        history.push(`/`)
         // disconnect from stompClient => TODO
         stompClient.disconnect()
     }
@@ -391,7 +448,9 @@ const QnA = ( { props }) => {
                                     // also send notification
 
                                     // push to the session
-                                    history.push({pathname: `/qa/1/${qaSessionId}`})
+                                    history.push({pathname: `/qa/${eventId}/${qaSessionId}`})
+
+                                    notifyCounterparty(qaSessionId);
 
                                     // console.log(`${qaSessionId}`)
                                     // connect(qaSessionId)
