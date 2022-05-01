@@ -4,8 +4,49 @@ import BaseContainer from "../ui/BaseContainer";
 import "styles/views/EventAccepted.scss";
 import {Button} from "../ui/Button";
 import { api, handleError } from 'helpers/api';
+import axios from 'axios';
+
+const MapFrame = (props) => {
+    const [inferredAddress, setInferredAddress] = useState(null)
 
 
+    function getCoords() {
+        return axios
+          .get(
+            `http://nominatim.openstreetmap.org/search?q=${props.address}&format=json&polygon=1&addressdetails=1`
+          )
+          .then((res) => {
+            console.log("Coords data")
+            console.log(res.data[0]);
+            setInferredAddress(res.data[0])
+          });
+    }
+
+    getCoords();
+
+    return (<>
+    {/* <iframe 
+        // width="100%" 
+        // height="350" 
+        // frameBorder="0" 
+        // scrolling="no" 
+        // marginHeight="0" 
+        // marginWidth="0" 
+        src="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=47.503%2C9.747%3B47.489%2C9.692#map=15/47.4970/9.7206">
+        </iframe>
+        <br/><small>
+        <a href="https://www.openstreetmap.org/?mlat=47.4920&amp;mlon=9.7145#map=16/47.4920/9.7145">
+            Show on larger map
+        </a>
+        </small> */}
+        {/* Currently only this appears possible due to security restrictions */}
+        <Button onClick={()=> window.open(`https://www.openstreetmap.org/?mlat=${inferredAddress.lat}&amp;mlon=${inferredAddress.lon}`, "_blank")}>
+            Show Place on Map
+        </Button>
+        </>
+        )
+
+}
 
 const EventAccepted = ({ sleepEvent }) => {
 
@@ -37,7 +78,9 @@ const EventAccepted = ({ sleepEvent }) => {
                     <div className= "accept grid-title1" >
                         <h1>Picture</h1>
                     </div>
+                    <div className="accept grid-item1">
                     <img className = "accept ima2" src="/zuri_lake.jpeg" alt="user profile img" />
+                    </div>
                     {/* Only show address when the applicant is confirmed */}
                     { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId') 
                     ?
@@ -58,7 +101,12 @@ const EventAccepted = ({ sleepEvent }) => {
                         <h1>Map</h1>
                         </div>
                         <div className="accept grid-item4">
-                        <img className = "accept ima3" src="/map.jpeg" alt="user profile img" />
+                        {/* <img className = "accept ima3" src="/map.jpeg" alt="user profile img" /> */}
+                        {/* Embed iFrame through external API */}
+                        {sl.place && sl.place.address ?
+                        (<MapFrame address={sl.place.address}/>)
+                        : (<></>)
+                        }
                         </div>
                         </>
                         )

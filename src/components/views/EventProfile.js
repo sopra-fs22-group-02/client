@@ -10,6 +10,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import moment from "moment"
 import EventAccepted from './EventAccepted';
+import AppliedUsers from './AppliedUsers';
 
 
 const ProfileField = props => {
@@ -37,6 +38,7 @@ const ProfileField = props => {
   const EventProfile = () => {
     const history = useHistory();
     const [sleepEvent, setSleepEvent] = useState(new SleepEvent());
+    const [callbackState, setCallBackState] = useState(false);
 
     useEffect(() => {
       async function fetchData() {
@@ -77,15 +79,18 @@ const ProfileField = props => {
 
       fetchData()
 
-    }, [])
+    }, [callbackState])
 
     const apply = async () => {
 
       try {
-          const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
+          const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`)
+
+          console.log("User to apply:")
+          console.log(JSON.stringify(response.data))
 
           const message = JSON.stringify({
-              messageContent: `${response.data.firstName} applied to one of your events.`,
+              messageContent: `${ response.data.username } applied to one of your events.`,
               link: `/eventprofile/${sleepEvent.placeId}/${sleepEvent.eventId}`
           })
           // setMessage(`${response.data.username} wants to apply for your sleep event`)
@@ -101,6 +106,7 @@ const ProfileField = props => {
           const response3 = await api.post(`/places/${localStorage.getItem('loggedInUserId')}/events/${sleepEvent.eventId}`);
           // debug
           // console.log(response3);
+          setCallBackState(!callbackState)
       } catch (error) {
           alert(`Something went wrong during application: \n${handleError(error)}`);
       }
@@ -133,6 +139,26 @@ const ProfileField = props => {
       // ? (<h2>Provider has chosen</h2>)
       // : (<h2>Provider has not yet chosen</h2>)
       // <EventAccepted sleepEvent={sleepEvent} />
+      <>
+      <AppliedUsers sleepEvent={sleepEvent} callback={callbackState} setCallback={setCallBackState} />
+      <div className = "apply footer" >
+          <div className= "placeholder" >
+          </div>
+          { sleepEvent.confirmedApplicant !== 0 ?
+          (<Button>
+              Start QnA
+          </Button>)
+          : (<></>)
+          }
+          <Button
+                  width="30%"
+                  onClick={() => toEdit()}
+                >
+                  Edit
+          </Button>
+
+      </div>
+      </>
     }</>
     )
   
@@ -207,12 +233,7 @@ const ProfileField = props => {
                 Go back
               </Button>
               { localStorage.getItem('loggedInUserId') == sleepEvent.providerId 
-              ? (<Button
-                  width="30%"
-                  onClick={() => toEdit()}
-                >
-                  Edit
-                </Button>)
+              ? (<></>)
               : (<></>)
               }
             </div>

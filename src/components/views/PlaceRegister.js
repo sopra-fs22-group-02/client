@@ -61,7 +61,13 @@ const FormField = props => {
     const doRegister = async () => {
       try {
         // TODO: Make sure address and nearestTo is included
-        const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), closestCampus, name, address, description});
+        const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), 
+          closestCampus, 
+          name, 
+          address, 
+          description,
+          pictureOfThePlace: url
+        });
         // const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), name, description}); 
         const response = await api.post('/places', requestBody);
   

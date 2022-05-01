@@ -81,7 +81,7 @@ const FormField = props => {
       try {
         // Only update non-null values (where the state is not null, partial update)
         // FIXME: Potentially partial update?
-        const requestBody = JSON.stringify({closestCampus, name, address, description}, 
+        const requestBody = JSON.stringify({closestCampus, name, address, description, pictureOfThePlace: url}, 
           (key, value) => {
           if (value !== null) { return value } else { return place[key] }
         });
