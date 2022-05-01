@@ -1,5 +1,7 @@
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {HomeGuard} from "components/routing/routeProtectors/HomeGuard";
+import {ProfileGuard} from "components/routing/routeProtectors/ProfileGuard";
+import {ProfileEditGuard} from "components/routing/routeProtectors/ProfileEditGuard";
 import HomeRouter from "components/routing/routers/HomeRouter";
 import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
@@ -39,9 +41,7 @@ const AppRouter = () => {
           </HomeGuard>
         </Route>
         <Route exact path="/login">
-
             <Login/>
-
         </Route>
         <Route exact path="/placeRegister">
             <PlaceRegister/>
@@ -96,10 +96,14 @@ const AppRouter = () => {
           <Redirect to="/login"/>
         </Route>
         <Route exact path= "/profile/:userId?">
-           <Profile/>
+          <ProfileGuard>
+            <Profile/>
+          </ProfileGuard>
         </Route>
         <Route exact path= "/profileEdit/:userId?">
-           <ProfileEdit/>
+          <ProfileEditGuard>
+            <ProfileEdit/>
+          </ProfileEditGuard>
         </Route>
         <Route exact path="/chooseapplicant/:eventId">
           <ChooseApplicant />
