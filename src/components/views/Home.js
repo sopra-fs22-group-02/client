@@ -39,6 +39,7 @@ const Home = () => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('loggedInUserId');
+    localStorage.removeItem('placeIdOfLoggedInUser');
     history.push('/login');
   }
 
@@ -67,6 +68,8 @@ const Home = () => {
         const updUser = new User(response.data);
         // embed necessary attribute place
         await updUser.embed_place()
+
+        updUser.place ? localStorage.setItem('placeIdOfLoggedInUser', updUser.place.placeId) : null
 
         setUser(updUser)
 
