@@ -12,6 +12,8 @@ import User from 'models/User';
 import { responsiveFontSizes } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Message from 'models/Message';
+import moment from 'moment';
+import _ from "lodash";
 
 const Player = ({user}) => (
   <div className="player container">
@@ -35,6 +37,7 @@ const Home = () => {
   // a component can have as many state variables as you like.
   // more information can be found under https://reactjs.org/docs/hooks-state.html
   const [user, setUser] = useState(null);
+  // const [userEvents, setUserEvents] = useState([]);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -68,6 +71,7 @@ const Home = () => {
         const updUser = new User(response.data);
         // embed necessary attribute place
         await updUser.embed_place()
+        await updUser.embed_events()
 
         updUser.place ? localStorage.setItem('placeIdOfLoggedInUser', updUser.place.placeId) : null
 

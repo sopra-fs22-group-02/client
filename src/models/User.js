@@ -24,6 +24,7 @@ class User {
     this.myCalendarAsApplicant = null;
     this.myCalendarAsProvider = null;
     this.pictureUrl = null;
+    this.eventEntities = null;
 
     // declare fun to embed place
     this.embed_place = async function() {
@@ -53,20 +54,52 @@ class User {
           this.pictureUrl = url;
         })
     }
+    
+    this.embed_events = async function() {
+      let events = [...new Set([...this.myCalendarAsApplicant, ...this.myCalendarAsProvider])];
+      if(events.length > 0) {
+          console.log("Procedure called")
+          // embedder
+          try {
+            console.log("Events:" + JSON.stringify(events))
+            // debug
+            // console.log(this.userId)
+            let eA = []
+            for(let eId = 0; eId < events.length; eId++) {
+              console.log("Calling " + `/places/events/${events[eId]}`)
+              const res = await api.get(`/places/events/${events[eId]}`)
+              eA.push(res.data)
+            }
+            //debug
+            console.log("Event entities:")
+            console.log(eA.data)
+
+            eA = _.map(eA, (e) => {
+              return Object.assign(e, {
+              starttime: moment(`${e.startDate} ${e.startTime}`, "YYYY-MM-DD HH:mm").toISOString(),
+              endtime: moment(`${e.endDate} ${e.endTime}`, "YYYY-MM-DD HH:mm").toISOString()
+              })
+            })
+            console.log("eA:" + JSON.stringify(eA))
+
+            // assign first place to the user
+            // events = eA.length > 0 ? eA : null
+            this.eventEntities = eA.length > 0 ? eA : []
+            // debug
+            // console.log("Triggered")
+          } catch {
+            console.log("Something went wrong while embedding applicants.")
+          }
+        }
+      }
 
     Object.assign(this, data);
   }
 
   get events() {
-    let events = [...new Set([...this.myCalendarAsApplicant, ...this.myCalendarAsProvider])];
-    events = _.map(events, (e) => {
-      return Object.assign(e, {
-      starttime: moment(`${e.startDate} ${e.startTime}`, "YYYY-MM-DD HH:mm").toISOString(),
-      endtime: moment(`${e.endDate} ${e.endTime}`, "YYYY-MM-DD HH:mm").toISOString()
-      })
-    }) 
-    console.log(`Events: ${events}`)
-    return events;
+    return this.eventEntities
+    // console.log(`Events: ${events}`)
+    // return events;
   }
 }
 export default User;
