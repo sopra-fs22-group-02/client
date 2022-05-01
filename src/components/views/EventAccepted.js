@@ -18,7 +18,7 @@ const MapFrame = (props) => {
     function getCoords() {
         return axios
           .get(
-            `http://nominatim.openstreetmap.org/search?q=${props.address}&format=json&polygon=1&addressdetails=1`
+            `https://nominatim.openstreetmap.org/search?q=${props.address}&format=json&polygon=1&addressdetails=1`
           )
           .then((res) => {
             console.log("Coords data")
