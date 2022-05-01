@@ -38,11 +38,13 @@
     border-radius: 0.75em;
     margin-bottom: 20px;
     margin-top: 20px;
+    height: 130px;
     text-align: left;
     border-style: solid;
     border-width: 2px;
     border-color: #1F4F59FF;
     background-color: rgba(31, 79, 89, 0.2);
+    overflow-y: scroll;
   }
 
   &.first-name {
