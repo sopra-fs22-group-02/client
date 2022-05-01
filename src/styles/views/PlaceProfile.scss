@@ -1,104 +1,99 @@
 @import 'styles/theme';
 
-.profile{
+.placeprofile {
   &.container {
-    margin-top: 2em;
-    min-height: 300px;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
-    flex-direction: row;
-  }
-  &.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 70%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid none solid solid;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color: rgb(188, 236, 231);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  &.field {
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  &.label-box {
-    color: #042825;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 200px;
-    text-transform: none; 
-    font-weight: 500;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    justify-content: center;
-  }
-  &.value-box {
-    color: #042825;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 200px;
-    height: 50px;
-    text-transform: none; 
-    font-weight: 500;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    justify-content: center;
-  }
-    &.form2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid solid solid none;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color:  rgb(188, 236, 231);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  &.image-box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    text-transform: uppercase;
-    font-weight: 800;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    position: relative;
-    bottom: 75px;
-  }
-  &.button-container {
-    display: flex;
-    justify-content: end;
-    margin-top: 2em;
-  }
-  &.picture {
-    align-items: center;
-    position: relative;
-    bottom: 35px;
-    left: 40px;
-    border-radius: 30px;
     border-style: solid;
     border-width: 2px;
-    border-color:#053f3c;
+    border-color: #1F4F59FF;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: grid;
+    height: 600px;
+    width: auto;
+    grid-template-columns: 600px auto;
+    column-gap: 10px;
+  }
+  &.form {
+    flex-direction: column;
+    margin-left: 5px;
+    justify-content: center;
+  }
+
+  &.field {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 5px;
+    margin-top: 20px;
+  }
+  &.label-box {
+    height: 60px;
+    width: 280px;
+    background-color: rgba(31, 79, 89, 0.2);
+    color: #053f3c;
+    font-size: 30px;
+  }
+  &.value-box {
+    height: 60px;
+    width: 280px;
+    margin-top: 20px;
+    background-color: rgba(31, 79, 89, 0.2);
+    color: #053f3c;
+    font-size: 18px;
+    overflow-y: scroll;
+  }
+  &.button-container {
+    margin-left: 25%;
+  }
+  &.frame {
+    flex-shrink: 0;
+    width: 400px;
+    height: 70px;
+    background-color: #1f4f59;
+    overflow: hidden;
+
+  }
+  &.form2 {
+    flex-direction: column;
+    margin-left: 5px;
+    justify-content: center;
+  }
+
+  &.title {
+    flex-shrink: 0;
+    width: 400px;
+    height: 70px;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.title h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+
+  }
+  &.picture {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    border-radius: 30px;
+
   }
   &.event-button {
-    position: relative;
-    top: 68px;
-    left: 45px;
+    margin-left: 23%;
+    margin-right: auto;
   }
+
 }

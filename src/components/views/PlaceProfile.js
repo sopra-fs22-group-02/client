@@ -13,13 +13,13 @@ import Avatar from "@mui/material/Avatar";
 
 const ProfileField = props => {
     return (
-      <div className="profile field">
+      <div className="placeprofile field">
         <Box
-            className="profile label-box"
+            className="placeprofile label-box"
             value={props.label}
         />
         <Box
-            className="profile value-box"
+            className="placeprofile value-box"
             value={props.value}
         />
       </div>
@@ -72,8 +72,8 @@ const ProfileField = props => {
       <div>
       {/* <ProfileData/> */}
       <BaseContainer>
-        <div className="profile container">
-          <div className="profile form">
+        <div className="placeprofile container">
+          <div className="placeprofile form">
             <ProfileField
                 label="Name: "
                 value={place.name}
@@ -90,7 +90,7 @@ const ProfileField = props => {
                 label="Description: "
                 value={place.description}
             />
-            <div className="profile button-container">
+            <div className="placeprofile button-container">
               <Button
                 width="30%"
                 onClick={() => toEdit()}
@@ -105,19 +105,19 @@ const ProfileField = props => {
               </Button>
             </div>
           </div>
-          <div className="profile form2">
-            <Box
-                className="profile image-box"
-                value="profile image"
-            />
+          <div className="placeprofile form2">
+              <div className = "placeprofile title" >
+                  <h1> Place profile image</h1>
+              </div>
+
             <Avatar
-              className="profile picture"
+              className="placeprofile picture"
               src={url}
-              sx={{ width: 150, height: 150 }}
+              sx={{ width: 400, height: 370 }}
               variant="square"
             />
             <Button
-              className='profile event-button'
+              className='placeprofile event-button'
               width="50%"
               onClick={() => history.push(`/events/${place.placeId}`)}
             >
