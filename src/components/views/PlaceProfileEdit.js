@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect, useRef} from 'react';
 import {api, handleError} from 'helpers/api';
 import Place from 'models/Place';
 import {useHistory} from 'react-router-dom';
@@ -76,25 +76,29 @@ const FormField = props => {
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
     const [place, setPlace] = useState(new Place());
+    const refUrl = useRef(null);
   
     const doUpdate = async () => {
       try {
         // Only update non-null values (where the state is not null, partial update)
         // FIXME: Potentially partial update?
-        const requestBody = JSON.stringify({closestCampus, name, address, description}, 
+        const requestBody = JSON.stringify({closestCampus, name, address, description, pictureOfThePlace: refUrl.current}, 
           (key, value) => {
           if (value !== null) { return value } else { return place[key] }
         });
 
         console.log(`Sending: ${requestBody}`)
-        const response = await api.put(`/places/${ localStorage.getItem('placeIdOfLoggedInUser') }`, requestBody);
+
+        console.log(`Url: /places/${ placeId }`)
+
+        const response = await api.put(`/places/${ placeId }`, requestBody);
 
         // debug
         console.log(response)
   
         // Get the returned user and update a new object.
         // const place = new Place(response.data);
-  
+        
   
         // Creation successfully worked --> navigate to the route /PlaceProfile
         history.push(`/placeProfile/${ placeId }`);
@@ -122,6 +126,10 @@ const FormField = props => {
       fetchData();
 
     }, []);
+
+    useEffect(() => {
+      refUrl.current = url
+    }, [url])
 
     let { placeId } = useParams()
 

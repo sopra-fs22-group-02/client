@@ -2,6 +2,8 @@ import { api } from "helpers/api";
 import _ from "lodash";
 import object from "sockjs-client/lib/utils/object";
 import moment from "moment";
+import { storage } from 'helpers/firebase';
+import { ref, getDownloadURL } from "firebase/storage";
 
 /**
  * User model
@@ -21,6 +23,7 @@ class User {
     this.myNotifications = null;
     this.myCalendarAsApplicant = null;
     this.myCalendarAsProvider = null;
+    this.pictureUrl = null;
 
     // declare fun to embed place
     this.embed_place = async function() {
@@ -40,6 +43,15 @@ class User {
           console.log("Something went wrong while fetching the users places.")
         }
       }
+    }
+
+    this.embed_picture_url = async function() {
+        getDownloadURL(ref(storage, `user/${this.userId}`))
+        .then((url) => {
+          console.log("Retrievel URL:")
+          console.log(url)
+          this.pictureUrl = url;
+        })
     }
 
     Object.assign(this, data);

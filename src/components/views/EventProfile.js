@@ -10,6 +10,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import moment from "moment"
 import EventAccepted from './EventAccepted';
+import AppliedUsers from './AppliedUsers';
 
 
 const ProfileField = props => {
@@ -37,6 +38,7 @@ const ProfileField = props => {
   const EventProfile = () => {
     const history = useHistory();
     const [sleepEvent, setSleepEvent] = useState(new SleepEvent());
+    const [callbackState, setCallBackState] = useState(false);
 
     useEffect(() => {
       async function fetchData() {
@@ -77,15 +79,18 @@ const ProfileField = props => {
 
       fetchData()
 
-    }, [])
+    }, [callbackState])
 
     const apply = async () => {
 
       try {
-          const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
+          const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`)
+
+          console.log("User to apply:")
+          console.log(JSON.stringify(response.data))
 
           const message = JSON.stringify({
-              messageContent: `${response.data.firstName} applied to one of your events.`,
+              messageContent: `${ response.data.username } applied to one of your events.`,
               link: `/eventprofile/${sleepEvent.placeId}/${sleepEvent.eventId}`
           })
           // setMessage(`${response.data.username} wants to apply for your sleep event`)
@@ -101,6 +106,7 @@ const ProfileField = props => {
           const response3 = await api.post(`/places/${localStorage.getItem('loggedInUserId')}/events/${sleepEvent.eventId}`);
           // debug
           // console.log(response3);
+          setCallBackState(!callbackState)
       } catch (error) {
           alert(`Something went wrong during application: \n${handleError(error)}`);
       }
@@ -116,11 +122,15 @@ const ProfileField = props => {
     let {placeId, eventId} = useParams();
     // let {eventId} = useParams();
     const goBack = () => {
-        history.push("/home")
+        history.push("/")
     }
 
     const toEdit = () => {
       history.push(`/eventupdate/${placeId}/${eventId}`)
+    }
+
+    const toQnA = () => {
+      history.push(`/qa/${sleepEvent.eventId}`)
     }
 
     const doDelete = () => {
@@ -133,6 +143,27 @@ const ProfileField = props => {
       // ? (<h2>Provider has chosen</h2>)
       // : (<h2>Provider has not yet chosen</h2>)
       // <EventAccepted sleepEvent={sleepEvent} />
+      <>
+      <AppliedUsers sleepEvent={sleepEvent} callback={callbackState} setCallback={setCallBackState} />
+      <div className = "apply footer" >
+          <div className= "placeholder" >
+          </div>
+          { sleepEvent.confirmedApplicant !== 0 ?
+          (<Button onClick={() => toQnA()}>
+              Start QnA
+          </Button>)
+          : (<></>)
+          }
+          <Button
+                  width="30%"
+                  onClick={() => toEdit()}
+                  disabled={sleepEvent.confirmedApplicant !== 0}
+                >
+                  Edit
+          </Button>
+
+      </div>
+      </>
     }</>
     )
   
@@ -149,7 +180,7 @@ const ProfileField = props => {
         </div>
         {/* Only show QnA Button when applicant is confirmed */}
         { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId')
-        ? (<Button>
+        ? (<Button onClick={() => {toQnA()}}>
             Start QnA
         </Button>)
         : (<></>)
@@ -185,39 +216,14 @@ const ProfileField = props => {
             ? applicantView()
             : (<></>)
           }
-        <div className="event container">
-          <div className="event form">
-            <ProfileField
-              label="Arrival Time"
-              value={moment(sleepEvent.starttime).format("HH:mm")}
-            />
-            <ProfileField
-              label="Departure Time"
-              value={moment(sleepEvent.endtime).format("HH:mm")}
-            />
-            <ProfileField
-              label="Date"
-              value={moment(sleepEvent.starttime).format("DD-MM-YYYY")}
-            />
-            <div className="event button-container">
-              <Button
-                width="30%"
-                onClick={() => goBack()}
-              >
-                Go back
-              </Button>
-              { localStorage.getItem('loggedInUserId') == sleepEvent.providerId 
-              ? (<Button
-                  width="30%"
-                  onClick={() => toEdit()}
-                >
-                  Edit
-                </Button>)
-              : (<></>)
-              }
-            </div>
-          </div>
-        </div>
+          <center>
+          <Button
+            width="30%"
+            onClick={() => goBack()}
+          >
+            Home
+          </Button>
+          </center>
       </BaseContainer>
     );
   };

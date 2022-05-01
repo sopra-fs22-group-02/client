@@ -85,24 +85,27 @@ import Place from "./Place";
       }
 
       this.embed_applicants = async function() {
-        if(!this.applicants.length > 0) {
+        if(this.applicants.length > 0) {
           // embedder
           try {
+            console.log("Apps" + JSON.stringify(this.applicants))
             // debug
             // console.log(this.userId)
             let aA = []
             for(let aId = 0; aId < this.applicants.length; aId++) {
-              const res = await api.get(`/users/${this.aId}/profile`)
+              console.log("Calling " + `/users/${this.applicants[aId]}/profile`)
+              const res = await api.get(`/users/${this.applicants[aId]}/profile`)
               aA.push(res.data)
             }
             //debug
-            // console.log(res.data)
+            console.log("Applicant entities:")
+            console.log(aA.data)
             // assign first place to the user
             this.applicantsEntities = aA.length > 0 ? aA : null
             // debug
             // console.log("Triggered")
           } catch {
-            console.log("Something went wrong while fetching the users places.")
+            console.log("Something went wrong while embedding applicants.")
           }
         }
       }

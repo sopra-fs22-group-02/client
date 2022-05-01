@@ -39,6 +39,7 @@ const Home = () => {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('loggedInUserId');
+    localStorage.removeItem('placeIdOfLoggedInUser');
     history.push('/login');
   }
 
@@ -67,6 +68,8 @@ const Home = () => {
         const updUser = new User(response.data);
         // embed necessary attribute place
         await updUser.embed_place()
+
+        updUser.place ? localStorage.setItem('placeIdOfLoggedInUser', updUser.place.placeId) : null
 
         setUser(updUser)
 
@@ -108,7 +111,7 @@ const Home = () => {
           <div className='notification container'>
             {/* TODO: Only get the last 3 notifications & display as link */}
             { 
-            user.myNotifications.slice(0,3).map((n) => {
+            user.myNotifications.reverse().slice(0,3).map((n) => {
               let msg = null;
               try {
                 msg = new Message(JSON.parse(n.message))

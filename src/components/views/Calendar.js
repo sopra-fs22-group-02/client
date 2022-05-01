@@ -13,7 +13,7 @@ const Event = ({ event }) => {
         <div className="calevent role">
           {event.providerId == localStorage.getItem('loggedInUserId') ? "Provider" : "Applicant"}
         </div>
-        <div className="calevent state">{event.state}</div>
+        <div className="calevent state">{event.applicationStatus ? event.applicationStatus : event.state }</div>
         <div className="calevent start-time">
           From: {moment(event.starttime).format("LT")}
         </div>
