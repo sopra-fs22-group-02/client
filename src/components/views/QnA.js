@@ -167,7 +167,19 @@ const QnA = ( { props }) => {
                     },
                     {
                         id: 3,
-                        question: "Are you single?"
+                        question: "Do you like gardening?"
+                    },
+                    {
+                        id: 4,
+                        question: "Do you like traveling?"
+                    },
+                    {
+                        id: 5,
+                        question: "Do you like literature?"
+                    },
+                    {
+                        id: 6,
+                        question: "Do you like software engineering?"
                     }
                 ])
 
