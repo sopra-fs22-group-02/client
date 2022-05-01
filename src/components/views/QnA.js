@@ -23,6 +23,7 @@ const QnA = ( { props }) => {
     // initialize empty SockJS and StompClient
     let [socket, setSocket] = useState(null);
     let [stompClient, setStompClient] = useState(null);
+    const [placeId, setPlaceId] = useState(null);
 
     // get this from localStorage later
     // let userId = `User${Math.random()}`; 
@@ -195,6 +196,7 @@ const QnA = ( { props }) => {
         
     }, [location.key])
 
+
     const notifyCounterparty = async (qaSessionId) => {
         try {
             const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`)
@@ -238,6 +240,19 @@ const QnA = ( { props }) => {
             stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
         }
     }
+
+    // function sendLeaveMessage() {
+    //     const topic = `/app/qna/${qaSessionId}`;
+    //     if(stompClient) {
+    //         console.log("StompClient Active")
+    //         var chatMessage = {
+    //             sender: userId,
+    //             content: "void",
+    //             type: 'LEAVE'
+    //         };
+    //         stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
+    //     } 
+    // }
 
     useEffect(() => {
         console.log("New question selected.");
@@ -288,8 +303,10 @@ const QnA = ( { props }) => {
     const doExit = () => {
         // trigger client exit message => TODO: Broadcast to WS Server
         console.log("Want to exit")
+
+        // sendLeaveMessage();
         // push to the exit session
-        history.push(`/qa/1`)
+        history.push(`/`)
         // disconnect from stompClient => TODO
         stompClient.disconnect()
     }

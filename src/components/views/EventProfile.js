@@ -180,7 +180,7 @@ const ProfileField = props => {
         </div>
         {/* Only show QnA Button when applicant is confirmed */}
         { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId')
-        ? (<Button>
+        ? (<Button onClick={() => {toQnA()}}>
             Start QnA
         </Button>)
         : (<></>)
