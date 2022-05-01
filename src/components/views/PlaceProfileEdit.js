@@ -14,13 +14,13 @@ import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
-      <div className="place field">
+      <div className="placeedit field">
         <Box
-            className="place box"
+            className="placeedit box"
             value={props.label}
         />
         <input
-          className="place input"
+          className="placeedit input"
           // placeholder="enter here.."
           defaultValue={props.defaultValue}
           // value={props.value}
@@ -32,12 +32,12 @@ const FormField = props => {
 
   const SelectField = props => {
     return (
-      <div className="place field">
+      <div className="placeedit field">
         <Box
-            className="place box"
+            className="placeedit box"
             value={props.label}
         />
-        <select className="place select" onChange={(e) => props.onChange(e.target.value)} >
+        <select className="placeedit select" onChange={(e) => props.onChange(e.target.value)} >
             { Place.getClosestCampi().map((c) =>
             {
               console.log(`selected value: ${props.value}`)
@@ -56,7 +56,7 @@ const FormField = props => {
   const ImageHolder = props => {
     return (
         <img
-          className="place picture"
+          className="placeedit picture"
           src="/zuri_lake.jpeg"
           width={props.width}
         />
@@ -163,8 +163,8 @@ const FormField = props => {
   
     return (
       <BaseContainer>
-        <div className="place container">
-          <div className="place form">
+        <div className="placeedit container">
+          <div className="placeedit form">
             <FormField
               label="Name"
               defaultValue={place.name}
@@ -187,7 +187,7 @@ const FormField = props => {
               defaultValue={place.description}
               onChange={des => setDescription(des)}
             />
-            <div className="place button-container">
+            <div className="placeedit button-container">
               <Button
                 width="30%"
                 onClick={() => doUpdate()}
@@ -196,20 +196,23 @@ const FormField = props => {
               </Button>
             </div>
           </div>
-          <div className="place form2">
-            <Box
-                className="place image-box"
-                value="Place Image"
-            />
+          <div className="placeedit form2">
+            <div className = "placeedit title" >
+              <h1> Place profile image</h1>
+            </div>
+
             <Avatar
-              className="place picture"
+              className="placeedit picture"
               src={url}
-              sx={{ width: 150, height: 150}}
+              sx={{ width: 400, height: 370}}
               variant="square"
             />
-            <input type="file" onChange={handleImageChange}/>
+            <div className = "placeedit selectfield" >
+              <input type="file" onChange={handleImageChange}/>
+            </div>
+
             <button 
-              className='place image-button'
+              className='placeedit image-button'
               onClick={handleSubmit}>
               Submit
             </button>
