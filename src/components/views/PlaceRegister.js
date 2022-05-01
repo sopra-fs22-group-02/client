@@ -13,13 +13,13 @@ import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
-      <div className="place field">
+      <div className="placeregister field">
         <Box
-            className="place box"
+            className="placeregister box"
             value={props.label}
         />
         <input
-          className="place input"
+          className="placeregister input"
           placeholder="enter here.."
           value={props.value}
           onChange={e => props.onChange(e.target.value)}
@@ -30,12 +30,12 @@ const FormField = props => {
 
   const SelectField = props => {
     return (
-      <div className="place field">
+      <div className="placeregister field">
         <Box
-            className="place box"
+            className="placeregister box"
             value={props.label}
         />
-        <select className="place select" onChange={(e) => props.onChange(e.target.value)}>
+        <select className="placeregister select" onChange={(e) => props.onChange(e.target.value)}>
             { Place.getClosestCampi().map((c) =>
               (<option key={c.id} value={c.campus}>{c.campus}</option>)
             )}
@@ -113,8 +113,8 @@ const FormField = props => {
 
     return (
       <BaseContainer>
-        <div className="place container">
-          <div className="place form">
+        <div className="placeregister container">
+          <div className="placeregister form">
             <FormField
               label="Name"
               value={name}
@@ -141,7 +141,7 @@ const FormField = props => {
               value={description}
               onChange={des => setDescription(des)}
             />
-            <div className="place button-container">
+            <div className="placeregister button-container">
               <Button
                 disabled={!closestCampus || !name || !address}
                 width="30%"
@@ -152,20 +152,21 @@ const FormField = props => {
             </div>
           </div>
           {/* TODO: Manage image*/}
-          <div className="place form2">
-            <Box
-                className="place image-box"
-                value="Place Image"
-            />
+          <div className="placeregister form2">
+            <div className = "placeregister title" >
+              <h1> Place profile image</h1>
+            </div>
             <Avatar
-              className="place picture"
+              className="placeregister picture"
               src={url}
-              sx={{ width: 150, height: 150}}
+              sx={{ width: 400, height: 370}}
               variant="square"
             />
-            <input type="file" onChange={handleImageChange}/>
+            <div className = "placeregister selectfield" >
+              <input type="file" onChange={handleImageChange}/>
+            </div>
             <button 
-              className='place image-button'
+              className='placeregister image-button'
               onClick={handleSubmit}>
               Submit
             </button>
