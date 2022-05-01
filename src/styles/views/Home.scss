@@ -22,6 +22,9 @@
     border-style: solid;
     border-color: #1F4F59FF;
     column-gap: 5em;
+    height: 700px;
+    margin-top: 10px;
+
   }
   &.column {
     display: flex;
@@ -42,6 +45,26 @@
   & p,h2 {
     margin: 0.5em 0;
   }
+  &.notificationbox {
+    width: 250px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: #1f4f59;
+    overflow: hidden;
+  }
+  &.notificationbox h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: 5px;
+  }
 }
 
 .notification {
@@ -53,8 +76,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: $dropShadow;
     width: 400px;
+    height: 500px;
+    background-color: rgba(84, 192, 204, 0.2);
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+
   }
   &.item {
     opacity: .7;

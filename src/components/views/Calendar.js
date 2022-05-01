@@ -127,7 +127,9 @@ const Calendar = ({ events }) => {
 
   return (
     <>
-    <h1>My Events!</h1>
+    <div className = "calendar titlebox"  >
+        <h1>My Events</h1>
+    </div>
       <div className="calendar container">
         <div className="weekday container">
           {days.map((day) => (

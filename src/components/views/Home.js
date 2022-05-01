@@ -101,7 +101,10 @@ const Home = () => {
       <div className='home column' >
         <div className='notification'>
           {/* TODO: Possibly refactor into component */}
-          <h1>Notifications!</h1>
+          <div className = "home notificationbox" >
+            <h1>Notifications</h1>
+          </div>
+
           <div className='notification container'>
             {/* TODO: Only get the last 3 notifications & display as link */}
             { 
