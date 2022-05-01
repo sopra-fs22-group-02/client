@@ -435,7 +435,7 @@ const QnA = ( { props }) => {
                                     // also send notification
 
                                     // push to the session
-                                    history.push({pathname: `/qa/1/${qaSessionId}`})
+                                    history.push({pathname: `/qa/${eventId}/${qaSessionId}`})
 
                                     notifyCounterparty(qaSessionId);
 
