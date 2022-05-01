@@ -5,6 +5,11 @@ import "styles/views/EventAccepted.scss";
 import {Button} from "../ui/Button";
 import { api, handleError } from 'helpers/api';
 import axios from 'axios';
+import User from 'models/User';
+import Place from 'models/Place';
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from 'helpers/firebase';
+import { useHistory } from 'react-router-dom';
 
 const MapFrame = (props) => {
     const [inferredAddress, setInferredAddress] = useState(null)
@@ -49,8 +54,11 @@ const MapFrame = (props) => {
 }
 
 const EventAccepted = ({ sleepEvent }) => {
+    const history = useHistory()
 
     const [sl, setSl] = useState(sleepEvent)
+    const [placePicPath, setPlacePicPath] = useState("/zuri_lake.jpeg")
+    const [userPicPath, setUserPicPath] = useState("/profile.png")
 
     // const [sleepEvent, setSleepEvent] = useState(sleepEvent)
     console.log("Render child:")
@@ -58,6 +66,38 @@ const EventAccepted = ({ sleepEvent }) => {
     console.log(JSON.stringify(sleepEvent))
 
     console.log("Includes")
+
+    useEffect(() => {
+        const fetchUserPicPath = async function () {
+            let pUser = null
+            if(sl.provider) {
+                pUser = new User(sl.provider)
+                getDownloadURL(ref(storage, `user/${pUser.userId}`))
+                .then((url) => {
+                  console.log("Retrievel URL:")
+                  console.log(url)
+                  setUserPicPath(url)
+                }).catch((error) => {
+                    setUserPicPath("profile.png")
+                })
+            }
+            // setUserPicPath(pUser.pictureUrl ? pUser.pictureUrl : "/profile.png")
+        }
+    
+        const fetchPlacePicPath = () => {
+            console.log("Pic of Place")
+            console.log(sl.place.pictureOfThePlace)
+            setPlacePicPath(sl.place ? sl.place.pictureOfThePlace ? sl.place.pictureOfThePlace : "/zuri_lake.jpeg" : "/zuri_lake.jpeg")
+        }
+
+        fetchUserPicPath();
+        fetchPlacePicPath();
+
+    }, [sl])
+
+    useEffect(() => {
+        setSl(sleepEvent)
+    }, [sleepEvent])
 
     // console.log(sl.applicants.includes(parseInt(localStorage.getItem('loggedInUserId'))))
 
@@ -69,7 +109,7 @@ const EventAccepted = ({ sleepEvent }) => {
         // <BaseContainer>
         <>
             <div className = "accept firststack" >
-                <Button>
+                <Button onClick={ () => {history.goBack()} }>
                     Return
                 </Button>
             </div>
@@ -79,7 +119,7 @@ const EventAccepted = ({ sleepEvent }) => {
                         <h1>Picture</h1>
                     </div>
                     <div className="accept grid-item1">
-                    <img className = "accept ima2" src="/zuri_lake.jpeg" alt="user profile img" />
+                    <img className = "accept ima2" src={placePicPath} alt="user profile img" />
                     </div>
                     {/* Only show address when the applicant is confirmed */}
                     { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId') 
@@ -137,7 +177,7 @@ const EventAccepted = ({ sleepEvent }) => {
                         <h1>About the provider</h1>
                     </div>
                     <div className= "accept insidebox" >
-                        <img className = "accept ima" src="/profile.png" alt="user profile img" />
+                        <img className = "accept ima" src={userPicPath} alt="user profile img" />
                         <div className= "accept  textboxprof">
                             <p className = "profile text" > { sl.provider.bio } </p>
                         </div>

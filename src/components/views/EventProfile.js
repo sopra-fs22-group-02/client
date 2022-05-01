@@ -122,11 +122,15 @@ const ProfileField = props => {
     let {placeId, eventId} = useParams();
     // let {eventId} = useParams();
     const goBack = () => {
-        history.push("/home")
+        history.push("/")
     }
 
     const toEdit = () => {
       history.push(`/eventupdate/${placeId}/${eventId}`)
+    }
+
+    const toQnA = () => {
+      history.push(`/qa/${sleepEvent.eventId}`)
     }
 
     const doDelete = () => {
@@ -145,7 +149,7 @@ const ProfileField = props => {
           <div className= "placeholder" >
           </div>
           { sleepEvent.confirmedApplicant !== 0 ?
-          (<Button>
+          (<Button onClick={() => toQnA()}>
               Start QnA
           </Button>)
           : (<></>)
@@ -153,6 +157,7 @@ const ProfileField = props => {
           <Button
                   width="30%"
                   onClick={() => toEdit()}
+                  disabled={sleepEvent.confirmedApplicant !== 0}
                 >
                   Edit
           </Button>
@@ -211,34 +216,14 @@ const ProfileField = props => {
             ? applicantView()
             : (<></>)
           }
-        <div className="event container">
-          <div className="event form">
-            <ProfileField
-              label="Arrival Time"
-              value={moment(sleepEvent.starttime).format("HH:mm")}
-            />
-            <ProfileField
-              label="Departure Time"
-              value={moment(sleepEvent.endtime).format("HH:mm")}
-            />
-            <ProfileField
-              label="Date"
-              value={moment(sleepEvent.starttime).format("DD-MM-YYYY")}
-            />
-            <div className="event button-container">
-              <Button
-                width="30%"
-                onClick={() => goBack()}
-              >
-                Go back
-              </Button>
-              { localStorage.getItem('loggedInUserId') == sleepEvent.providerId 
-              ? (<></>)
-              : (<></>)
-              }
-            </div>
-          </div>
-        </div>
+          <center>
+          <Button
+            width="30%"
+            onClick={() => goBack()}
+          >
+            Home
+          </Button>
+          </center>
       </BaseContainer>
     );
   };

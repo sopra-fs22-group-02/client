@@ -31,7 +31,7 @@ const QnA = ( { props }) => {
     // session.turn = userId;
 
     // use params
-    const { qaSessionId } = useParams();
+    const { qaSessionId , eventId } = useParams();
 
     function onConnected() {
 
@@ -194,6 +194,33 @@ const QnA = ( { props }) => {
         fetchData()
         
     }, [location.key])
+
+    const notifyCounterparty = async (qaSessionId) => {
+        try {
+            const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`)
+
+            const response_event = await api.get(`/places/events/${eventId}`);
+
+            let sendToUser = response_event.data.providerId;
+
+            if(localStorage.getItem('loggedInUserId') == response_event.data.providerId) {
+                sendToUser = response_event.data.confirmedApplicant
+            }
+
+            const message = JSON.stringify({
+                messageContent: `${ response.data.username } invites you to a QnA Session.`,
+                link: `/qa/${eventId}/${qaSessionId}`
+            })
+
+            const requestBody = JSON.stringify({message});
+            const response2 = await api.post(`/users/${sendToUser}/notifications`, requestBody);
+            console.log(response2);
+
+
+        } catch (error) {
+            alert(`Something went wrong during sending notifications: \n${handleError(error)}`);
+        }
+    }
 
     function sendMessage(sessionInstance) {
 
@@ -392,6 +419,8 @@ const QnA = ( { props }) => {
 
                                     // push to the session
                                     history.push({pathname: `/qa/1/${qaSessionId}`})
+
+                                    notifyCounterparty(qaSessionId);
 
                                     // console.log(`${qaSessionId}`)
                                     // connect(qaSessionId)

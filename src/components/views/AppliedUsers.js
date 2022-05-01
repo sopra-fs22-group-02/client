@@ -3,9 +3,15 @@ import BaseContainer from "../ui/BaseContainer";
 import "styles/views/AppliedUsers.scss";
 import {Button} from "../ui/Button";
 import { api, handleError } from 'helpers/api';
+import { useHistory } from 'react-router-dom';
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from 'helpers/firebase';
+import User from 'models/User';
 
 const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
+    const history = useHistory()
     const [sl, setSl] = useState(sleepEvent)
+    const [userPicPath, setUserPicPath] = useState("/profile.png")
 
     const accept = async (aId) => {
         try {
@@ -31,15 +37,38 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
     }
 
     useEffect(() => {
+        const fetchUserPicPath = async function () {
+            let pUser = null
+            if(sl.applicant.length > 0 && sl.applicant[0]) {
+                pUser = new User(sl.applicant[0])
+                getDownloadURL(ref(storage, `user/${pUser.userId}`))
+                .then((url) => {
+                  console.log("Retrievel URL:")
+                  console.log(url)
+                  setUserPicPath(url)
+                }).catch((error) => {
+                    setUserPicPath("/profile.png")
+                })
+            }
+            // setUserPicPath(pUser.pictureUrl ? pUser.pictureUrl : "/profile.png")
+        }
+
+        fetchUserPicPath();
+
+    }, [sl])
+
+    useEffect(() => {
         console.log("Rerender")
         setSl(sleepEvent)
+        console.log("Confirmed Applicant")
+        // console.log(sl.confirmedApplicantEntity.username);
     }, [sleepEvent])
 
     return(
         // <BaseContainer>
         <>
             <div className = "applied header" >
-                <Button>
+                <Button onClick={ () => { history.goBack() } }>
                     Return
                 </Button>
                 <div className= "applied header-title">
@@ -48,23 +77,26 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
             </div>
             <div className= "applied box" >
                 <div className="applied box1">
-                    <div className= "applied insideboxes">
                         { sl.applicantsEntities ?
                         sl.applicantsEntities.map((a) => (
-                            <div key={a.userId}>
-                            <img className = "applied avatar" src="/profile.png" alt="user profile img" />
-                            <h1>{a.firstName}</h1>
+                            <div className= "applied insideboxes" key={a.userId}>
+                            <img className = "applied avatar" src={userPicPath} alt="user profile img" />
+                            <h3>{a.username}</h3>
                             <Button onClick={() => { accept(a.userId) }}>
                                 Accept
                             </Button>
                             </div>
                         ))
                         : sl.confirmedApplicant !== 0 
-                        ? (<h1>Applicant Profile</h1>)
+                        ? (
+                            <>
+                            <h1>Applicant Profile</h1>
+                            <h3>{ sl.confirmedApplicantEntity ? sl.confirmedApplicantEntity.username : "n.A." }</h3>
+                            <h5>{ sl.confirmedApplicantEntity ? sl.confirmedApplicantEntity.bio : "n.A." }</h5>
+                            </>
+                          )
                         : (<><h1>No applicants.</h1></>)
                         } 
-                    </div>
-
                 </div>
                 <div className="applied box2">
                     <div className= "applied box2-title">

@@ -10,7 +10,8 @@ import Avatar from "@mui/material/Avatar";
 import {useHistory} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-const EventBox = ({ event, providerId }) => {
+const EventBox = ({ event, providerId, placeId }) => {
+    const history = useHistory();
     const [message, setMessage] = useState(null);
     const apply = async () => {
         try {
@@ -36,11 +37,17 @@ const EventBox = ({ event, providerId }) => {
             <h2 className='apply text'>Date: {event.startDate}</h2>
             <h3 className='apply text'>From: {event.startTime}</h3>
             <h3 className='apply text'>Till: {event.endTime}</h3>
-            <Button
+            {/* <Button
                 className='apply button'
                 onClick={() => apply()}
             >
                 apply
+            </Button> */}
+            <Button
+                className='apply button'
+                onClick={() => history.push(`/eventprofile/${ placeId }/${ event.eventId }`)}
+            >
+                select
             </Button>
         </div>
     )
@@ -103,7 +110,7 @@ const ApplyEvent = () => {
         console.log(availableEvents);
         eventContent = (
             availableEvents.map(event => (
-                <EventBox key={event.eventId} event={event} providerId={providerId}/>
+                <EventBox key={event.eventId} event={event} providerId={providerId} placeId={placeId} />
             ))
         )
     }
