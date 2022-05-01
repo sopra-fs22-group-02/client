@@ -1,106 +1,87 @@
 @import 'styles/theme';
 
-.event{
+.eventcreation{
   &.container {
-    margin-top: 2em;
-    min-height: 300px;
-    width: 100%;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
-    flex-direction: row;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: grid;
+    height: 600px;
+    width: auto;
+    grid-template-columns: 600px auto;
+    column-gap: 10px;
   }
   &.form {
-    display: flex;
     flex-direction: column;
+    margin-left: 5px;
     justify-content: center;
-    width: 70%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid solid solid none;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color: #c0ece0e8;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    //box-shadow: $dropShadow;
   }
   &.field {
-    display: inline-flex;
-    flex-direction: row;
     justify-content: center;
-  }
-  &.input {
-    height: 45px;
-    padding-left: 15px;
-    margin-left: -4px;
-    border: none;
-    border-radius: 0.75em;
-    margin-bottom: 20px;
-    background: transparentize(white, 0.85);
-    color: #127570;
-    box-shadow: $dropShadow;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 5px;
+    margin-top: 20px;
   }
   &.box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 150px;
-    text-transform: uppercase;
-    font-weight: 500;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    justify-content: center;
+
   }
-    &.form2 {
-    display: flex;
+  &.form2 {
     flex-direction: column;
+    margin-left: 5px;
     justify-content: center;
-    width: 30%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid none solid solid;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color: #c0ece0e8;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+
   }
   &.calendar-box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    text-transform: uppercase;
-    font-weight: 700;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    position: relative;
-    bottom: 30px;
+
   }
   &.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 2em;
+    margin-left: 220px;
+
+
   }
   &.picture{
-    align-items: center;   
-    position: relative;
-    bottom: 75px;
+
   }
+  &.title {
+    flex-shrink: 0;
+    width: 400px;
+    height: 70px;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.title h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
 }
 .react-calendar {
   background-color: rgb(228, 222, 210);
   border-radius: 0.5em;
-  box-shadow: $dropShadow;
+  width: 400px;
+  height: auto;
+  margin-left: 15%;
+  margin-right: 10px;
+  margin-top: 50px;
 }
 .react-time-picker{
   background-color: rgb(228, 222, 210);
   width: 10em;
   height: 3em;
   box-shadow: $dropShadow;
+  margin-top: 55px;
+  margin-left: 35%;
 }

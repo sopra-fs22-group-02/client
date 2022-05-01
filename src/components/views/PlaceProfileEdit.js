@@ -213,7 +213,9 @@ const FormField = props => {
 
             <button 
               className='placeedit image-button'
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+              width="50%"
+            >
               Submit
             </button>
           </div>

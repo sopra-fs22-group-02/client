@@ -15,14 +15,14 @@ import Avatar from "@mui/material/Avatar";
 
 const FormField = props => {
     return (
-        <div className="profile field">
+        <div className="profileedit field">
             <Box
-                className="profile box"
+                className="profileedit box"
                 value={props.label}
             />
             <input
                 type={props.type ? props.type : "text"}
-                className="place input"
+                className="profileedit input"
                 // placeholder="enter here.."
                 defaultValue={props.defaultValue}
                 // value={props.value}
@@ -126,8 +126,8 @@ const ProfileEdit = () => {
     };
     return (
         <BaseContainer>
-            <div className="profile container">
-                <div className="profile form">
+            <div className="profileedit container">
+                <div className="profileedit form">
                     <FormField
                         label="First name"
                         // defaultValue="Hello"
@@ -155,7 +155,7 @@ const ProfileEdit = () => {
                         defaultValue={ user.bio }
                         onChange={b => setBio(b)}
                     />
-                    <div className="profile button-container">
+                    <div className="profileedit button-container">
                         <Button
                             width="30%"
                             onClick={() => doUpdate()}
@@ -164,24 +164,27 @@ const ProfileEdit = () => {
                         </Button>
                     </div>
                 </div>
-                <div className="profile form2">
-                    <Box
-                        className="profile image-box"
-                        value="profile Image"
-                    />
+                <div className="profileedit form2">
+                    <div className = "profileedit title" >
+                        <h1>profile image</h1>
+                    </div>
+
                     <Avatar
-                        className="profile picture"
+                        className="profileedit picture"
                         src={url}
-                        sx={{ width: 150, height: 150 }}
+                        sx={{ width: 400, height: 370 }}
                         variant="square"
                     />
-                    <input 
-                        className="profile picture-input"
-                        type="file" 
-                        onChange={handleImageChange}
-                    />
+                    <div className= "placeedit selectfield" >
+                        <input
+                            className="profileedit picture-input"
+                            type="file"
+                            onChange={handleImageChange}
+                        />
+                    </div>
+
                     <Button 
-                        className="profile image-submit"
+                        className="profileedit image-submit"
                         onClick={handleSubmit}
                         width="50%"
                     >

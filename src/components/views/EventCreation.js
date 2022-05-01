@@ -16,11 +16,7 @@ import moment from "moment";
 
 const FormField = props => {
     return (
-      <div className="event field">
-        <Box
-            className="event box"
-            value={props.label}
-        />
+      <div className="eventcration field">
         <TimePicker 
             onChange={t => props.onChange(t)} 
             value={props.value} 
@@ -109,12 +105,11 @@ const FormField = props => {
     let {placeId} = useParams();
     return (
       <BaseContainer>
-        <div className="event container">
-        <div className="event form2">
-            <Box
-                className="event calendar-box"
-                value="Calendar"
-            />
+        <div className="eventcreation container">
+        <div className="eventcreation form2">
+            <div className = "eventcreation title" >
+                <h1> Place profile image</h1>
+            </div>
             <Calendar
               locale='en'
               defaultValue={date}
@@ -123,18 +118,24 @@ const FormField = props => {
               maxDate={moment().add(7, 'days').toDate()}
             />
           </div>
-          <div className="event form">
+          <div className="eventcreation form">
+            <div className = "eventcreation title" >
+                 <h1> Arrival time </h1>
+            </div>
             <FormField
               label="Arrival Time"
               value={starthour}
               onChange={setStartHour}
             />
+            <div className = "eventcreation title" >
+                <h1> depature time </h1>
+            </div>
             <FormField
               label="Departure Time"
               value={endhour}
               onChange={setEndHour}
             />
-            <div className="event button-container">
+            <div className="eventcreation button-container">
               <Button
                 width="30%"
                 onClick={() => create()}

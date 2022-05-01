@@ -1,6 +1,6 @@
 @import 'styles/theme';
 
-.placeedit{
+.profileedit{
   &.container {
     border-style: solid;
     border-width: 2px;
@@ -24,7 +24,7 @@
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 5px;
-    margin-top: 20px;
+    margin-top: 5px;
   }
   &.input {
     height: 60px;
@@ -68,7 +68,7 @@
   &.button-container {
     margin-left: 40%;
     margin-right: auto;
-    margin-top: 30px;
+
 
   }
   &.picture {
@@ -107,6 +107,9 @@
   }
   &.selectfield {
     margin-left: 100px;
+  }
+  &.image-submit {
+    margin-left: 130px;
   }
 
 }
