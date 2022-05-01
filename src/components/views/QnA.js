@@ -10,6 +10,7 @@ import { Stomp } from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 import faker from "@faker-js/faker";
 import { Spinner } from "components/ui/Spinner";
+import { getDomain } from "helpers/getDomain";
 
 
 const QnA = ( { props }) => {
@@ -130,7 +131,7 @@ const QnA = ( { props }) => {
     function connect(sessionid) {
 
         // assign SockJS
-        var socket = new SockJS('http://10.211.55.4:8080/ws');
+        var socket = new SockJS(`${getDomain()}/ws`);
         setSocket(socket)
 
         // assign StompClient
