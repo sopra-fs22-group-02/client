@@ -75,8 +75,8 @@
   }
   &.insidefields {
     box-sizing: border-box;
-    width: 700px;
-    height: 250px;
+    // width: 700px;
+    // height: 250px;
     display: grid;
     grid-template-columns: fit-content(300px) fit-content(300px) fit-content(300px);
     column-gap: 50px;
@@ -86,15 +86,32 @@
     border-radius: 30px;
     border: 2px solid #222;
     margin: 0.5em 0;
+    min-width: 370px;
   }
   &.avatar {
     width: 200px;
     height: 200px;
     border-radius: 1000px;
-    left: 15%;
-    margin-left: 20px;
+    // left: 15%;
+    // margin-left: 20px;
     border: 2px solid #1F4F59FF;
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  }
+
+  @media (max-width: 500px) {
+
+    &.insidefields { 
+      grid-template-columns: repeat(1, 1fr); 
+      justify-items: center;
+      text-align: center;
+    }
+
+    &.avatar {
+      width: 120px;
+      height: 120px;
+    }
+    // &.form2 { grid-row-start: 1; }
+    // &.field { grid-template-columns: auto; }
   }
 
 }

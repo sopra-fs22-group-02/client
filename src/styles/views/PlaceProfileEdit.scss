@@ -8,8 +8,8 @@
     border-radius: 30px;
     margin-top: 20px;
     display: grid;
-    height: 600px;
-    width: auto;
+    // height: 600px;
+    // width: auto;
     grid-template-columns: 600px auto;
     column-gap: 10px;
 
@@ -44,7 +44,8 @@
     width: 280px;
     border-radius: 0.75em;
     margin-bottom: 20px;
-    background: transparentize(white, 0.85);
+    // background: transparentize(white, 0.85);
+    background-color: rgba(31, 79, 89, 0.2);
     color: #127570;
     margin-top: 25px;
   }
@@ -107,6 +108,12 @@
   }
   &.selectfield {
     margin-left: 100px;
+  }
+
+  @media (max-width: 800px) {
+    &.container { grid-template-columns: repeat(1, 1fr); }
+    &.form2 { grid-row-start: 1; }
+    &.field { grid-template-columns: auto; }
   }
 
 }

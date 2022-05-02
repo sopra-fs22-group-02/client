@@ -12,7 +12,7 @@
     // color: white;
     // background: $background;
     background-color: rgba(153, 238, 255, 0.2);
-    padding: 1.5em;
+    // padding: 1.5em;
     border-radius: $borderRadius;
     display: flex;
     flex-direction: row;
@@ -22,15 +22,21 @@
     border-style: solid;
     border-color: #1F4F59FF;
     column-gap: 5em;
-    height: 700px;
+    // height: 700px;
     margin-top: 10px;
 
   }
+
+  @media (max-width: 800px) {
+    &.container { flex-direction: column; }
+  }
+
   &.column {
     display: flex;
     flex-direction: column;
     // row-gap: 400px;
     justify-content: space-around;
+    margin-bottom: 10%;
   }
   &.user-list {
     list-style: none;

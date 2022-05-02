@@ -102,11 +102,11 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                     <div className= "applied box2-title">
                         <h1>Event Time</h1>
                     </div>
-                    <div className= "applied insideboxesframe1">
+                    <div className= "applied insideboxesframe">
                         <h1> From: <span>{sl.startDate}</span> <span>{sl.startTime}</span> </h1>
                     </div>
-                    <div className= "applied insideboxesframe2">
-                        <h1> To:<span>{sl.endDate}</span> <span>{sl.endTime}</span> </h1>
+                    <div className= "applied insideboxesframe">
+                        <h1> To: <span>{sl.endDate}</span> <span>{sl.endTime}</span> </h1>
                     </div>
                 </div>
             </div>
