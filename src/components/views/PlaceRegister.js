@@ -54,7 +54,7 @@ const FormField = props => {
   const PlaceRegister = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
-    const [closestCampus, setClosestCampus] = useState(null);
+    const [closestCampus, setClosestCampus] = useState("IRCHEL");
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
   
