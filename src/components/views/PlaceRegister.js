@@ -36,7 +36,7 @@ const FormField = props => {
             value={props.label}
         />
         <select className="placeregister select" onChange={(e) => props.onChange(e.target.value)}>
-          <option>None selected</option>
+          <option value="" >None selected</option>
             { Place.getClosestCampi().map((c) =>
               (<option key={c.id} value={c.campus}>{c.campus}</option>)
             )}
