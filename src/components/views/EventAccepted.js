@@ -119,7 +119,7 @@ const EventAccepted = ({ sleepEvent }) => {
                         <h1>Picture</h1>
                     </div>
                     <div className="accept grid-item1">
-                    <img className = "accept ima2" src={placePicPath} alt="user profile img" />
+                        <img className = "accept ima2" src={placePicPath} alt="user profile img" />
                     </div>
                     {/* Only show address when the applicant is confirmed */}
                     { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId') 
