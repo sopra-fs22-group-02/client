@@ -36,6 +36,7 @@ const FormField = props => {
             value={props.label}
         />
         <select className="placeregister select" onChange={(e) => props.onChange(e.target.value)}>
+          <option>None selected</option>
             { Place.getClosestCampi().map((c) =>
               (<option key={c.id} value={c.campus}>{c.campus}</option>)
             )}
@@ -54,7 +55,7 @@ const FormField = props => {
   const PlaceRegister = () => {
     const history = useHistory();
     const [name, setName] = useState(null);
-    const [closestCampus, setClosestCampus] = useState("IRCHEL");
+    const [closestCampus, setClosestCampus] = useState(null);
     const [address, setAddress] = useState(null);
     const [description, setDescription] = useState(null);
   
