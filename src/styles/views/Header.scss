@@ -7,6 +7,7 @@
     display: block;
     background-color: #1f4f59;
   }
+
   &.inner {
     width: 95%;
     height: 100%;
@@ -15,12 +16,14 @@
     background-color: #1f4f59;
     display: grid;
   }
+
   &.logo {
     height: 100%;
     display: grid;
     float: left;
     grid-template-columns:auto auto auto;
   }
+
   &.logo h1 {
     color: white;
     height: 100%;
@@ -31,6 +34,7 @@
     font-weight: 200;
     font-size: 32px;
   }
+
   &.picture-box2 {
     display: flex;
     align-items: center;
@@ -40,6 +44,16 @@
   &.logo h1 span {
     font-weight: 800;
   }
+}
+.picture {
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover {
+    transform: none;
+  }
+
 
   &.home-picture {
     width: 60px;
@@ -52,3 +66,4 @@
     height: 55px;
   }
 }
+

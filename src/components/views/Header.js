@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
@@ -32,6 +32,8 @@ const Header = () => {
     //     setUrl(url);
     // })
 
+const userid = localStorage.getItem("loggedInUserId")
+
     return(
     <div className="header container">
         <div className="header inner">
@@ -40,8 +42,8 @@ const Header = () => {
                 <div className= "header picture-box" >
                 </div>
                 <div className= "header picture-box2 " >
-                    <img className="header home-picture" src="/home.png"/>
-                    <img className="header user-picture" src="/user.png"/>
+                    <a href = "/home" > <img className="picture home-picture" src="/home.png"/> </a>
+                    <a href= {`/profile/${userid}`}> <img className="picture user-picture" src="/user.png"/> </a>
                 </div>
 
             </div>
