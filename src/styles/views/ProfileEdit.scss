@@ -12,7 +12,6 @@
     width: auto;
     grid-template-columns: 600px auto;
     column-gap: 10px;
-
   }
   &.form {
     flex-direction: column;
@@ -62,14 +61,9 @@
     justify-content: center;
 
   }
-  &.image-box {
-
-  }
   &.button-container {
     margin-left: 40%;
     margin-right: auto;
-
-
   }
   &.picture {
     margin-left: auto;
@@ -95,7 +89,6 @@
     font-style: normal;
     color: #ffffff;
     font-size: 30px;
-    font-weight: bold;
     letter-spacing: 0px;
     line-height: 1.2;
     text-transform: uppercase;
