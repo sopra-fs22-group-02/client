@@ -21,14 +21,21 @@
     border-radius: 0.75em;
     border-style: solid;
     border-color: #1F4F59FF;
-    column-gap: 5em;
-    // height: 700px;
+    column-gap: 10px;
+    height: 650px;
     margin-top: 10px;
-
+    width: 60%;
   }
 
   @media (max-width: 800px) {
-    &.container { flex-direction: column; }
+    &.container {
+      flex-direction: column;
+      border-style: none;
+      border-color: #1F4F59FF;
+      box-shadow: none;
+      align-items: center;
+      background-color: rgba(153, 238, 255, 0);
+    }
   }
 
   &.column {
@@ -37,6 +44,7 @@
     // row-gap: 400px;
     justify-content: space-around;
     margin-bottom: 10%;
+    margin-left: 3%;
   }
   &.user-list {
     list-style: none;
@@ -59,6 +67,7 @@
     margin-bottom: 10px;
     background-color: #1f4f59;
     overflow: hidden;
+    margin-top: 5px;
   }
   &.notificationbox h1 {
     font-weight: 400;
@@ -88,6 +97,7 @@
     border-style: solid;
     border-width: 2px;
     border-color: #1F4F59FF;
+    overflow-y: scroll;
 
   }
   &.item {
