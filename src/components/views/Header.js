@@ -45,7 +45,6 @@ const userid = localStorage.getItem("loggedInUserId")
                     <a href = "/home" > <img className="picture home-picture" src="/home.png"/> </a>
                     <a href= {`/profile/${userid}`}> <img className="picture user-picture" src="/user.png"/> </a>
                 </div>
-
             </div>
 
         </div>
