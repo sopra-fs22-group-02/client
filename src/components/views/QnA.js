@@ -99,7 +99,7 @@ const QnA = ( { props }) => {
 
     // get this from localStorage later
     // let userId = `User${Math.random()}`; 
-    let userId = `User${localStorage.getItem('loggedInUserId')}`;
+    let userId = localStorage.getItem('loggedInUserId');
     // Change this later => inferred on user B's side
     // session.turn = userId;
 
@@ -184,9 +184,24 @@ const QnA = ( { props }) => {
             // in the other cases the session sorts itself out?!
 
             syncSession.current = new QnASession(sessObj)
+
             setSession(new QnASession(sessObj))
 
-            console.log("PORCESSED SESSION STATE:")
+            const answered = _.map(syncSession.current.starter === userId
+                            ? syncSession.current.answeredQsB 
+                            : syncSession.current.answeredQsA,
+                            (o) => o.question)
+
+            console.log("--- ANSWEREDS ---")
+            console.log(JSON.stringify(answered))
+            
+            setQuestions(_.filter(questionsRef.current, (o) => !answered.includes(o.question)))
+            // setQuestions(["X", "Y", "Z"])
+
+            console.log("---- QUESTIONS ----")
+            console.log(JSON.stringify(questions))
+
+            console.log("PROCESSED SESSION STATE:")
             console.log(JSON.stringify(sessObj))
 
         }
@@ -198,6 +213,10 @@ const QnA = ( { props }) => {
         // }
 
     }
+
+    useEffect(() => {
+        console.log(`Set question set: ${questions}`)
+    }, [questions])
 
     function connect(sessionid) {
 
@@ -281,7 +300,9 @@ const QnA = ( { props }) => {
 
                 // history.push(`/profileedit/${ userId }`);
             } catch (error) {
-                alert(`Something went wrong during the login: \n${handleError(error)}`);
+
+                alert(`Something went wrong while initialising or joining the QnA session: ${error.message}`);
+
             }
         }
 
@@ -333,6 +354,7 @@ const QnA = ( { props }) => {
             stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
         }
     }
+
 
     // function sendLeaveMessage() {
     //     const topic = `/app/qna/${qaSessionId}`;
@@ -397,11 +419,15 @@ const QnA = ( { props }) => {
         // trigger client exit message => TODO: Broadcast to WS Server
         console.log("Want to exit")
 
+        syncSession.current.starter = null;
+
+        sendMessage(syncSession.current)
+
+        stompClient.disconnect()
         // sendLeaveMessage();
         // push to the exit session
         history.push(`/`)
         // disconnect from stompClient => TODO
-        stompClient.disconnect()
     }
 
     // let { userId = 1 } = useParams();
@@ -409,6 +435,9 @@ const QnA = ( { props }) => {
     // const toEdit = () => {
     //     history.push(`/profileedit/${ userId }`)
     // }
+
+    // ? (<AnswerSummary answeredQuestions={syncSession.current.answeredQsA} />)
+    // (<span>{JSON.stringify(syncSession.current.answeredQsA)}<span/>)
 
     return (
         <BaseContainer>
@@ -421,10 +450,19 @@ const QnA = ( { props }) => {
                         simply show question form and submit functionality, 
                         then redirect to page with QAsessionID, also send a message to the other user with the link 
                         (he can otherwise not access the page) */}
+                    { qaSessionId ?
+                    syncSession.current.answeredQsA.length > 0 && session.starter != userId 
+                    ? (<><h3>Summary</h3><AnswerSummary answeredQuestions={_.uniqBy(syncSession.current.answeredQsA, 'question')} /></>)
+                    : syncSession.current.answeredQsB.length > 0 && session.starter == userId 
+                    ? (<><h3>Summary</h3><AnswerSummary answeredQuestions={_.uniqBy(syncSession.current.answeredQsB, 'question')} /></>)
+                    : (<></>)
+                    : (<></>)
+                    }
                     { !qaSessionId && questions ? 
                     (<>
                         <form>
                             <select onChange={(e) => setSelectedQuestion(e.target.value)}>
+                            <option value="" >None selected</option>
                             { questions.map((q) =>
                              (<option key={q.id} value={q.question}>{q.question}</option>)
                             )}
@@ -454,6 +492,7 @@ const QnA = ( { props }) => {
                         } */}
                         <form>
                             <select onChange={(e) => setSelectedQuestion(e.target.value)}>
+                            <option value="" default>None selected</option>
                             { questions.map((q) =>
                              (<option key={q.id} value={q.question}>{q.question}</option>)
                             )}
@@ -461,6 +500,7 @@ const QnA = ( { props }) => {
                             <Button
                                 width="70%"
                                 onClick={() => {submitQuestion(); console.log("Asked question")}}
+                                disabled={(selectedQuestion == "")||(!selectedQuestion)}
                                 >
                                     Ask 
                             </Button>
@@ -516,6 +556,13 @@ const QnA = ( { props }) => {
                             </Button>
                             </>
                         )
+                        : qaSessionId && syncSession.current.starter == null ?
+                        (<>
+                            <span>
+                                This QnA Session has ended. Click on Start new session, to start a new session for this event.
+                            </span>
+                            <Button onClick={() => history.push(`/qa/${eventId}`)}>Start new session</Button>
+                         </>)
                         : (<span><Spinner /></span>)
                     }
                 <div className= "qna card-footer" >
@@ -530,11 +577,14 @@ const QnA = ( { props }) => {
                                     // push to the session
                                     history.push({pathname: `/qa/${eventId}/${qaSessionId}`})
 
+                                    syncSession.current.starter = userId;
+
                                     notifyCounterparty(qaSessionId);
 
                                     // console.log(`${qaSessionId}`)
                                     // connect(qaSessionId)
                                 }}
+                                disabled={(selectedQuestion == "")||(!selectedQuestion)}
                             >
                                 Start QA
                         </Button>)
