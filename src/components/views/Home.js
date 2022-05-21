@@ -57,7 +57,7 @@ const Home = () => {
         // delays continuous execution of an async operation for 1 second.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 50));
+        // await new Promise(resolve => setTimeout(resolve, 50));
 
         // debug
         // let events = [...response.data.myCalendarAsApplicant, ...response.data.myCalendarAsApplicant];
@@ -83,9 +83,14 @@ const Home = () => {
         // See here to get more data.
         console.log(user);
       } catch (error) {
+        // if the User is not found, log the user out
+        if(error.response.status == 404) {
+          logout();
+        }
+
         console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
         console.error("Details:", error);
-        alert("Something went wrong while fetching the users! See the console for details.");
+        // alert("Something went wrong while fetching the users! See the console for details.");
       }
     }
 
