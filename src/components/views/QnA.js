@@ -11,14 +11,85 @@ import * as SockJS from "sockjs-client";
 import faker from "@faker-js/faker";
 import { Spinner } from "components/ui/Spinner";
 import { getDomain } from "helpers/getDomain";
+import Questions from "models/Questions";
+import _ from "lodash";
+import { useTable } from 'react-table'
+import PropTypes from "prop-types";
 
+const AnswerSummary = ( { answeredQuestions } ) => {
+
+    const data = React.useMemo(() => answeredQuestions
+    , [])
+
+    const columns = React.useMemo(() => [
+        {Header: "Questions", accessor: "question"},
+        {Header: "Answers", accessor: "answer"}
+    ], [])
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+      } = useTable({ columns, data })
+   
+    
+   
+      return (
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => {
+              const { key, ...restHeaderGroupProps } =
+                headerGroup.getHeaderGroupProps();
+              return (
+                <tr key={key} {...restHeaderGroupProps}>
+                  {headerGroup.headers.map((column) => {
+                    const { key, ...restColumn } = column.getHeaderProps();
+                    return (
+                      <th key={key} {...restColumn}>
+                        {column.render("Header")}
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </thead>
+          <tbody {...getTableBodyProps}>
+            {rows.map((row) => {
+              prepareRow(row);
+              const { key, ...restRowProps } = row.getRowProps();
+              return (
+                <tr key={key} {...restRowProps}>
+                  {row.cells.map((cell) => {
+                    const { key, ...restCellProps } = cell.getCellProps();
+                    return (
+                      <td key={key} {...restCellProps}>
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      );
+}
+
+AnswerSummary.propTypes = {
+    answeredQuestions: PropTypes.array
+  };
 
 const QnA = ( { props }) => {
     const history = useHistory();
     const [session, setSession] = useState(new QnASession());
     const syncSession = useRef(new QnASession());
-    const [questions, setQuestions] = useState(null)
-    const [selectedQuestion, setSelectedQuestion] = useState("Do you like UZH?");
+    const isProvider = useRef(null);
+    const [questions, setQuestions] = useState(null);
+    const questionsRef = useRef(null)
+    const [selectedQuestion, setSelectedQuestion] = useState(null);
     const location = useLocation();
     // const [inSession, setInSession] = useState(false)
     // initialize empty SockJS and StompClient
