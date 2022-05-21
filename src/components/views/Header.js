@@ -48,13 +48,13 @@ const Header = () => {
                             sx={{ width: 50, height: 50}}
                         />       
                     </div> */}
-                    <div className = "header menu">
+                    {/* <div className = "header menu">
                         <h3> Paul Safari </h3>
                         <ul>
                             <li> <img src= "profile.png" /> <a href= "#">My Profile</a> </li>
 
                         </ul>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>
