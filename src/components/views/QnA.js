@@ -228,32 +228,41 @@ const QnA = ( { props }) => {
             try {
                 // fetch the possible questions from the server
                 // const response = await api.get(`/users/${userId}/profile`); //why?
-                setQuestions([
-                    {
-                        id: 1,
-                        question: "Do you like Pizza?"
-                    },
-                    {
-                        id: 2,
-                        question: "Should I bring some food?"
-                    },
-                    {
-                        id: 3,
-                        question: "Do you like gardening?"
-                    },
-                    {
-                        id: 4,
-                        question: "Do you like traveling?"
-                    },
-                    {
-                        id: 5,
-                        question: "Do you like literature?"
-                    },
-                    {
-                        id: 6,
-                        question: "Do you like software engineering?"
-                    }
-                ])
+                // check if the user is provider or not
+
+                try {
+                    // Return more details if the requesting user is the actual user.
+                    const response = await api.get(`/places/events/${eventId}`);
+            
+                    // Get the returned users and update the state.
+                    isProvider.current = JSON.stringify(response.data.providerId) == userId;
+
+            
+                    // This is just some data for you to see what is available.
+                    // Feel free to remove it.
+                    console.log('request to:', response.request.responseURL);
+                    console.log('status code:', response.status);
+                    console.log('status text:', response.statusText);
+                    console.log('requested data:', response.data);
+
+                  } catch (error) {
+                    console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                    console.error("Details:", error);
+                    // alert("Something went wrong while fetching the users! See the console for details.");
+                    throw new Error("Propagate error to next level.")
+                  }
+
+                // set the questions accordingly => form intersection with already asked questions
+
+                if(isProvider.current) {
+                    questionsRef.current = Questions.getQuestionsToApplicant() 
+                    setQuestions(Questions.getQuestionsToApplicant())
+                } else if(isProvider.current == false) {
+                    questionsRef.current = Questions.getQuestionsToProvider() 
+                    setQuestions(Questions.getQuestionsToProvider())
+                } else {
+                    throw new Error("It couldn't be determined whether your provider or applicant")
+                }
 
                 // put this in here, since we don't want to retrigger with every state change
                 // this drops user directly into the session if he has the given path variable
