@@ -216,14 +216,7 @@ const ProfileField = props => {
             ? applicantView()
             : (<></>)
           }
-          <center>
-          <Button
-            width="30%"
-            onClick={() => goBack()}
-          >
-            Home
-          </Button>
-          </center>
+
       </BaseContainer>
     );
   };

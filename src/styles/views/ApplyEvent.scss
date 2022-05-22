@@ -244,7 +244,7 @@
   }
 
 
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
 
     &.container { 
       // grid-template-columns: repeat(1, 1fr); 
@@ -252,29 +252,14 @@
       // text-align: center;
       display: flex;
       flex-direction: column-reverse;
+      align-items: center;
+      border: none;
+
       // flex-direction: column;
+
     }
 
-    &.profile-container {
-      grid-template-columns: repeat(1, 1fr);
-    }
 
-    &.list-container {
-      width: auto;
-      min-width: 375px;
-    }
-
-    &.place-avatar {
-      width: 80px;
-      height: 80px;
-    }
-    
-    &.provider-avatar {
-      width: 80px;
-      height: 80px;
-    }
-    // &.form2 { grid-row-start: 1; }
-    // &.field { grid-template-columns: auto; }
   }
 
 }
