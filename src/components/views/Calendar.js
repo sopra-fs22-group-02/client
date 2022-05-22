@@ -30,7 +30,7 @@ const Weekday = ({ weekday }) => {
   return (
     <div className="weekday">
       <div className="weekday title">
-        <h3>{weekday.name}</h3>
+        <h3>{weekday.name} ({weekday.shortDate})</h3>
       </div>
       <div className="calevent container" >
       {weekday.events.map((event) => (
@@ -92,7 +92,7 @@ const Calendar = ({ events }) => {
 
   let weekDates = [];
   // first day + the additional days required
-  let daysRequired = 6;
+  let daysRequired = 7;
 
   // get the locale of the next 7 days
   for (let i = 0; i <= daysRequired; i++) {
@@ -118,7 +118,8 @@ const Calendar = ({ events }) => {
     return {
       name: moment(weekdate, "YYYY-MM-DD").format("dddd"),
       date: weekdate,
-      events: eventsOnDay
+      events: eventsOnDay,
+      shortDate: moment(weekdate, "YYYY-MM-DD").format("DD/MM") 
     };
   });
 
