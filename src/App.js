@@ -17,7 +17,7 @@ if (!isProduction() && process.env.REACT_APP_MIRAGE === "true") {
 const App = () => {
   return (
     <div>
-      <Header height="100"/>
+      {/* <Header height="100"/> */}
       <AppRouter/>
     </div>
   );

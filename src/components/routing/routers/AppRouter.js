@@ -24,6 +24,7 @@ import ChooseApplicant from "components/views/ChooseApplicant";
 import AppliedUsers from "../../views/AppliedUsers";
 import Home from "components/views/Home";
 import { PlaceCreatedGuard } from "../routeProtectors/PlaceCreatedGuard";
+import Header from "components/views/Header";
 
 
 /**
@@ -38,6 +39,7 @@ import { PlaceCreatedGuard } from "../routeProtectors/PlaceCreatedGuard";
 const AppRouter = () => {
   return (
     <BrowserRouter>
+    <Header height="100"/>
       <Switch>
         <Route path="/home">
           <HomeGuard>
