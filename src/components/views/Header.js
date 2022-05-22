@@ -5,7 +5,9 @@ import "styles/views/Header.scss";
 import {Link, useHistory} from "react-router-dom";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
-import Avatar from "@mui/material/Avatar";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -37,16 +39,34 @@ const userid = localStorage.getItem("loggedInUserId")
     return(
     <div className="header container">
         <div className="header inner">
+            
             <div className = "header logo">
                 <h1>FIND <span>A PLACE</span></h1>
-                <div className= "header picture-box" >
-                </div>
-                <div className= "header picture-box2 " >
-                    <a href = "/home" > <img className="picture home-picture" src="/home.png"/> </a>
-                    <a href= {`/profile/${userid}`}> <img className="picture user-picture" src="/user.png"/> </a>
-                </div>
             </div>
 
+            <div className= "header picture-box2" >
+
+                    <Link to="/home" className="header navbar-item-link">
+                        <div className="header navbar-item">
+                        <HomeIcon className="header svg_icons" style={{ fontSize: 60 , color: "white"}} />
+                        <div className="header navbar-item-text">Home</div>
+                        </div>
+                    </Link>
+
+                    <Link to={`/Findplace`} className="header navbar-item-link">
+                        <div className="header navbar-item">
+                        <SearchIcon className="header svg_icons" style={{ fontSize: 60 , color: "white"}} />
+                        <div className="header navbar-item-text">Find A Place</div>
+                        </div>
+                    </Link>
+
+                    <Link to={`/profile/${userid}`} className="header navbar-item-link">
+                        <div className="header navbar-item">
+                        <AccountCircleIcon className="header svg_icons" style={{ fontSize: 60 , color: "white"}} />
+                        <div className="header navbar-item-text">My Profile</div>
+                        </div>
+                    </Link>
+            </div>
         </div>
     </div>
     )
