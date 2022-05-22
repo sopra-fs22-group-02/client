@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
@@ -8,6 +8,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
+import { useLocation } from "react-router-dom";
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -24,17 +25,31 @@ const Log = () => {
     history.push(`/profile`);
     }
 
+const isLoggedIn = () => {
+  return localStorage.getItem("token") ? true : false;
+}
+
 
 
 const Header = () => {
     // const [url, setUrl] = useState(null);
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token") ? true : false)
 
     // getDownloadURL(ref(storage, 'userProfile'))
     // .then((url) => {
     //     setUrl(url);
     // })
 
-const userid = localStorage.getItem("loggedInUserId")
+    const history = useHistory();
+    
+    const location = useLocation();
+
+    useEffect(() => {
+        // trigger
+        setLoggedIn(localStorage.getItem("token") ? true : false)
+    }, [location])
+    
+    const userid = localStorage.getItem("loggedInUserId");
 
     return(
     <div className="header container">
@@ -47,8 +62,8 @@ const userid = localStorage.getItem("loggedInUserId")
             </div>
 
             <div className= "header picture-box2" >
-
-                    <Link to="/home" className="header navbar-item-link">
+                { loggedIn ?
+                    (<><Link to="/home" className="header navbar-item-link">
                         <div className="header navbar-item">
                         <HomeIcon className="header svg_icons" style={{ fontSize: 60 , color: "white"}} />
                         <div className="header navbar-item-text">Home</div>
@@ -67,7 +82,9 @@ const userid = localStorage.getItem("loggedInUserId")
                         <AccountCircleIcon className="header svg_icons" style={{ fontSize: 60 , color: "white"}} />
                         <div className="header navbar-item-text">My Profile</div>
                         </div>
-                    </Link>
+                    </Link></>)
+                : (<></>)
+                }
             </div>
         </div>
     </div>
