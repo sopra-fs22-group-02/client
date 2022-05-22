@@ -31,10 +31,12 @@
     width: 280px;
     margin-top: 20px;
     background-color: rgba(31, 79, 89, 0.2);
-    color: #053f3c;
     font-size: 18px;
     overflow-y: scroll;
     text-align: left;
+    border-radius: 0.75em;
+    border: none;
+
   }
   &.select {
     height: 55px;

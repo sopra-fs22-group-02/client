@@ -64,6 +64,7 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     background-color: rgba(31, 79, 89, 0.2);
+    text-align: left;
   }
 
   &.provider-avatar {
@@ -96,6 +97,7 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     background-color: rgba(31, 79, 89, 0.2);
+    text-align: left;
 
   }
   &.event-container {
@@ -119,17 +121,26 @@
     //   border-color: black;
     //   border-radius: 2em;
       width: 500px;
-      height: 580px;
+      height: 555px;
       text-align: center;
       // position: relative;
       // left: 3em;
       overflow-y: scroll;
+      border-color: #053f3c;
+      border-radius: 0.75em;
+      border-style: solid;
+      margin-bottom: 3%;
+      border-width: 2px;
       // margin: 10px;
+
   }
   &.event {
     height: 15em;
     margin-bottom: 10px;
     padding-bottom: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
     border-radius: 2em;
     background-color: white;
     font-size: 15px;
