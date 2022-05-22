@@ -216,7 +216,7 @@ const FormField = props => {
               onClick={handleSubmit}
               width="50%"
             >
-              Submit
+              Upload Image
             </button>
           </div>
         </div>

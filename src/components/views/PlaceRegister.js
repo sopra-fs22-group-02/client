@@ -169,7 +169,7 @@ const FormField = props => {
             <button 
               className='placeregister image-button'
               onClick={handleSubmit}>
-              Submit
+              Upload Image
             </button>
           </div>
         </div>

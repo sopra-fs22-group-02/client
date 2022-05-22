@@ -188,7 +188,7 @@ const ProfileEdit = () => {
                         onClick={handleSubmit}
                         width="50%"
                     >
-                        Submit
+                        Upload Image
                     </Button>
                 </div>
             </div>
