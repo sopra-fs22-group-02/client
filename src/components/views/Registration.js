@@ -82,7 +82,7 @@ const Registration = props => {
     };
 
     return (
-        <BaseContainer>
+        <BaseContainer alerts={[{message:"Please use your UZH E-Mail address (@uzh.ch) to register.", severity:"info"}]}>
             <div className="registration container">
 
                 <div className="registration form">

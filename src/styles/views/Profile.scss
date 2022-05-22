@@ -11,6 +11,8 @@
     font-size: 16px;
     border: 2px solid #1F4F59FF;
     border-radius: 30px;
+    width: 500px;
+
 
   }
   &.card-header {
@@ -87,7 +89,10 @@
     border-top: 2px solid #1F4F59FF;
     margin-bottom: 20px;
 
+  }
 
+  @media (max-width: 500px) {
+    &.card { width: 360px; }
   }
 
 
