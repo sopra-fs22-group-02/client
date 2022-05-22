@@ -7,8 +7,11 @@
       // width: ;
       max-width: $DESKTOP_WIDTH;
       // height: 650px;
-    //   border-style: solid;
-    //   border-color: black;
+      border-style: solid;
+      border: 2px solid #222;
+      border-radius: 0.5em;
+      border-color: #053f3c;
+
     //   border-radius: 2%;
       margin: 10px;
   }
@@ -36,10 +39,13 @@
     grid-row: 2;
     grid-column: 1;
     justify-content: center;
-    position: relative;
-    top: 1em;
-    left: 1em;
+    margin-left: 10%;
+    margin-top: 3.5%;
     border-radius: 5%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+
   }  
   &.place-description {
     grid-row: 2;
@@ -49,34 +55,29 @@
     overflow-y: scroll;
     background-color: white;
     color: rgb(17, 16, 16);
-    border-style: solid;
-    border-color: black;
     border-radius: 3%;
     font-size: small;
     font-weight: 300;
     position: relative;
     right: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    background-color: rgba(31, 79, 89, 0.2);
   }
-  &.provider-title {
-    grid-row: 3;
-    // grid-column: 1;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    // width: 25em;
-    height: 2em;
-    background-color: rgb(12, 85, 95);
-    color: white;
-    font-size: medium;
-    margin: 10px;
-  }
+
   &.provider-avatar {
     grid-row: 4;
     grid-column: 1;
     justify-content: center;
-    position: relative;
-    top: 1em;
-    left: 1em;
+    margin-left: 10%;
+    margin-top: 3.5%;
     border-radius: 5%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+
+
   }
   &.provider-description {
     grid-row: 4;
@@ -86,18 +87,23 @@
     overflow-y: scroll;
     background-color: white;
     color: rgb(17, 16, 16);
-    border-style: solid;
-    border-color: black;
     border-radius: 3%;
     font-size: small;
     font-weight: 300;
     position: relative;
     right: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    background-color: rgba(31, 79, 89, 0.2);
+
   }
   &.event-container {
     display: flex;
     flex-direction: column;
     text-align: center;
+    margin-left: 5%;
+
   }  
   &.event-title {
     // width: 25em;
@@ -124,14 +130,16 @@
     height: 15em;
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-style: solid;
-    border-color: black;
     border-radius: 2em;
     background-color: white;
     font-size: 15px;
     font-weight: 200;
     color: black;
     justify-content: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    background-color: rgba(31, 79, 89, 0.2);
   }
   &.button {
     height: fit-content;
@@ -151,6 +159,79 @@
   &.placeholder {
     width: 100px;
   }
+  &.notificationbox {
+    width: 400px;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-left: 30%;
+
+  }
+  &.notificationbox h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: 5px;
+  }
+  &.notificationbox2 {
+    width: 400px;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-left: 15%;
+    grid-row: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: white;
+    font-size: medium;
+
+  }
+  &.notificationbox2 h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: 5px;
+  }
+  &.notificationbox3 {
+    width: 400px;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-left: 10%;
+    grid-row: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: white;
+    font-size: medium;
+  }
+  &.notificationbox3 h1 {
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: 5px;
+  }
+
 
   @media (max-width: 800px) {
 

@@ -116,31 +116,38 @@ const ApplyEvent = () => {
     }
     return (
         <BaseContainer>
+            <div className = "find firststack" >
+                <Button
+                    onClick={() => history.push('/findplace')}
+                >
+                    Return
+                </Button>
+            </div>
             <div className="apply container">
                 <div className= "apply profile-container" >
-                    <Box
-                        className="apply place-title"
-                        value="About the place"
-                    />
-                    <Avatar 
+                    <div className = "apply notificationbox" >
+                        <h1>about the place</h1>
+                    </div>
+
+                    <Avatar
                         className = "apply place-avatar" 
                         src={placeUrl}
                         variant="square"
-                        sx={{ width: 150, height: 150}}
+                        sx={{ width: 200, height: 200}}
                     />
                     <Box
                         className="apply place-description"
                         value={placeDescription}
                     />
-                    <Box
-                        className="apply provider-title"
-                        value="About the provider"
-                    />
+                    <div className = "apply notificationbox2" >
+                        <h1>about the provider</h1>
+                    </div>
+
                     <Avatar 
                         className = "apply provider-avatar" 
                         src={userUrl}
                         variant="square"
-                        sx={{ width: 150, height: 150}}
+                        sx={{ width: 200, height: 200}}
                     />
                     <Box
                         className="apply provider-description"
@@ -148,23 +155,16 @@ const ApplyEvent = () => {
                     />
                 </div>
                 <div className= "apply event-container" >
-                    <Box
-                        className="apply event-title"
-                        value="Available slots"
-                    />
+                    <div className = "apply notificationbox3" >
+                        <h1>available slots</h1>
+                    </div>
+
                     <div className="apply list-container">
                         {eventContent}
                     </div>
                 </div>
             </div>
-            <div className = "apply footer" >
-                <Button
-                    onClick={() => history.push('/findplace')}
-                    width='30%'
-                >
-                    Return
-                </Button>
-            </div>
+
 
         </BaseContainer>
     );
