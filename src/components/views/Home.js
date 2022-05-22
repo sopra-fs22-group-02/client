@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
@@ -25,9 +25,80 @@ Player.propTypes = {
   user: PropTypes.object
 };
 
+// A custom hook, for polling the notifications
+const useInterval = (callback, delay) => {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    const tick = () => {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+};
+
+// const useInterval = (callback, delay) => {
+//   const savedCallback = useRef();
+
+//   useEffect(() => {
+//     savedCallback.current = callback;
+//   }, [callback]);
+
+//   useEffect(() => {
+//     function tick() {
+//       savedCallback.current();
+//     }
+//     let id = setInterval(tick, delay);
+//     return () => clearInterval(id);
+//   }, []);
+// };
+
+useInterval.propTypes = {
+  callback: PropTypes.func,
+  delay: PropTypes.number
+}
+
 const Home = () => {
   // use react-router-dom's hook to access the history
   const history = useHistory();
+  const [myNotifications, setMyNotifications] = useState(null);
+
+  // call the polling custom hook
+  useInterval(() => {
+    async function fetchNotifications() {
+
+      try {
+
+        const response = await api.get(`/users/${localStorage.getItem('loggedInUserId')}/profile`);
+
+        // set as the new-user (updated user, with potentially new notification)
+        const updUser = new User(response.data);
+
+        // update the notifications
+        setMyNotifications(updUser.myNotifications);
+
+        console.log("Called at interval")
+
+      } catch (error) {
+  
+          console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+          console.error("Details:", error);
+          // alert("Something went wrong while fetching the users! See the console for details.");
+        }
+
+    }
+
+    fetchNotifications();
+
+  }, 5000);
+
 
   // define a state variable (using the state hook).
   // if this variable changes, the component will re-render, but the variable will
@@ -73,6 +144,8 @@ const Home = () => {
 
         setUser(updUser)
 
+        setMyNotifications(updUser.myNotifications)
+
         // This is just some data for you to see what is available.
         // Feel free to remove it.
         console.log('request to:', response.request.responseURL);
@@ -99,6 +172,7 @@ const Home = () => {
 
   useEffect(() => {
     console.log(`Updated user ${JSON.stringify(user)}`)
+    // setMyNotifications(user.myNotifications)
   }, [user])
 
   let content = <Spinner/>;
@@ -115,16 +189,17 @@ const Home = () => {
 
           <div className='notification container'>
             {/* TODO: Only get the last 3 notifications & display as link */}
-            { 
-            user.myNotifications.reverse().slice(0,3).map((n) => {
-              let msg = null;
-              try {
-                msg = new Message(JSON.parse(n.message))
-              } catch {
-                msg = new Message({link: "/", messageContent: n.message})
-              }
-              return (<Link to={`${ msg.link }`} key={n.notificationId} className="notification item"><h3>{ msg.messageContent }</h3></Link>)
-              })
+            { myNotifications ? 
+               (myNotifications.reverse().slice(0,3).map((n) => {
+                let msg = null;
+                try {
+                  msg = new Message(JSON.parse(n.message))
+                } catch {
+                  msg = new Message({link: "/", messageContent: n.message})
+                }
+                return (<Link to={`${ msg.link }`} key={n.notificationId} className="notification item"><h3>{ msg.messageContent }</h3></Link>)
+                }))
+                :(<></>)
             }
           </div>
         </div>
