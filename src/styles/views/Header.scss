@@ -1,29 +1,29 @@
 @import 'styles/theme';
 
 .header {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
   &.container {
     width: 100%;
     height: 90px;
     display: block;
     background-color: #1f4f59;
   }
+
   &.inner {
     width: 95%;
     height: 100%;
     display: block;
     margin: 0 auto;
     background-color: #1f4f59;
-
+    display: grid;
   }
+
   &.logo {
     height: 100%;
-    display: table;
+    display: grid;
     float: left;
+    grid-template-columns:auto auto auto;
   }
+
   &.logo h1 {
     color: white;
     height: 100%;
@@ -33,103 +33,37 @@
     font-family: "Bungee", sans-serif;
     font-weight: 200;
     font-size: 32px;
-
   }
+
+  &.picture-box2 {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
+
   &.logo h1 span {
     font-weight: 800;
   }
-  &.action {
-    position: fixed;
-    top: 20px;
-    right:30px;
+}
+.picture {
+  &:hover {
+    transform: translateY(-2px);
   }
-  &.profile {
-    position: relative;
+
+  &:hover {
+    transform: none;
+  }
+
+
+  &.home-picture {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-  }
-  &.image {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  &.menu {
-    position: absolute;
-    top: 80px;
-    right: -10px;
-    padding: 10px 20px;
-    background: white;
-    width: 200px;
-    box-sizing: 0 5px 23px rgba(0,0,0,0.1);
-    border-radius: 15px;
-    transition: 0.5s;
-    opacity: 0;
-  }
-  &.menu ::before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    right: 28px;
-    width: 20px ;
-    height: 20px;
-    background: #ffffff;
-    transform: rotate(45deg);
-
+    margin-right: 5px;
 
   }
-  &.menu h3 {
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-    padding: 20px 0;
-    color: #555 ;
-    line-height: 1.23em;
+  &.user-picture {
+    width: 55px;
+    height: 55px;
   }
-  &.menu ul {
-    list-style: none;
-    padding: 10px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  &.menu li {
-    list-style: none;
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  &.menu img {
-    max-width: 20px;
-    margin-right: 10px ;
-    opacity: 0.5s;
-    transition: 0.5s;
-  }
-  &.menu :hover img {
-    opacity: 1;
-  }
-  &.menu a {
-    display: inline-block;
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: 0.5s;
-
-  }
-  &.menu  :hover a {
-    color: crimson;
-
-
-  }
-
-
-
-
 }
+

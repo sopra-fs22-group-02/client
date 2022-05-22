@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
@@ -32,30 +32,18 @@ const Header = () => {
     //     setUrl(url);
     // })
 
+const userid = localStorage.getItem("loggedInUserId")
+
     return(
     <div className="header container">
         <div className="header inner">
             <div className = "header logo">
                 <h1>FIND <span>A PLACE</span></h1>
-                {/* <img src="/find_a_place.jpg" width={85}/> */}
-            </div>
-            <div className = "header profile" >
-                <div className= "header action">
-                    {/* <div className = "header profile">
-                        <Avatar
-                            className="header image"
-                            src={url}
-                            sx={{ width: 50, height: 50}}
-                        />       
-                    </div> */}
-                    {/* <div className = "header menu">
-                        <h3> Paul Safari </h3>
-                        <ul>
-                            <li> <img src= "profile.png" /> <a href= "#">My Profile</a> </li>
-
-                        </ul>
-                    </div> */}
-
+                <div className= "header picture-box" >
+                </div>
+                <div className= "header picture-box2 " >
+                    <a href = "/home" > <img className="picture home-picture" src="/home.png"/> </a>
+                    <a href= {`/profile/${userid}`}> <img className="picture user-picture" src="/user.png"/> </a>
                 </div>
             </div>
 
