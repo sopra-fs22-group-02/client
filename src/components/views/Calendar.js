@@ -8,7 +8,7 @@ const Event = ({ event }) => {
   console.log("Rendering event:")
   console.log(event)
   return (
-    <Link to={`/eventprofile/${event.placeId ? event.placeId : "undef"}/${event.eventId}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : { background:  "green" }) } >      
+    <Link to={`/eventprofile/${event.placeId ? event.placeId : "undef"}/${event.eventId}`} className="calevent item" style={(event.state === "AVAILABLE" ? {} : event.state === "EXPIRED" ? {background: "red"} : { background:  "green" }) } >      
       {/* <div className="calevent item"> */}
         <div className="calevent role">
           {event.providerId == localStorage.getItem('loggedInUserId') ? "Provider" : "Applicant"}
