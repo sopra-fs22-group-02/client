@@ -39,9 +39,11 @@ const userid = localStorage.getItem("loggedInUserId")
     return(
     <div className="header container">
         <div className="header inner">
-            
+
             <div className = "header logo">
-                <h1>FIND <span>A PLACE</span></h1>
+                <Link to="/home" className="header navbar-item-link">
+                    <h1>FIND <span>A PLACE</span></h1>
+                </Link>
             </div>
 
             <div className= "header picture-box2" >
