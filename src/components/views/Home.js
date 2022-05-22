@@ -190,7 +190,8 @@ const Home = () => {
           <div className='notification container'>
             {/* TODO: Only get the last 3 notifications & display as link */}
             { myNotifications ? 
-               (myNotifications.reverse().slice(0,3).map((n) => {
+              // myNotifications.reverse().slice(0,3).map((n)
+               (myNotifications.reverse().map((n) => {
                 let msg = null;
                 try {
                   msg = new Message(JSON.parse(n.message))
