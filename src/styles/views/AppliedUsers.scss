@@ -42,7 +42,6 @@
     // --w:1fr;
     // --n:2;
     grid-template-columns:repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
     // grid-auto-rows: 400px;
     row-gap: 1em;
     column-gap: 1em;
@@ -57,13 +56,11 @@
     border-radius: 30px;
     display: grid;
     grid-gap: 5px;
-    // overflow-y: scroll ;
+    overflow-y: scroll ;
   }
   &.box2 {
-    // grid-column-start: 2;
+    grid-column-start: 2;
     // grid-column-end: 3;
-    // grid-row-start: 1;
-    // grid-row-end: 5;
     border: 2px solid #222;
     border-radius: 30px;
     grid-gap: 5px;
@@ -83,7 +80,8 @@
     border-radius: 30px;
     border: 2px solid #222;
     margin-top: 5px;
-    margin-left: 5px;
+    margin-left: 2%;
+    margin-right: 2%;
   }
   &.avatar {
     width: 90px;
@@ -138,7 +136,7 @@
     overflow: visible;
     border-radius: 30px;
     border: 2px solid #222;
-    margin-top: 80px;
+    margin-top: 5px;
     margin-left: 5px;
   }
   &.insideboxesframe h1 {
