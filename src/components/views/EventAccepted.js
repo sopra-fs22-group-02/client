@@ -137,17 +137,12 @@ const EventAccepted = ({ sleepEvent }) => {
                     {/* Only show map when the applicant is confirmed */}
                     { sl.confirmedApplicant == localStorage.getItem('loggedInUserId') 
                     ? ( <>
-                        <div className= "accept grid-title4" >
-                        <h1>Map</h1>
-                        </div>
-                        <div className="accept grid-item4">
                         {/* <img className = "accept ima3" src="/map.jpeg" alt="user profile img" /> */}
                         {/* Embed iFrame through external API */}
                         {sl.place && sl.place.address ?
                         (<MapFrame address={sl.place.address}/>)
                         : (<></>)
                         }
-                        </div>
                         </>
                         )
                     : (<></>)
