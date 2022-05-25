@@ -75,7 +75,7 @@ const ProfileField = props => {
         <div className="placeprofile container">
           <div className="placeprofile form">
             <ProfileField
-                label="Name: "
+                label="Name of Place: "
                 value={place.name}
             />  
             <ProfileField

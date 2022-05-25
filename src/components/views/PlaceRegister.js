@@ -28,6 +28,23 @@ const FormField = props => {
     );
   };
 
+const FormFieldAddress = props => {
+  return (
+      <div className="placeregister field">
+        <Box
+            className="placeregister box"
+            value={props.label}
+        />
+        <input
+            className="placeregister input"
+            placeholder="e.g.: Binzmühlestrasse 14"
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)}
+        />
+      </div>
+  );
+};
+
   const SelectField = props => {
     return (
       <div className="placeregister field">
@@ -82,6 +99,7 @@ const FormField = props => {
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
+      alert(`You have successfully created a new place!  Now you can offer time slots for this place.`)
     };
     // let { placeId } = useParams();
     const [image, setImage] = useState(null);
@@ -117,7 +135,7 @@ const FormField = props => {
         <div className="placeregister container">
           <div className="placeregister form">
             <FormField
-              label="Name"
+              label="Name of Place"
               value={name}
               onChange={n => setName(n)}
             />
@@ -132,7 +150,7 @@ const FormField = props => {
               value={closestCampus}
               onChange={nt => setClosestCampus(nt)}
             /> */}
-            <FormField
+            <FormFieldAddress
               label="Address"
               value={address}
               onChange={ads => setAddress(ads)}

@@ -324,7 +324,7 @@ const QnA = ( { props }) => {
             }
 
             const message = JSON.stringify({
-                messageContent: `${ response.data.username } invites you to a QnA Session.`,
+                messageContent: `${ response.data.username } invites you to a QnA Session. Click here to join!`,
                 link: `/qa/${eventId}/${qaSessionId}`
             })
 

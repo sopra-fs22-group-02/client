@@ -123,13 +123,13 @@ const Registration = props => {
                             width="100%"
                             onClick={() => register()}
                         >
-                            Registration
+                            Register
                         </Button>
                         <Button
                             width="100%"
                             onClick={() => history.push('/login')}
                             >
-                            Login
+                            Go To Login
                         </Button>
                     </div>
                 </div>
