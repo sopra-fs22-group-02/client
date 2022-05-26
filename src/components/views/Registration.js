@@ -82,7 +82,7 @@ const Registration = props => {
     };
 
     return (
-        <BaseContainer>
+        <BaseContainer alerts={[{message:"Please use your UZH E-Mail address (@uzh.ch) to register.", severity:"info"}]}>
             <div className="registration container">
 
                 <div className="registration form">
@@ -123,13 +123,13 @@ const Registration = props => {
                             width="100%"
                             onClick={() => register()}
                         >
-                            Registration
+                            Register
                         </Button>
                         <Button
                             width="100%"
                             onClick={() => history.push('/login')}
                             >
-                            Login
+                            Go To Login
                         </Button>
                     </div>
                 </div>

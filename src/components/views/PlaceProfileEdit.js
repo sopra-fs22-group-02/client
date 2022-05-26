@@ -166,7 +166,7 @@ const FormField = props => {
         <div className="placeedit container">
           <div className="placeedit form">
             <FormField
-              label="Name"
+              label="Name of Place"
               defaultValue={place.name}
               // value={place.name}
               onChange={n => setName(n)}
@@ -216,7 +216,7 @@ const FormField = props => {
               onClick={handleSubmit}
               width="50%"
             >
-              Submit
+              Upload Image
             </button>
           </div>
         </div>

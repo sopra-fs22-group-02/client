@@ -90,7 +90,7 @@ const Login = props => {
               width="100%"
               onClick={() => history.push('/registration')}
             >
-              Register
+              Go To Registration
             </Button>
           </div>
         </div>

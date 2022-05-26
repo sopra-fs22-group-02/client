@@ -157,7 +157,7 @@ const EventAccepted = ({ sleepEvent }) => {
 
                 <div className="accept box2">
                     <div className= "accept box1h">
-                        <h1>Avilability</h1>
+fi                        <h1>Availability</h1>
                     </div>
                     <div className = "accept from">
                         <h1>From: <span>{ sl.startDate }</span> <span>{ sl.startTime.substring(0, sl.startTime.length - 3) }</span> </h1>

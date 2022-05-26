@@ -2,6 +2,8 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {HomeGuard} from "components/routing/routeProtectors/HomeGuard";
 import {ProfileGuard} from "components/routing/routeProtectors/ProfileGuard";
 import {ProfileEditGuard} from "components/routing/routeProtectors/ProfileEditGuard";
+import {AuthPlaceGuard} from "components/routing/routeProtectors/AuthPlaceGuard"
+import { LoginGuard } from "../routeProtectors/LoginGuard";
 import HomeRouter from "components/routing/routers/HomeRouter";
 import Login from "components/views/Login";
 import PlaceRegister from "components/views/PlaceRegister";
@@ -20,6 +22,9 @@ import QnA from "components/views/QnA";
 import EventAccepted from "../../views/EventAccepted";
 import ChooseApplicant from "components/views/ChooseApplicant";
 import AppliedUsers from "../../views/AppliedUsers";
+import Home from "components/views/Home";
+import { PlaceCreatedGuard } from "../routeProtectors/PlaceCreatedGuard";
+import Header from "components/views/Header";
 
 
 /**
@@ -34,6 +39,7 @@ import AppliedUsers from "../../views/AppliedUsers";
 const AppRouter = () => {
   return (
     <BrowserRouter>
+    <Header height="100"/>
       <Switch>
         <Route path="/home">
           <HomeGuard>
@@ -41,57 +47,63 @@ const AppRouter = () => {
           </HomeGuard>
         </Route>
         <Route exact path="/login">
-            <Login/>
+            <LoginGuard><Login/></LoginGuard>
         </Route>
         <Route exact path="/placeRegister">
-            <PlaceRegister/>
+          <HomeGuard>
+            <PlaceCreatedGuard>
+              <PlaceRegister/>
+            </PlaceCreatedGuard>
+          </HomeGuard>
         </Route>
         <Route exact path="/placeProfile/:placeId?">
-            <PlaceProfile/>
+            <AuthPlaceGuard>
+              <PlaceProfile/>
+            </AuthPlaceGuard>
         </Route>
         <Route exact path="/events/:placeId">
-            <Events/>
+            <AuthPlaceGuard><Events/></AuthPlaceGuard>
         </Route>
-        <Route exact path="/chooseApplicants/:eventId">
-            <ChooseApplicant/>
-        </Route>
+        {/* <Route exact path="/chooseApplicants/:eventId">
+            <HomeGuard><ChooseApplicant/></HomeGuard>
+        </Route> */}
         <Route exact path="/FindPlace">
-            <FindPlace/>
+            <HomeGuard><FindPlace/></HomeGuard>
         </Route>
-        <Route exact path="/eventaccepted">
-            <EventAccepted/>
-        </Route>
+        {/* <Route exact path="/eventaccepted">
+            <HomeGuard><EventAccepted/></HomeGuard>
+        </Route> */}
         <Route exact path="/applyEvent/:placeId/:providerId">
-            <ApplyEvent/>
+            <HomeGuard><ApplyEvent/></HomeGuard>
         </Route>
         <Route exact path="/placeProfileEdit/:placeId?">
-            <PlaceProfileEdit/>
+            <AuthPlaceGuard><PlaceProfileEdit/></AuthPlaceGuard>
         </Route>
         <Route exact path="/">
           <Redirect to="/home"/>
         </Route>
         <Route exact path="/eventCreation/:placeId?">
-            <EventCreation/>
+            <AuthPlaceGuard><EventCreation/></AuthPlaceGuard>
         </Route>
         <Route exact path="/eventProfile/:placeId?/:eventId?">
-            <EventProfile/>
+            <HomeGuard><EventProfile/></HomeGuard>
         </Route>
         <Route exact path="/eventUpdate/:placeId?/:eventId?">
-            <EventUpdate/>
+            <AuthPlaceGuard><EventUpdate/></AuthPlaceGuard>
         </Route>
         <Route exact path="/qa/:eventId">
-          <QnA/>
+          <HomeGuard><QnA/></HomeGuard>
         </Route>
         <Route exact path="/qa/:eventId/:qaSessionId">
           {/* Later refactor this into an embedded component */}
-          <QnA/>
+          <HomeGuard><QnA/></HomeGuard>
         </Route>
         <Route exact path="/registration">
-            <Registration/>
+            <LoginGuard><Registration/></LoginGuard>
         </Route>
-        <Route exact path="/appliedUsers">
-            <AppliedUsers/>
-        </Route>
+        {/* <Route exact path="/appliedUsers">
+            <HomeGuard><AppliedUsers/></HomeGuard>
+        </Route> */}
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
@@ -105,9 +117,9 @@ const AppRouter = () => {
             <ProfileEdit/>
           </ProfileEditGuard>
         </Route>
-        <Route exact path="/chooseapplicant/:eventId">
+        {/* <Route exact path="/chooseapplicant/:eventId">
           <ChooseApplicant />
-        </Route>
+        </Route> */}
       </Switch>
     </BrowserRouter>
   );

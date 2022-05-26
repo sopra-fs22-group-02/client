@@ -48,7 +48,7 @@ class User {
     this.embed_picture_url = async function() {
         getDownloadURL(ref(storage, `user/${this.userId}`))
         .then((url) => {
-          console.log("Retrievel URL:")
+          console.log("Retrieved URL:")
           console.log(url)
           this.pictureUrl = url;
         })

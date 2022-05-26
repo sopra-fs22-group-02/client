@@ -11,14 +11,85 @@ import * as SockJS from "sockjs-client";
 import faker from "@faker-js/faker";
 import { Spinner } from "components/ui/Spinner";
 import { getDomain } from "helpers/getDomain";
+import Questions from "models/Questions";
+import _ from "lodash";
+import { useTable } from 'react-table'
+import PropTypes from "prop-types";
 
+const AnswerSummary = ( { answeredQuestions } ) => {
+
+    const data = React.useMemo(() => answeredQuestions
+    , [])
+
+    const columns = React.useMemo(() => [
+        {Header: "Questions", accessor: "question"},
+        {Header: "Answers", accessor: "answer"}
+    ], [])
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+      } = useTable({ columns, data })
+   
+    
+   
+      return (
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => {
+              const { key, ...restHeaderGroupProps } =
+                headerGroup.getHeaderGroupProps();
+              return (
+                <tr key={key} {...restHeaderGroupProps}>
+                  {headerGroup.headers.map((column) => {
+                    const { key, ...restColumn } = column.getHeaderProps();
+                    return (
+                      <th key={key} {...restColumn}>
+                        {column.render("Header")}
+                      </th>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </thead>
+          <tbody {...getTableBodyProps}>
+            {rows.map((row) => {
+              prepareRow(row);
+              const { key, ...restRowProps } = row.getRowProps();
+              return (
+                <tr key={key} {...restRowProps}>
+                  {row.cells.map((cell) => {
+                    const { key, ...restCellProps } = cell.getCellProps();
+                    return (
+                      <td key={key} {...restCellProps}>
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      );
+}
+
+AnswerSummary.propTypes = {
+    answeredQuestions: PropTypes.array
+  };
 
 const QnA = ( { props }) => {
     const history = useHistory();
     const [session, setSession] = useState(new QnASession());
     const syncSession = useRef(new QnASession());
-    const [questions, setQuestions] = useState(null)
-    const [selectedQuestion, setSelectedQuestion] = useState("Do you like UZH?");
+    const isProvider = useRef(null);
+    const [questions, setQuestions] = useState(null);
+    const questionsRef = useRef(null)
+    const [selectedQuestion, setSelectedQuestion] = useState(null);
     const location = useLocation();
     // const [inSession, setInSession] = useState(false)
     // initialize empty SockJS and StompClient
@@ -28,7 +99,7 @@ const QnA = ( { props }) => {
 
     // get this from localStorage later
     // let userId = `User${Math.random()}`; 
-    let userId = `User${localStorage.getItem('loggedInUserId')}`;
+    let userId = localStorage.getItem('loggedInUserId');
     // Change this later => inferred on user B's side
     // session.turn = userId;
 
@@ -113,9 +184,24 @@ const QnA = ( { props }) => {
             // in the other cases the session sorts itself out?!
 
             syncSession.current = new QnASession(sessObj)
+
             setSession(new QnASession(sessObj))
 
-            console.log("PORCESSED SESSION STATE:")
+            const answered = _.map(syncSession.current.starter === userId
+                            ? syncSession.current.answeredQsB 
+                            : syncSession.current.answeredQsA,
+                            (o) => o.question)
+
+            console.log("--- ANSWEREDS ---")
+            console.log(JSON.stringify(answered))
+            
+            setQuestions(_.filter(questionsRef.current, (o) => !answered.includes(o.question)))
+            // setQuestions(["X", "Y", "Z"])
+
+            console.log("---- QUESTIONS ----")
+            console.log(JSON.stringify(questions))
+
+            console.log("PROCESSED SESSION STATE:")
             console.log(JSON.stringify(sessObj))
 
         }
@@ -127,6 +213,10 @@ const QnA = ( { props }) => {
         // }
 
     }
+
+    useEffect(() => {
+        console.log(`Set question set: ${questions}`)
+    }, [questions])
 
     function connect(sessionid) {
 
@@ -157,32 +247,41 @@ const QnA = ( { props }) => {
             try {
                 // fetch the possible questions from the server
                 // const response = await api.get(`/users/${userId}/profile`); //why?
-                setQuestions([
-                    {
-                        id: 1,
-                        question: "Do you like Pizza?"
-                    },
-                    {
-                        id: 2,
-                        question: "Should I bring some food?"
-                    },
-                    {
-                        id: 3,
-                        question: "Do you like gardening?"
-                    },
-                    {
-                        id: 4,
-                        question: "Do you like traveling?"
-                    },
-                    {
-                        id: 5,
-                        question: "Do you like literature?"
-                    },
-                    {
-                        id: 6,
-                        question: "Do you like software engineering?"
-                    }
-                ])
+                // check if the user is provider or not
+
+                try {
+                    // Return more details if the requesting user is the actual user.
+                    const response = await api.get(`/places/events/${eventId}`);
+            
+                    // Get the returned users and update the state.
+                    isProvider.current = JSON.stringify(response.data.providerId) == userId;
+
+            
+                    // This is just some data for you to see what is available.
+                    // Feel free to remove it.
+                    console.log('request to:', response.request.responseURL);
+                    console.log('status code:', response.status);
+                    console.log('status text:', response.statusText);
+                    console.log('requested data:', response.data);
+
+                  } catch (error) {
+                    console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                    console.error("Details:", error);
+                    // alert("Something went wrong while fetching the users! See the console for details.");
+                    throw new Error("Propagate error to next level.")
+                  }
+
+                // set the questions accordingly => form intersection with already asked questions
+
+                if(isProvider.current) {
+                    questionsRef.current = Questions.getQuestionsToApplicant() 
+                    setQuestions(Questions.getQuestionsToApplicant())
+                } else if(isProvider.current == false) {
+                    questionsRef.current = Questions.getQuestionsToProvider() 
+                    setQuestions(Questions.getQuestionsToProvider())
+                } else {
+                    throw new Error("It couldn't be determined whether your provider or applicant")
+                }
 
                 // put this in here, since we don't want to retrigger with every state change
                 // this drops user directly into the session if he has the given path variable
@@ -201,7 +300,9 @@ const QnA = ( { props }) => {
 
                 // history.push(`/profileedit/${ userId }`);
             } catch (error) {
-                alert(`Something went wrong during the login: \n${handleError(error)}`);
+
+                alert(`Something went wrong while initialising or joining the QnA session: ${error.message}`);
+
             }
         }
 
@@ -223,7 +324,7 @@ const QnA = ( { props }) => {
             }
 
             const message = JSON.stringify({
-                messageContent: `${ response.data.username } invites you to a QnA Session.`,
+                messageContent: `${ response.data.username } invites you to a QnA Session. Click here to join!`,
                 link: `/qa/${eventId}/${qaSessionId}`
             })
 
@@ -253,6 +354,7 @@ const QnA = ( { props }) => {
             stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
         }
     }
+
 
     // function sendLeaveMessage() {
     //     const topic = `/app/qna/${qaSessionId}`;
@@ -317,11 +419,15 @@ const QnA = ( { props }) => {
         // trigger client exit message => TODO: Broadcast to WS Server
         console.log("Want to exit")
 
+        syncSession.current.starter = null;
+
+        sendMessage(syncSession.current)
+
+        stompClient.disconnect()
         // sendLeaveMessage();
         // push to the exit session
         history.push(`/`)
         // disconnect from stompClient => TODO
-        stompClient.disconnect()
     }
 
     // let { userId = 1 } = useParams();
@@ -329,6 +435,9 @@ const QnA = ( { props }) => {
     // const toEdit = () => {
     //     history.push(`/profileedit/${ userId }`)
     // }
+
+    // ? (<AnswerSummary answeredQuestions={syncSession.current.answeredQsA} />)
+    // (<span>{JSON.stringify(syncSession.current.answeredQsA)}<span/>)
 
     return (
         <BaseContainer>
@@ -341,10 +450,19 @@ const QnA = ( { props }) => {
                         simply show question form and submit functionality, 
                         then redirect to page with QAsessionID, also send a message to the other user with the link 
                         (he can otherwise not access the page) */}
+                    { qaSessionId ?
+                    syncSession.current.answeredQsA.length > 0 && session.starter != userId 
+                    ? (<><h3>Summary</h3><AnswerSummary answeredQuestions={_.uniqBy(syncSession.current.answeredQsA, 'question')} /></>)
+                    : syncSession.current.answeredQsB.length > 0 && session.starter == userId 
+                    ? (<><h3>Summary</h3><AnswerSummary answeredQuestions={_.uniqBy(syncSession.current.answeredQsB, 'question')} /></>)
+                    : (<></>)
+                    : (<></>)
+                    }
                     { !qaSessionId && questions ? 
                     (<>
                         <form>
                             <select onChange={(e) => setSelectedQuestion(e.target.value)}>
+                            <option value="" >None selected</option>
                             { questions.map((q) =>
                              (<option key={q.id} value={q.question}>{q.question}</option>)
                             )}
@@ -374,6 +492,7 @@ const QnA = ( { props }) => {
                         } */}
                         <form>
                             <select onChange={(e) => setSelectedQuestion(e.target.value)}>
+                            <option value="" default>None selected</option>
                             { questions.map((q) =>
                              (<option key={q.id} value={q.question}>{q.question}</option>)
                             )}
@@ -381,6 +500,7 @@ const QnA = ( { props }) => {
                             <Button
                                 width="70%"
                                 onClick={() => {submitQuestion(); console.log("Asked question")}}
+                                disabled={(selectedQuestion == "")||(!selectedQuestion)}
                                 >
                                     Ask 
                             </Button>
@@ -436,6 +556,13 @@ const QnA = ( { props }) => {
                             </Button>
                             </>
                         )
+                        : qaSessionId && syncSession.current.starter == null ?
+                        (<>
+                            <span>
+                                This QnA Session has ended. Click on Start new session, to start a new session for this event.
+                            </span>
+                            <Button onClick={() => history.push(`/qa/${eventId}`)}>Start new session</Button>
+                         </>)
                         : (<span><Spinner /></span>)
                     }
                 <div className= "qna card-footer" >
@@ -450,11 +577,14 @@ const QnA = ( { props }) => {
                                     // push to the session
                                     history.push({pathname: `/qa/${eventId}/${qaSessionId}`})
 
+                                    syncSession.current.starter = userId;
+
                                     notifyCounterparty(qaSessionId);
 
                                     // console.log(`${qaSessionId}`)
                                     // connect(qaSessionId)
                                 }}
+                                disabled={(selectedQuestion == "")||(!selectedQuestion)}
                             >
                                 Start QA
                         </Button>)

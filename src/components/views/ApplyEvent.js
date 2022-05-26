@@ -18,6 +18,7 @@ const EventBox = ({ event, providerId, placeId }) => {
             const response = await api.get(`users/${localStorage.getItem('loggedInUserId')}/profile`)
 
             setMessage(`${response.data.username} wants to apply for your sleep event`)
+
             if (message) {
                 const requestBody = JSON.stringify({message});
                 const response2 = await api.post(`users/${providerId}/notifications`, requestBody);
@@ -71,7 +72,7 @@ const ApplyEvent = () => {
     useEffect( () => {
         async function fetchData() {
             try {
-                const response = await api.get(`/places/${placeId}/events`);
+                const response = await api.get(`/places/${placeId}/events/available`);
                 console.log(response.data); 
                 setEvents(response.data);
                 console.log(events);
