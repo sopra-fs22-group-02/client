@@ -92,7 +92,7 @@ import BaseContainer from "components/ui/BaseContainer";
     return (
       <BaseContainer className='events base'>
         <div className="events container">
-            {sleepEvents != null ? eventContent : 'No slot for now!'}
+            {sleepEvents ? eventContent : 'No slot for now!'}
         </div>
         <Button
             className='events back-button'
