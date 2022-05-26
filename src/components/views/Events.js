@@ -80,7 +80,10 @@ import BaseContainer from "components/ui/BaseContainer";
                 <Event key={se.eventId} event={se} history={history}/>
             ))
         )
-    }
+    } 
+    // else {
+    //   eventContent = (<Box value={'No slot has been offered yet!'}></Box>)
+    // }
 
     const goBack = () => {
         history.push(`/placeprofile/${placeId}`)
@@ -89,14 +92,14 @@ import BaseContainer from "components/ui/BaseContainer";
     return (
       <BaseContainer className='events base'>
         <div className="events container">
-            {eventContent}
+            {sleepEvents != null ? eventContent : 'No slot for now!'}
         </div>
         <Button
             className='events back-button'
             onClick={() => goBack()}
-            // width='50%'
+            width='200%'
         >
-            go Back
+            Return
         </Button>
       </BaseContainer>
     );

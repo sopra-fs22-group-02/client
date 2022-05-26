@@ -6,10 +6,10 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
-    margin-top: 20px;
+    margin-top: 30px;
+    height: 30em;
     display: grid;
-    // height: 600px;
-    width: auto;
+    width: 65em;
     grid-template-columns: 600px auto;
     column-gap: 10px;
   }
@@ -25,24 +25,15 @@
     column-gap: 5px;
     margin-top: 20px;
   }
-  &.box {
-
-  }
   &.form2 {
+    // border-style: solid;
+    // border-width: 2px;
+    // border-color: #1F4F59FF;
+    // border-radius: 30px;
+    display: flex;
     flex-direction: column;
     margin-left: 5px;
     justify-content: center;
-
-  }
-  &.calendar-box {
-
-  }
-  &.button-container {
-    margin-left: 220px;
-
-
-  }
-  &.picture{
 
   }
   &.title {
@@ -66,7 +57,14 @@
     text-transform: uppercase;
     text-align: center;
   }
-
+  &.offer-slot {
+    margin-top: 5em;
+    text-align: center;
+  }
+  &.return {
+    margin-top: 2em;
+    text-align: center;
+  }
 }
 .react-calendar {
   background-color: rgb(228, 222, 210);
