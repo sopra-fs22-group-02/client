@@ -56,10 +56,10 @@
     border-radius: 30px;
     display: grid;
     grid-gap: 5px;
-    overflow-y: scroll ;
+    overflow-y: scroll;
   }
   &.box2 {
-    grid-column-start: 2;
+    // grid-column-start: 2;
     // grid-column-end: 3;
     border: 2px solid #222;
     border-radius: 30px;
@@ -138,6 +138,7 @@
     border: 2px solid #222;
     margin-top: 5px;
     margin-left: 5px;
+    margin-right: 5px;
   }
   &.insideboxesframe h1 {
     font-weight: 400;
@@ -163,6 +164,8 @@
   }
 
   @media (max-width: 800px) {
-    &.box, &.header { grid-template-columns: repeat(1, 1fr); }
+    &.applied {
+      &.box, &.header { grid-template-columns: repeat(1, 1fr); }
+    }
   }
 }
