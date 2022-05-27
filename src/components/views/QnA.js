@@ -101,7 +101,7 @@ const QnA = ( { props }) => {
     // initialize empty SockJS and StompClient
     let [socket, setSocket] = useState(null);
     let [stompClient, setStompClient] = useState(null);
-    const [placeId, setPlaceId] = useState(null);
+    const placeId = useRef(null);
 
     // get this from localStorage later
     // let userId = `User${Math.random()}`; 
@@ -271,7 +271,7 @@ const QnA = ( { props }) => {
                     // Get the returned users and update the state.
                     isProvider.current = JSON.stringify(response.data.providerId) == userId;
 
-                    setPlaceId(response.data.placeId);
+                    placeId.current = response.data.placeId;
 
                     console.log("SETTING PROVIDER FLAG")
                     JSON.stringify(response.data.providerId) == userId ? console.log("true") : console.log("false")
@@ -496,7 +496,7 @@ const QnA = ( { props }) => {
             message: `This QnA Session is related to event id: ${eventId}`,
             action: true,
             buttonMsg: "Checkout",
-            callback: () => {window.open(`/eventprofile/${placeId}/${eventId}`, "_blank")}
+            callback: () => {window.open(`/eventprofile/${placeId.current}/${eventId}`, "_blank")}
         }]}>
             <div className= "qna card" >
                 <div className = "qna card-title">
