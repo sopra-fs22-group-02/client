@@ -9,6 +9,22 @@ import { storage } from 'helpers/firebase';
 import User from 'models/User';
 import { Avatar } from '@mui/material';
 
+const UserBox = ({ a,  }) => {
+    const [url, setUrl] = useState(null);
+
+    getDownloadURL(ref(storage, `user/${a.userId}`))
+      .then((url) => {
+        setUrl(url);
+      });
+
+    return (       
+        <>                     
+        <Avatar className = "applied avatar" src={url} alt="user profile img" />
+        <h3>{a.username}</h3>
+        </>
+    )
+}
+
 const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
     const history = useHistory()
     const [sl, setSl] = useState(sleepEvent)
@@ -82,11 +98,10 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                         { sl.applicantsEntities ?
                         sl.applicantsEntities.map((a) => (
                             <div className= "applied insideboxes" key={ a.userId }>
-                            <Avatar className = "applied avatar" src={userPicPath} alt="user profile img" />
-                            <h3>{a.username}</h3>
-                            <Button onClick={() => { accept(a.userId) }}>
-                                Accept
-                            </Button>
+                                <UserBox a={a} />
+                                <Button onClick={() => { accept(a.userId) }}>
+                                    Accept
+                                </Button>
                             </div>
                         ))
                         : sl.confirmedApplicant !== 0 
