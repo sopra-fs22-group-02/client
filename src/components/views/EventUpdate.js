@@ -16,11 +16,7 @@ import moment from "moment";
 
 const FormField = props => {
     return (
-      <div className="event field">
-        <Box
-            className="event box"
-            value={props.label}
-        />
+      <div className="eventu field">
         <TimePicker 
             onChange={t => props.onChange(t)} 
             value={props.value} 
@@ -145,43 +141,56 @@ const FormField = props => {
     };
     let {placeId, eventId} = useParams();
     return (
-      <BaseContainer>
-        <div className="event container">
-        <div className="event form2">
-            <Box
-                className="event calendar-box"
-                value="Calendar"
-            />
-            <Calendar
-              locale='en'
-              value={date}
-              onChange={setDate}
-              minDate={moment().toDate()}
-              maxDate={moment().add(7, 'days').toDate()}
-            />
+        <BaseContainer>
+          <div className = "eventu firststack" >
+            <Button
+                onClick={() => history.goBack()}
+            >
+              Return
+            </Button>
           </div>
-          <div className="event form">
-            <FormField
-              label="Arrival Time"
-              value={starthour}
-              onChange={setStartHour}
-            />
-            <FormField
-              label="Departure Time"
-              value={endhour}
-              onChange={setEndHour}
-            />
-            <div className="event button-container">
-              <Button
-                width="30%"
-                onClick={() => update()}
-              >
-                Update slot
-              </Button>
+          <div className="eventu container">
+            <div className="eventu form2">
+              <div className = "eventu title" >
+                <h1> Calendar</h1>
+              </div>
+              <Calendar
+                  locale='en'
+                  defaultValue={date}
+                  onChange={setDate}
+                  minDate={moment().toDate()}
+                  maxDate={moment().add(7, 'days').toDate()}
+              />
+            </div>
+            <div className="eventu form">
+              <div className = "eventu title" >
+                <h1> Arrival time </h1>
+              </div>
+              <FormField
+                  label="Arrival Time"
+                  value={starthour}
+                  onChange={setStartHour}
+              />
+              <div className = "eventu title" >
+                <h1> depature time </h1>
+              </div>
+              <FormField
+                  label="Departure Time"
+                  value={endhour}
+                  onChange={setEndHour}
+              />
             </div>
           </div>
-        </div>
-      </BaseContainer>
+          <div className="eventu offer-slot">
+            <Button
+                width="30%"
+                onClick={() => update()}
+            >
+              Update
+            </Button>
+          </div>
+        </BaseContainer>
+
     );
   };
 

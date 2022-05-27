@@ -71,9 +71,6 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                 <Button onClick={ () => { history.goBack() } }>
                     Return
                 </Button>
-                <div className= "applied header-title">
-                    <h1>Event Provider</h1>
-                </div>
             </div>
             <div className= "applied box" >
                 <div className="applied box1">
