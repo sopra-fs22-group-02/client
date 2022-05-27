@@ -65,6 +65,7 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
         // console.log(sl.confirmedApplicantEntity.username);
     }, [sleepEvent])
 
+
     return(
         // <BaseContainer>
         <>
@@ -81,7 +82,7 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                         { sl.applicantsEntities ?
                         sl.applicantsEntities.map((a) => (
                             <div className= "applied insideboxes" key={ a.userId }>
-                            <img className = "applied avatar" src={userPicPath} alt="user profile img" />
+                            <Avatar className = "applied avatar" src={userPicPath} alt="user profile img" />
                             <h3>{a.username}</h3>
                             <Button onClick={() => { accept(a.userId) }}>
                                 Accept
