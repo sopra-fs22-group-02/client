@@ -31,7 +31,7 @@ import BaseContainer from "components/ui/BaseContainer";
                 value={'state: '+ event.state}
             />
             <Button
-                className='events button'
+                className='events check'
                 onClick={() => checkRequests()}
             >
                 check requests
@@ -92,12 +92,11 @@ import BaseContainer from "components/ui/BaseContainer";
     return (
       <BaseContainer className='events base'>
         <div className="events container">
-            {sleepEvents ? eventContent : 'No slot for now!'}
+            {sleepEvents ? eventContent : "No slot!"}
         </div>
         <Button
-            className='events back-button'
             onClick={() => goBack()}
-            width='200%'
+            width='30%'
         >
             Return
         </Button>

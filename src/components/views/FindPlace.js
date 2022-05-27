@@ -63,15 +63,7 @@ const FindPlace = () => {
                 const response = await api.get('/places');
                 console.log(response.data); 
                 setPlaces(response.data);
-                // let len = response.data.length; 
-                // for (let i = 0; i < len; i++) {
-                //     let place = new Place(response.data[i]);
-                //     console.log(place.closestCampus);
-                //     places.push(place); 
-                //     setPlaceLength(len);
-                // }
                 console.log(places);  
-                // history.push(`/profileedit/${ userId }`);
             } catch (error) {
                 alert(`Something went wrong during the fetching: \n${handleError(error)}`);
             }
@@ -89,21 +81,20 @@ const FindPlace = () => {
         );
     }
     return (
-        <BaseContainer>
-            <div className = "find firststack" >
+        <BaseContainer className="find container">
+            <div className= "find title" >
+                Choose your place      
+            </div>
+            <div className = "find box" >
+                {placeContent}
+            </div>
+            <div className = "find return" >
                 <Button 
+                    width='100%'
                     onClick={() => history.push('/home')}
                 >
                     Return
                 </Button>
-            </div>
-            <div className = "find stack" >
-                <div className= "find frame" >
-                    <h1>Choose your place</h1>
-                </div>
-            </div>
-            <div className = "find box" >
-                {placeContent}
             </div>
         </BaseContainer>
     );
