@@ -117,6 +117,14 @@ const FormField = props => {
               minDate={moment().toDate()}
               maxDate={moment().add(7, 'days').toDate()}
             />
+            <div className="eventcreation return">
+              <Button
+                  width="30%"
+                  onClick={() => history.push('/home')}
+                >
+                  Return
+              </Button>
+            </div>
           </div>
           <div className="eventcreation form">
             <div className = "eventcreation title" >
@@ -135,7 +143,7 @@ const FormField = props => {
               value={endhour}
               onChange={setEndHour}
             />
-            <div className="eventcreation button-container">
+            <div className="eventcreation offer-slot">
               <Button
                 width="30%"
                 onClick={() => create()}

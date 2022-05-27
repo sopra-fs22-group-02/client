@@ -79,7 +79,7 @@ const Profile = () => {
                             width="100%"
                             onClick={() => history.push("/")}
                         >
-                            Back
+                            return
                         </Button>
                     </div>
             </div>

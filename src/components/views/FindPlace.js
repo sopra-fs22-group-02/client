@@ -63,15 +63,7 @@ const FindPlace = () => {
                 const response = await api.get('/places');
                 console.log(response.data); 
                 setPlaces(response.data);
-                // let len = response.data.length; 
-                // for (let i = 0; i < len; i++) {
-                //     let place = new Place(response.data[i]);
-                //     console.log(place.closestCampus);
-                //     places.push(place); 
-                //     setPlaceLength(len);
-                // }
                 console.log(places);  
-                // history.push(`/profileedit/${ userId }`);
             } catch (error) {
                 alert(`Something went wrong during the fetching: \n${handleError(error)}`);
             }
@@ -79,6 +71,19 @@ const FindPlace = () => {
 
         fetchData()
     }, [])
+
+    const filterPlace = closestCampus => {
+        let filteredPlaces = [];
+        if (places) {
+            places.map((place) => {
+                if (place.closestCampus == closestCampus) {
+                    filteredPlaces.push(place)
+                    console.log(place)
+                }
+            })
+            setPlaces(filteredPlaces)
+        }
+    }
 
     let placeContent = <EmptyPlaceBox/>
     if (places) {
@@ -89,21 +94,48 @@ const FindPlace = () => {
         );
     }
     return (
-        <BaseContainer>
-            <div className = "find firststack" >
-                <Button 
-                    onClick={() => history.push('/home')}
-                >
-                    Return
-                </Button>
+        <BaseContainer className="find container">
+            <div className= "find title" >
+                    Choose your place      
             </div>
-            <div className = "find stack" >
-                <div className= "find frame" >
-                    <h1>Choose your place</h1>
+            <div className='find filter'>
+                <fieldset>
+                    <label> Oerlikon
+                        <input 
+                            name='x'
+                            type="radio"
+                            value="OERLIKON"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Irchel
+                        <input 
+                            name='x'
+                            type="radio"
+                            value="IRCHEL"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Zentrum
+                        <input type="radio" name='x'/> 
+                    </label>
+                    <label> Hoennggeberg
+                        <input type="radio" name='x'/> 
+                    </label>
+                </fieldset>
+            </div>
+            <div className='find result'>
+                <div className = "find box" >
+                    {placeContent}
                 </div>
-            </div>
-            <div className = "find box" >
-                {placeContent}
+                <div className = "find return" >
+                    <Button 
+                        width='100%'
+                        onClick={() => history.push('/home')}
+                    >
+                        Return
+                    </Button>
+                </div>
             </div>
         </BaseContainer>
     );

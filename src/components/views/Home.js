@@ -214,19 +214,15 @@ const Home = () => {
         </div>
       </div>
       <div className="calendar">
-          {/* Below code not necessary */}
-          {/* <ul className="game user-list">
-      {users.map(user => (
-        <Player user={user} key={user.id}/>
-      ))}
-    </ul> */}
           <Calendar events={user.events} />
-          <Button
-            width="100%"
-            onClick={() => logout()}
-          >
-            Logout
-          </Button>
+          <div className='calendar logout'>
+            <button
+              className='calendar logout-button'
+              onClick={() => logout()}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </>
     );

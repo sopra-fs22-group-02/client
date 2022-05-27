@@ -131,7 +131,7 @@ const FormFieldAddress = props => {
 
 
     return (
-      <BaseContainer>
+      <BaseContainer alerts={[{message:"Please create place with real address, otherwise it will not be displayed in the map!", severity:"info"}]}>
         <div className="placeregister container">
           <div className="placeregister form">
             <FormField
@@ -162,8 +162,14 @@ const FormFieldAddress = props => {
             />
             <div className="placeregister button-container">
               <Button
+                width="40%"
+                onClick={() => history.push('/home')}
+              >
+                Return
+              </Button>
+              <Button
                 disabled={!closestCampus || !name || !address}
-                width="30%"
+                width="40%"
                 onClick={() => doRegister()}
               >
                 Create
