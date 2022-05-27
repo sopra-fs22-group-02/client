@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
+import { NightShelter } from '@mui/icons-material';
 
 const PlaceBox = ({ place, history }) => {
     const [url, setUrl] = useState(null);
@@ -27,7 +28,8 @@ const PlaceBox = ({ place, history }) => {
                 className='find avatar'
                 src={url}
                 variant="square"
-            />
+            ><NightShelter style={{fontSize: 80}} />
+            </Avatar>
             <div className = "find text" >
                 <h1>{place.name}</h1>
                 <h2>Nearest campus: {place.closestCampus}</h2>

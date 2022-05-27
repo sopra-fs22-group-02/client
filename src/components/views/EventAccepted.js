@@ -10,6 +10,8 @@ import Place from 'models/Place';
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from 'helpers/firebase';
 import { useHistory } from 'react-router-dom';
+import { Avatar } from '@mui/material';
+import { NightShelter } from '@mui/icons-material';
 
 const MapFrame = (props) => {
     const [inferredAddress, setInferredAddress] = useState(null)
@@ -57,8 +59,8 @@ const EventAccepted = ({ sleepEvent }) => {
     const history = useHistory()
 
     const [sl, setSl] = useState(sleepEvent)
-    const [placePicPath, setPlacePicPath] = useState("/zuri_lake.jpeg")
-    const [userPicPath, setUserPicPath] = useState("/profile.png")
+    const [placePicPath, setPlacePicPath] = useState(null)
+    const [userPicPath, setUserPicPath] = useState(null)
 
     // const [sleepEvent, setSleepEvent] = useState(sleepEvent)
     console.log("Render child:")
@@ -78,16 +80,26 @@ const EventAccepted = ({ sleepEvent }) => {
                   console.log(url)
                   setUserPicPath(url)
                 }).catch((error) => {
-                    setUserPicPath("profile.png")
+                    setUserPicPath("/profile.png")
                 })
             }
             // setUserPicPath(pUser.pictureUrl ? pUser.pictureUrl : "/profile.png")
         }
     
         const fetchPlacePicPath = () => {
-            console.log("Pic of Place")
-            console.log(sl.place.pictureOfThePlace)
-            setPlacePicPath(sl.place ? sl.place.pictureOfThePlace ? sl.place.pictureOfThePlace : "/zuri_lake.jpeg" : "/zuri_lake.jpeg")
+            let pUser = null
+            if(sl.provider) {
+                pUser = new User(sl.provider)
+            // console.log("Pic of Place")
+            // console.log(sl.place.pictureOfThePlace)
+            // setPlacePicPath(sl.place ? sl.place.pictureOfThePlace ? sl.place.pictureOfThePlace : "/zuri_lake.jpeg" : "/zuri_lake.jpeg")
+                getDownloadURL(ref(storage, `place/user-${pUser.userId}`))
+                .then((url) => {
+                setPlacePicPath(url);
+                }).catch((error) => {
+                    setPlacePicPath("/zuri_lake.jpeg")
+                })
+            }
         }
 
         fetchUserPicPath();
@@ -119,14 +131,14 @@ const EventAccepted = ({ sleepEvent }) => {
                         <h1>Picture</h1>
                     </div>
                     <div className="accept grid-item1">
-                        <img className = "accept ima2" src={placePicPath} alt="user profile img" />
+                        <Avatar className = "accept ima2" src={placePicPath} alt="user profile img" ><NightShelter style={{fontSize: 115}} /></Avatar>
                     </div>
                     {/* Only show address when the applicant is confirmed */}
                     { sleepEvent.confirmedApplicant == localStorage.getItem('loggedInUserId') 
                     ?
                     (<>
                     <div className= "accept grid-title2" >
-                        <h1>Adress</h1>
+                        <h1>Address</h1>
                     </div>
                     <div className="accept grid-item2">
                         <h1 className = "accept grid-item2-text" >{ sl.place.address }</h1>
@@ -172,7 +184,7 @@ fi                        <h1>Availability</h1>
                         <h1>About the provider</h1>
                     </div>
                     <div className= "accept insidebox" >
-                        <img className = "accept ima" src={userPicPath} alt="user profile img" />
+                        <Avatar className = "accept ima" src={userPicPath} alt="user profile img" />
                         <div className= "accept  textboxprof">
                             <p className = "profile text" > { sl.provider.bio } </p>
                         </div>
