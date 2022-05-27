@@ -9,6 +9,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
 import {useHistory} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { NightShelter } from '@mui/icons-material';
 
 const EventBox = ({ event, providerId, placeId }) => {
     const history = useHistory();
@@ -135,7 +136,7 @@ const ApplyEvent = () => {
                         src={placeUrl}
                         variant="square"
                         sx={{ width: 200, height: 200}}
-                    />
+                    ><NightShelter style={{fontSize: 80}} /></Avatar>
                     <Box
                         className="apply place-description"
                         value={placeDescription}
