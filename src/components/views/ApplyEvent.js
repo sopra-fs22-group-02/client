@@ -111,9 +111,14 @@ const ApplyEvent = () => {
         })
         console.log(availableEvents);
         eventContent = (
+            <>
+            {
+            availableEvents.length > 0 ?
             availableEvents.map(event => (
                 <EventBox key={event.eventId} event={event} providerId={providerId} placeId={placeId} />
-            ))
+            )) : (<h3>No events available.</h3>)
+            }
+            </>
         )
     }
     return (
