@@ -57,6 +57,9 @@
     display: grid;
     grid-gap: 5px;
     overflow-y: scroll;
+    // justify-content: center;
+    // height: fit-content;
+    // max-height: 600px;
   }
   &.box2 {
     // grid-column-start: 2;
@@ -161,6 +164,10 @@
     margin-bottom: auto;
     margin-top: auto;
     margin-left: 10px;
+  }
+
+  &.box1 h1 {
+    justify-self: center;
   }
 
   @media (max-width: 800px) {
