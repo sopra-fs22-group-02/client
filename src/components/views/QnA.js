@@ -18,12 +18,14 @@ import PropTypes from "prop-types";
 
 const AnswerSummary = ( { answeredQuestions } ) => {
 
-    const data = React.useMemo(() => answeredQuestions
-    , [])
+    // const data = React.useMemo(() => answeredQuestions
+    // , [])
+
+    const data = answeredQuestions;
 
     const columns = React.useMemo(() => [
-        {Header: "Questions", accessor: "question"},
-        {Header: "Answers", accessor: "answer"}
+        {Header: "Question", accessor: "question"},
+        {Header: "Answer", accessor: "answer"}
     ], [])
 
     const {
@@ -91,6 +93,10 @@ const QnA = ( { props }) => {
     const questionsRef = useRef(null)
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const location = useLocation();
+    const [providerFlag, setProviderFlag] = useState(null)
+    const [informedEndFlag, setInformedEndFlag] = useState(false);
+    const [didExit, setDidExit] = useState(false);
+
     // const [inSession, setInSession] = useState(false)
     // initialize empty SockJS and StompClient
     let [socket, setSocket] = useState(null);
@@ -150,6 +156,7 @@ const QnA = ( { props }) => {
             let session = syncSession.current
             console.log(`Plane object: ${JSON.stringify(session)}`)
             session.starter = !session.starter ? userId : session.starter;
+            session.userA = !session.userA ? userId : session.userA;
             session.currQ = !session.currQ ? selectedQuestion : session.currQ;
             console.log(`Prepare to provide the following object: ${JSON.stringify(session)}`)
             sendMessage(session)
@@ -204,6 +211,8 @@ const QnA = ( { props }) => {
             console.log("PROCESSED SESSION STATE:")
             console.log(JSON.stringify(sessObj))
 
+            console.log("PROCESSED SESSION STATE (REF):")
+            console.log(JSON.stringify(syncSession.current))
         }
 
         // check if type Exit => close the session and redirect back to event page
@@ -216,6 +225,12 @@ const QnA = ( { props }) => {
 
     useEffect(() => {
         console.log(`Set question set: ${questions}`)
+
+        if(questions != null && questions.length <= 0 && informedEndFlag == false && session.turn == userId) {
+            alert("You have no questions to ask anymore. Therefore the session automatically ends after you've answered your question.")
+            setInformedEndFlag(true);
+        }
+
     }, [questions])
 
     function connect(sessionid) {
@@ -255,6 +270,11 @@ const QnA = ( { props }) => {
             
                     // Get the returned users and update the state.
                     isProvider.current = JSON.stringify(response.data.providerId) == userId;
+
+                    console.log("SETTING PROVIDER FLAG")
+                    JSON.stringify(response.data.providerId) == userId ? console.log("true") : console.log("false")
+
+                    setProviderFlag(JSON.stringify(response.data.providerId) == userId);
 
             
                     // This is just some data for you to see what is available.
@@ -370,6 +390,17 @@ const QnA = ( { props }) => {
     // }
 
     useEffect(() => {
+        console.log("UPDATED SESSION STATE")
+        console.log(session)
+    }, [session])
+
+    // useEffect(() => {
+    //     if(questions.length == 0) {
+    //         alert("You have no questions to ask anymore. Therefore the session automatically ends after you've answered your question.")
+    //     }
+    // }, [questions])
+
+    useEffect(() => {
         console.log("New question selected.");
     }, [selectedQuestion])
 
@@ -413,22 +444,41 @@ const QnA = ( { props }) => {
 
         // trigger sendmessage here
         sendMessage(syncSession.current)
+
+        if(informedEndFlag) {
+            doExit();
+            setDidExit(true)
+        }
+
     }
 
     const doExit = () => {
         // trigger client exit message => TODO: Broadcast to WS Server
+        if(didExit) {
+            return;
+        }
+
         console.log("Want to exit")
 
         syncSession.current.starter = null;
 
+        syncSession.current.currQ = null;
+
+
         sendMessage(syncSession.current)
+
+        setSession(syncSession.current)
 
         stompClient.disconnect()
         // sendLeaveMessage();
         // push to the exit session
-        history.push(`/`)
         // disconnect from stompClient => TODO
     }
+
+    useEffect(() => {
+        console.log("PROVIDER FLAG SET")
+        providerFlag ? console.log("true") : console.log("false")
+    }, [providerFlag])
 
     // let { userId = 1 } = useParams();
 
@@ -442,6 +492,10 @@ const QnA = ( { props }) => {
     return (
         <BaseContainer>
             <div className= "qna card" >
+                <div className = "qna card-title">
+                    <h1>QnA Session</h1>
+                    <h3>With the { (providerFlag != null && providerFlag != undefined) ? (providerFlag == false ? "provider." : "accepted applicant.") : "other user." }</h3>
+                </div>
                 {/* <div className= "qna card-header" >
                     <img className = "qna image" src="/qna.jpeg" alt="user qna img" />
                 </div> */}
@@ -451,15 +505,16 @@ const QnA = ( { props }) => {
                         then redirect to page with QAsessionID, also send a message to the other user with the link 
                         (he can otherwise not access the page) */}
                     { qaSessionId ?
-                    syncSession.current.answeredQsA.length > 0 && session.starter != userId 
-                    ? (<><h3>Summary</h3><AnswerSummary answeredQuestions={_.uniqBy(syncSession.current.answeredQsA, 'question')} /></>)
-                    : syncSession.current.answeredQsB.length > 0 && session.starter == userId 
-                    ? (<><h3>Summary</h3><AnswerSummary answeredQuestions={_.uniqBy(syncSession.current.answeredQsB, 'question')} /></>)
+                    session.answeredQsA.length > 0 && session.userA != userId 
+                    ? (<><h3>Summary</h3><h5>Questions answered by the other user.</h5><AnswerSummary className="qna answer-table" answeredQuestions={_.uniqBy(session.answeredQsA, 'question')} /></>)
+                    : session.answeredQsB.length > 0 && session.userA == userId 
+                    ? (<><h3>Summary</h3><h5>Questions answered by the other user.</h5><AnswerSummary classname="qna answer-table" answeredQuestions={_.uniqBy(session.answeredQsB, 'question')} /></>)
                     : (<></>)
                     : (<></>)
                     }
                     { !qaSessionId && questions ? 
                     (<>
+                        <h5>Start by asking a question to the other user:</h5>
                         <form>
                             <select onChange={(e) => setSelectedQuestion(e.target.value)}>
                             <option value="" >None selected</option>
@@ -469,12 +524,13 @@ const QnA = ( { props }) => {
                             </select>
                             {/* This submission is handled further down. */}
                         </form>
+                        <br />
                     </>): (<></>)
                     }
                     {/* If it's the turn of the logged in user, show AskQuestion interface 
                     and last answered question from counterparty, also show the submit button */}
                     {/* Otherwise show the loader */}
-                    { qaSessionId && questions && session.turn === userId && !session.currQ ? 
+                    { qaSessionId && questions && session.turn === userId && !session.currQ && session.starter != null ? 
                         (<>
                         {/* { session.starter === userId && session.answeredQsB.length > 0 ? 
                             (
@@ -490,6 +546,7 @@ const QnA = ( { props }) => {
                                 </> 
                             ) : (<></>)
                         } */}
+                        <h5>Ask a question to the other user:</h5>
                         <form>
                             <select onChange={(e) => setSelectedQuestion(e.target.value)}>
                             <option value="" default>None selected</option>
@@ -499,7 +556,7 @@ const QnA = ( { props }) => {
                             </select>
                             <Button
                                 width="70%"
-                                onClick={() => {submitQuestion(); console.log("Asked question")}}
+                                onClick={(e) => {e.preventDefault(); submitQuestion()}}
                                 disabled={(selectedQuestion == "")||(!selectedQuestion)}
                                 >
                                     Ask 
@@ -510,7 +567,8 @@ const QnA = ( { props }) => {
                         : qaSessionId && questions && session.turn === userId && session.currQ ?
                         (
                             <>
-                            { session.starter === userId && session.answeredQsB.length > 0 ? 
+                            {/* This functionality has been replaced by a tabular view */}
+                            {/* { session.starter === userId && session.answeredQsB.length > 0 ? 
                             (
                                 // push to beginning of array
                                 <>
@@ -531,8 +589,8 @@ const QnA = ( { props }) => {
                                 </div>
                                 </> 
                             ) : (<></>)
-                            }
-                            <h5>This is the answering interface</h5>
+                            } */}
+                            <h5>The other user has asked the following question:</h5>
                             {/* // Add a button which will take the answered question and add it to the users list.
                             // If he's not the starter => add it to answered Bs. */}
                             <h2>{ session.currQ }</h2>
@@ -558,12 +616,16 @@ const QnA = ( { props }) => {
                         )
                         : qaSessionId && syncSession.current.starter == null ?
                         (<>
+                            <br />
+                            <br />
                             <span>
-                                This QnA Session has ended. Click on Start new session, to start a new session for this event.
+                                This QnA Session has ended, since a user left or there were no more questions to ask. Click on Start new session, to start a new session for this event.
                             </span>
                             <Button onClick={() => history.push(`/qa/${eventId}`)}>Start new session</Button>
                          </>)
-                        : (<span><Spinner /></span>)
+                        : !qaSessionId ? (<></>)
+
+                        :(<><h5>Waiting for response by the other user.</h5><span><Spinner /></span></>)
                     }
                 <div className= "qna card-footer" >
                 { !qaSessionId ?
@@ -591,7 +653,7 @@ const QnA = ( { props }) => {
                         :   
                         (<Button 
                                 width="100%"
-                                onClick={() => doExit()}
+                                onClick={(e) => {e.preventDefault(); doExit(); history.push(`/`)}}
                             >
                                 Exit
                        </Button>)

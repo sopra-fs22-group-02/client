@@ -30,6 +30,12 @@
   }
   &.card-body {
     padding: 10px 40px;
+    justify-content: center;
+  }
+
+  &.card-body table {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   &.textbox {

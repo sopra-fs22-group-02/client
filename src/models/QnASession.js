@@ -3,6 +3,9 @@
  */
 class QnASession {
   constructor(data = {}) {
+
+    this.userA = null;
+
     this.starter = null;
     // whose turn it is (identified) to ANSWER & subsequently ASK
     this.turn = null;

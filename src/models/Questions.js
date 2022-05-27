@@ -40,6 +40,18 @@ class Questions {
         {
             id: 3,
             question: "C"
+        },
+        {
+            id: 4,
+            question: "D"
+        },
+        {
+            id: 5,
+            question: "E"
+        },
+        {
+            id: 6,
+            question: "F"
         }
     ] 
 
