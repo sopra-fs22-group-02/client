@@ -271,6 +271,8 @@ const QnA = ( { props }) => {
                     // Get the returned users and update the state.
                     isProvider.current = JSON.stringify(response.data.providerId) == userId;
 
+                    setPlaceId(response.data.placeId);
+
                     console.log("SETTING PROVIDER FLAG")
                     JSON.stringify(response.data.providerId) == userId ? console.log("true") : console.log("false")
 
@@ -490,7 +492,12 @@ const QnA = ( { props }) => {
     // (<span>{JSON.stringify(syncSession.current.answeredQsA)}<span/>)
 
     return (
-        <BaseContainer>
+        <BaseContainer alerts={[{
+            message: `This QnA Session is related to event id: ${eventId}`,
+            action: true,
+            buttonMsg: "Checkout",
+            callback: () => {window.open(`/eventprofile/${placeId}/${eventId}`, "_blank")}
+        }]}>
             <div className= "qna card" >
                 <div className = "qna card-title">
                     <h1>QnA Session</h1>
