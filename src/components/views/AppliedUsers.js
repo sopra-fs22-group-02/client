@@ -7,11 +7,12 @@ import { useHistory } from 'react-router-dom';
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from 'helpers/firebase';
 import User from 'models/User';
+import { Avatar } from '@mui/material';
 
 const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
     const history = useHistory()
     const [sl, setSl] = useState(sleepEvent)
-    const [userPicPath, setUserPicPath] = useState("/profile.png")
+    const [userPicPath, setUserPicPath] = useState(null)
 
     const accept = async (aId) => {
         try {
@@ -39,15 +40,15 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
     useEffect(() => {
         const fetchUserPicPath = async function () {
             let pUser = null
-            if(sl.applicant.length > 0 && sl.applicant[0]) {
-                pUser = new User(sl.applicant[0])
-                getDownloadURL(ref(storage, `user/${pUser.userId}`))
+            if(sl.confirmedApplicantEntity) {
+                pUser = new User(sl.confirmedApplicantEntity)
+                getDownloadURL(ref(storage, `user/${sl.confirmedApplicantEntity.userId}`))
                 .then((url) => {
                   console.log("Retrievel URL:")
                   console.log(url)
                   setUserPicPath(url)
                 }).catch((error) => {
-                    setUserPicPath("/profile.png")
+                    setUserPicPath(null)
                 })
             }
             // setUserPicPath(pUser.pictureUrl ? pUser.pictureUrl : "/profile.png")
@@ -79,7 +80,7 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                 <div className="applied box1">
                         { sl.applicantsEntities ?
                         sl.applicantsEntities.map((a) => (
-                            <div className= "applied insideboxes" key={a.userId}>
+                            <div className= "applied insideboxes" key={ a.userId }>
                             <img className = "applied avatar" src={userPicPath} alt="user profile img" />
                             <h3>{a.username}</h3>
                             <Button onClick={() => { accept(a.userId) }}>
@@ -90,9 +91,14 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                         : sl.confirmedApplicant !== 0 
                         ? (
                             <>
-                            <h1>Applicant Profile</h1>
-                            <h3>{ sl.confirmedApplicantEntity ? sl.confirmedApplicantEntity.username : "n.A." }</h3>
-                            <h5>{ sl.confirmedApplicantEntity ? sl.confirmedApplicantEntity.bio : "n.A." }</h5>
+                            <h1>Accepted Applicant</h1>
+                            <Avatar
+                                className='applied big-avatar'
+                                src={userPicPath}
+                                sx={{ width: 150, height: 150}}
+                            />
+                            <h3>Username: { sl.confirmedApplicantEntity ? sl.confirmedApplicantEntity.username : "n.A." }</h3>
+                            <h3>Bio: { sl.confirmedApplicantEntity && sl.confirmedApplicantEntity.bio ? sl.confirmedApplicantEntity.bio : "No bio available" }</h3>
                             </>
                           )
                         : (<><h1>No applicants.</h1></>)
