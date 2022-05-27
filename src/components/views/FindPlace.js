@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from '../ui/BaseContainer';
 import {Button} from '../ui/Button';
-import {Box} from '../ui/Box';
 import {api, handleError} from "../../helpers/api";
 import "styles/views/FindPlace.scss";
 import {useHistory} from 'react-router-dom';
-import Place from "models/Place";
 import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
@@ -13,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 
 const PlaceBox = ({ place, history }) => {
     const [url, setUrl] = useState(null);
+    let isOwnPlace = place.providerId == localStorage.getItem('loggedInUserId');
     getDownloadURL(ref(storage, `place/user-${place.providerId}`))
       .then((url) => {
         setUrl(url);
@@ -34,6 +33,7 @@ const PlaceBox = ({ place, history }) => {
             </div>
             <Button
                 onClick={() => selectPlace()}
+                disabled={isOwnPlace}
             >
                 Select
             </Button>
@@ -94,6 +94,7 @@ const FindPlace = () => {
     if (places) {
         placeContent = (
             places.map(place => (
+
                 <PlaceBox key={place.placeId} place={place} history={history}/>
             ))
         );
@@ -121,7 +122,7 @@ const FindPlace = () => {
                             onClick={e => filterPlace(e.target.value)}
                         /> 
                     </label>
-                    <label> Zentrum
+                    <label> Center
                         <input 
                             name='campus'
                             type="radio"
@@ -129,11 +130,11 @@ const FindPlace = () => {
                             onClick={e => filterPlace(e.target.value)}
                         /> 
                     </label>
-                    <label> Hoennggeberg
+                    <label> Hoenggeberg
                         <input 
                             name='campus'
                             type="radio"
-                            value="HOENGGEBERG"
+                            value="HOENGGERBERG"
                             onClick={e => filterPlace(e.target.value)}
                         /> 
                     </label>
