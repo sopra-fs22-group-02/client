@@ -110,6 +110,7 @@
   }
   &.image-submit {
     margin-left: 130px;
+    margin-top: 22px;
   }
 
   @media (max-width: 800px) {
@@ -118,4 +119,8 @@
     &.field { grid-template-columns: auto; }
   }
 
+}
+
+.return-button {
+  margin-left: 8em;
 }

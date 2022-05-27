@@ -125,74 +125,84 @@ const ProfileEdit = () => {
         });
     };
     return (
-        <BaseContainer>
-            <div className="profileedit container">
-                <div className="profileedit form">
-                    <FormField
-                        label="First name"
-                        // defaultValue="Hello"
-                        defaultValue={ user.firstName }
-                        onChange={f => setFirstName(f)}
-                    />
-                    <FormField
-                        label="Last Name"
-                        defaultValue={ user.lastName }
-                        onChange={l => setLastName(l)}
-                    />
-                    <FormField
-                        label="username"
-                        defaultValue={ user.username }
-                        onChange={un => setUsername(un)}
-                    />
-                    <FormField
-                        type="password"
-                        label="password"
-                        defaultValue={ user.password }
-                        onChange={b => setPassword(b)}
-                    />
-                    <FormField
-                        label="Bio"
-                        defaultValue={ user.bio }
-                        onChange={b => setBio(b)}
-                    />
-                    <div className="profileedit button-container">
-                        <Button
-                            width="30%"
-                            onClick={() => doUpdate()}
+        <div>
+            <div className='return-button'>
+                <Button
+                    width="10%"
+                    onClick={() => history.push(`/profile/${localStorage.getItem('loggedInUserId')}`)}
+                >
+                    Return
+                </Button>
+            </div>
+            <BaseContainer>
+                <div className="profileedit container">
+                    <div className="profileedit form">
+                        <FormField
+                            label="First name"
+                            // defaultValue="Hello"
+                            defaultValue={ user.firstName }
+                            onChange={f => setFirstName(f)}
+                        />
+                        <FormField
+                            label="Last Name"
+                            defaultValue={ user.lastName }
+                            onChange={l => setLastName(l)}
+                        />
+                        <FormField
+                            label="username"
+                            defaultValue={ user.username }
+                            onChange={un => setUsername(un)}
+                        />
+                        <FormField
+                            type="password"
+                            label="password"
+                            defaultValue={ user.password }
+                            onChange={b => setPassword(b)}
+                        />
+                        <FormField
+                            label="Bio"
+                            defaultValue={ user.bio }
+                            onChange={b => setBio(b)}
+                        />
+                        <div className="profileedit button-container">
+                            <Button
+                                width="30%"
+                                onClick={() => doUpdate()}
+                            >
+                                Update
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="profileedit form2">
+                        <div className = "profileedit title" >
+                            <h1>profile image</h1>
+                        </div>
+
+                        <Avatar
+                            className="profileedit picture"
+                            src={url}
+                            sx={{ width: 400, height: 370 }}
+                            variant="square"
+                        />
+                        <div className= "placeedit selectfield" >
+                            <input
+                                className="profileedit picture-input"
+                                type="file"
+                                onChange={handleImageChange}
+                            />
+                        </div>
+
+                        <Button 
+                            className="profileedit image-submit"
+                            onClick={handleSubmit}
+                            width="50%"
                         >
-                            Update
+                            Upload Image
                         </Button>
                     </div>
                 </div>
-                <div className="profileedit form2">
-                    <div className = "profileedit title" >
-                        <h1>profile image</h1>
-                    </div>
-
-                    <Avatar
-                        className="profileedit picture"
-                        src={url}
-                        sx={{ width: 400, height: 370 }}
-                        variant="square"
-                    />
-                    <div className= "placeedit selectfield" >
-                        <input
-                            className="profileedit picture-input"
-                            type="file"
-                            onChange={handleImageChange}
-                        />
-                    </div>
-
-                    <Button 
-                        className="profileedit image-submit"
-                        onClick={handleSubmit}
-                        width="50%"
-                    >
-                        Upload Image
-                    </Button>
-                </div>
-            </div>
-        </BaseContainer>
+            </BaseContainer>
+        </div>
     );
 };
 
