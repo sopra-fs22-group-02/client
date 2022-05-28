@@ -14,7 +14,7 @@
     justify-content: center;
     width: 100%;
     max-width: 40%;
-    height: 550px;
+    height: fit-content;
     font-size: 16px;
     font-weight: 300;
     padding-left: 37px;
@@ -72,5 +72,6 @@
     font-weight: 200;
     font-size: 20px;
     text-transform: uppercase;
+    margin-bottom: 8%;
   }
 }
