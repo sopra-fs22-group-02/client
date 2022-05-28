@@ -138,10 +138,14 @@
     width: 90%;
     padding: 5%;
     border-radius: 12px;
-    &:focus, &:hover, &:visited, &:link, &:active {
-      text-decoration: none;
+    color: white;
+    &:hover {
+      opacity: 1;
       color: inherit;
     }
+    &:active {
+    }
+
   }
 }
 

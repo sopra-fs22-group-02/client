@@ -44,7 +44,8 @@
   &.picture-box2 {
     grid-column-start: 3;
     display: flex;
-    justify-content: space-around;
+    justify-content: right;
+    column-gap: 10px;
     width: 100%;
   }
 

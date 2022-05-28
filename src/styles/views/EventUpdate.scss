@@ -1,107 +1,113 @@
 @import 'styles/theme';
-
-.event{
+.eventu{
   &.container {
-    margin-top: 2em;
-    min-height: 300px;
-    width: 100%;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
-    flex-direction: row;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #1F4F59FF;
+    border-radius: 30px;
+    margin-top: 30px;
+    height: 30em;
+    display: grid;
+    grid-template-columns: 600px auto;
+    column-gap: 10px;
   }
   &.form {
-    display: flex;
     flex-direction: column;
+    margin-left: 5px;
     justify-content: center;
-    width: 70%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid solid solid none;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color: #c0ece0e8;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    //box-shadow: $dropShadow;
+    margin-right: 20px;
+
   }
   &.field {
-    display: inline-flex;
-    flex-direction: row;
     justify-content: center;
+    column-gap: 5px;
   }
-  &.input {
-    height: 45px;
-    padding-left: 15px;
-    margin-left: -4px;
-    border: none;
-    border-radius: 0.75em;
-    margin-bottom: 20px;
-    background: transparentize(white, 0.85);
-    color: #127570;
-    box-shadow: $dropShadow;
-  }
-  &.box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 150px;
-    text-transform: uppercase;
-    font-weight: 500;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    justify-content: center;
-  }
-    &.form2 {
+  &.form2 {
+    // border-style: solid;
+    // border-width: 2px;
+    // border-color: #1F4F59FF;
+    // border-radius: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    max-width: 50em;
-    height: 30em;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    border-style: solid none solid solid;
-    border-color: rgb(14, 141, 146);
-    border-radius: 0.05em;
-    background-color: #c0ece0e8;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-left: 5px;
+
   }
-  &.calendar-box {
-    color: #053f3c;
-    margin-bottom: 20px;
-    margin-right: 20px;
+  &.title {
+    flex-shrink: 0;
+    background-color: #1f4f59;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.2;
     text-transform: uppercase;
-    font-weight: 700;
-    box-shadow: $dropShadow;
-    background-color: #0d9992;
-    position: relative;
-    bottom: 30px;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    // justify-self: center;
+    // justify-content: center;
+    justify-content: space-around;
+
   }
-  &.button-container {
-    display: flex;
-    justify-content: center;
+  &.title h1{
+    justify-self: center;
+    font-weight: 400;
+    font-sth1yle: normal;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: 5px;
+  }
+
+  &.offer-slot {
+    text-align: center;
+  }
+  &.return {
     margin-top: 2em;
-  }
-  &.picture{
-    align-items: center;   
-    position: relative;
-    bottom: 75px;
+    text-align: center;
   }
 }
 .react-calendar {
   background-color: rgb(228, 222, 210);
   border-radius: 0.5em;
-  box-shadow: $dropShadow;
+  width: 400px;
+  height: auto;
+  margin-left: 15%;
+  margin-right: 10px;
+  margin-top: 50px;
 }
 .react-time-picker{
   background-color: rgb(228, 222, 210);
   width: 10em;
   height: 3em;
   box-shadow: $dropShadow;
+  margin-top: 55px;
+  margin-left: 35%;
 }
 
+@media (max-width: 929px) {
+  &.eventu {
+    &.container {
+      grid-template-columns: repeat(1, 1fr);
+      border-style: none;}
+
+  }
+  &.offer-slot {
+    text-align: center;
+    margin-top: 400px;
+  }
+  &.form {
+    margin-top: 70px;
+  }
+
+  &.react-calendar { margin-left: 0; width: auto };
+  // &.form2 { grid-row-start: 1; }
+  // &.field { grid-template-columns: auto; }
+}

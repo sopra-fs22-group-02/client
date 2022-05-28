@@ -16,7 +16,7 @@ import moment from "moment";
 
 const FormField = props => {
     return (
-      <div className="eventcration field">
+      <div className="eventcreation field">
         <TimePicker 
             onChange={t => props.onChange(t)} 
             value={props.value} 
@@ -105,10 +105,17 @@ const FormField = props => {
     let {placeId} = useParams();
     return (
       <BaseContainer>
+         <div className = "eventcreation firststack" >
+              <Button
+                  onClick={() => history.goBack()}
+              >
+                  Return
+              </Button>
+         </div>
         <div className="eventcreation container">
         <div className="eventcreation form2">
             <div className = "eventcreation title" >
-                <h1> Place profile image</h1>
+                <h1> Calendar</h1>
             </div>
             <Calendar
               locale='en'
@@ -117,14 +124,6 @@ const FormField = props => {
               minDate={moment().toDate()}
               maxDate={moment().add(7, 'days').toDate()}
             />
-            <div className="eventcreation return">
-              <Button
-                  width="30%"
-                  onClick={() => history.push('/home')}
-                >
-                  Return
-              </Button>
-            </div>
           </div>
           <div className="eventcreation form">
             <div className = "eventcreation title" >
@@ -143,15 +142,15 @@ const FormField = props => {
               value={endhour}
               onChange={setEndHour}
             />
-            <div className="eventcreation offer-slot">
-              <Button
+          </div>
+        </div>
+        <div className="eventcreation offer-slot">
+            <Button
                 width="30%"
                 onClick={() => create()}
-              >
+            >
                 Offer slot
-              </Button>
-            </div>
-          </div>
+            </Button>
         </div>
       </BaseContainer>
     );
