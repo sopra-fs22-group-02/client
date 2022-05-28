@@ -112,8 +112,8 @@
 
   @media (max-width: 500px) {
 
-    &.insidefields { 
-      grid-template-columns: repeat(1, 1fr); 
+    &.insidefields {
+      grid-template-columns: repeat(1, 1fr);
       justify-items: center;
       text-align: center;
     }
