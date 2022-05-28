@@ -104,25 +104,27 @@ const FindPlace = () => {
     return (
         <div className='find primary-container'>
             <BaseContainer className="find container">
-                <div className= "find title" >
-                        Choose your place      
-                </div>
-                <div className='find result'>
-                    <div className = "find box" >
-                        {placeContent}
-                    </div>
-                    <div className = "find return" >
+                <div className='find top-stack'>
+                    <div className='find top-return'>
                         <Button 
-                            width='100%'
+                            width='20%'
                             onClick={() => history.push('/home')}
                         >
                             Return
                         </Button>
                     </div>
+                    <div className= "find title" >
+                            Choose your place      
+                    </div>
+                </div>
+                <div className='find result'>
+                    <div className = "find box" >
+                        {placeContent}
+                    </div>           
                 </div>
             </BaseContainer>
             <div className='find filter'>
-                <fieldset className='find set'>
+                <fieldset className='find set'> 
                     <label> Oerlikon
                         <input 
                             name='campus'
