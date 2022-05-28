@@ -8,7 +8,6 @@
     margin-top: 30px;
     height: 30em;
     display: grid;
-    width: 65em;
     grid-template-columns: 600px auto;
     column-gap: 10px;
   }
@@ -16,11 +15,12 @@
     flex-direction: column;
     margin-left: 5px;
     justify-content: center;
+    margin-right: 20px;
+
   }
   &.field {
     justify-content: center;
     column-gap: 5px;
-    margin-right: 20px;
   }
   &.form2 {
     // border-style: solid;
@@ -51,6 +51,7 @@
     // justify-self: center;
     // justify-content: center;
     justify-content: space-around;
+
   }
   &.title h1{
     justify-self: center;
@@ -91,9 +92,19 @@
   margin-left: 35%;
 }
 
-@media (max-width: 1039px) {
-  &.eventupdate {
-    &.container { grid-template-columns: repeat(1, 1fr); }
+@media (max-width: 929px) {
+  &.eventu {
+    &.container {
+      grid-template-columns: repeat(1, 1fr);
+      border-style: none;}
+
+  }
+  &.offer-slot {
+    text-align: center;
+    margin-top: 400px;
+  }
+  &.form {
+    margin-top: 70px;
   }
 
   &.react-calendar { margin-left: 0; width: auto };

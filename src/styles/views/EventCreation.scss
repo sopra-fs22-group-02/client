@@ -9,7 +9,6 @@
     margin-top: 30px;
     height: 30em;
     display: grid;
-    width: 65em;
     grid-template-columns: 600px auto;
     column-gap: 10px;
   }
@@ -17,11 +16,12 @@
     flex-direction: column;
     margin-left: 5px;
     justify-content: center;
+    margin-right: 20px;
   }
   &.field {
     justify-content: center;
     column-gap: 5px;
-    margin-right: 20px;
+
 
   }
   &.form2 {
@@ -91,16 +91,25 @@
   width: 10em;
   height: 3em;
   box-shadow: $dropShadow;
-  margin-top: 55px;
-  margin-left: 35%;
+  margin-left: 0;
+  margin-top: 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 929px) {
   &.eventcreation {
-    &.container { grid-template-columns: repeat(1, 1fr); }
+    &.react-calendar { margin-left: 0; width: auto };
+    &.container {
+      grid-template-columns: repeat(1, 1fr);
+      border-style: none;
+
+    }
+    &.offer-slot {
+      text-align: center;
+      margin-top: 400px;
+    }
+    &.form {
+      margin-top: 70px;
+    }
   }
 
-  &.react-calendar { margin-left: 0; width: auto };
-  // &.form2 { grid-row-start: 1; }
-  // &.field { grid-template-columns: auto; }
 }

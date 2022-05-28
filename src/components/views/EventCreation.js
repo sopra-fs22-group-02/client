@@ -105,7 +105,7 @@ const FormField = props => {
     let {placeId} = useParams();
     return (
       <BaseContainer>
-         <div className = "eventu firststack" >
+         <div className = "eventcreation firststack" >
               <Button
                   onClick={() => history.goBack()}
               >
