@@ -92,16 +92,16 @@ const ProfileField = props => {
             />
             <div className="placeprofile button-container">
               <Button
-                width="30%"
+                  width="40%"
+                  onClick={() => history.push("/")}
+              >
+                  Return
+              </Button>
+              <Button
+                width="40%"
                 onClick={() => toEdit()}
               >
                 Edit
-              </Button>
-              <Button
-                  width="30%"
-                  onClick={() => history.push("/")}
-              >
-                  Back
               </Button>
             </div>
           </div>

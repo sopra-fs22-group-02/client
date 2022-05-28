@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from '../ui/BaseContainer';
 import {Button} from '../ui/Button';
-import {Box} from '../ui/Box';
 import {api, handleError} from "../../helpers/api";
 import "styles/views/FindPlace.scss";
 import {useHistory} from 'react-router-dom';
-import Place from "models/Place";
 import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
@@ -14,6 +12,7 @@ import { NightShelter } from '@mui/icons-material';
 
 const PlaceBox = ({ place, history }) => {
     const [url, setUrl] = useState(null);
+    let isOwnPlace = place.providerId == localStorage.getItem('loggedInUserId');
     getDownloadURL(ref(storage, `place/user-${place.providerId}`))
       .then((url) => {
         setUrl(url);
@@ -36,6 +35,7 @@ const PlaceBox = ({ place, history }) => {
             </div>
             <Button
                 onClick={() => selectPlace()}
+                disabled={isOwnPlace}
             >
                 Select
             </Button>
@@ -57,6 +57,7 @@ PlaceBox.propTypes = {
 const FindPlace = () => {
 
     const [places, setPlaces] = useState(null); 
+    const [allPlaces, setAllPlaces] = useState(null); 
     const history = useHistory();
 
     useEffect( () => {
@@ -65,15 +66,8 @@ const FindPlace = () => {
                 const response = await api.get('/places');
                 console.log(response.data); 
                 setPlaces(response.data);
-                // let len = response.data.length; 
-                // for (let i = 0; i < len; i++) {
-                //     let place = new Place(response.data[i]);
-                //     console.log(place.closestCampus);
-                //     places.push(place); 
-                //     setPlaceLength(len);
-                // }
+                setAllPlaces(response.data);
                 console.log(places);  
-                // history.push(`/profileedit/${ userId }`);
             } catch (error) {
                 alert(`Something went wrong during the fetching: \n${handleError(error)}`);
             }
@@ -82,30 +76,91 @@ const FindPlace = () => {
         fetchData()
     }, [])
 
+    const filterPlace = closestCampus => {
+        let filteredPlaces = [];
+        if (allPlaces) {
+            allPlaces.map((place) => {
+                if (place.closestCampus == closestCampus) {
+                    filteredPlaces.push(place)
+                    console.log(place)
+                }
+            })
+            setPlaces(filteredPlaces)
+        }
+    }
+    const getAllPlaces = () => {
+        setPlaces(allPlaces);
+    }
+
     let placeContent = <EmptyPlaceBox/>
     if (places) {
         placeContent = (
             places.map(place => (
+
                 <PlaceBox key={place.placeId} place={place} history={history}/>
             ))
         );
     }
     return (
-        <BaseContainer>
-            <div className = "find firststack" >
-                <Button 
-                    onClick={() => history.push('/home')}
-                >
-                    Return
-                </Button>
+        <BaseContainer className="find container">
+            <div className= "find title" >
+                    Choose your place      
             </div>
-            <div className = "find stack" >
-                <div className= "find frame" >
-                    <h1>Choose your place</h1>
+            <div className='find filter'>
+                <fieldset>
+                    <label> Oerlikon
+                        <input 
+                            name='campus'
+                            type="radio"
+                            value="OERLIKON"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Irchel
+                        <input 
+                            name='campus'
+                            type="radio"
+                            value="IRCHEL"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Center
+                        <input 
+                            name='campus'
+                            type="radio"
+                            value="CENTER"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Hoenggeberg
+                        <input 
+                            name='campus'
+                            type="radio"
+                            value="HOENGGERBERG"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Show All
+                        <input 
+                            name='campus'
+                            type="radio"
+                            onClick={() => getAllPlaces()}
+                        /> 
+                    </label>
+                </fieldset>
+            </div>
+            <div className='find result'>
+                <div className = "find box" >
+                    {placeContent}
                 </div>
-            </div>
-            <div className = "find box" >
-                {placeContent}
+                <div className = "find return" >
+                    <Button 
+                        width='100%'
+                        onClick={() => history.push('/home')}
+                    >
+                        Return
+                    </Button>
+                </div>
             </div>
         </BaseContainer>
     );

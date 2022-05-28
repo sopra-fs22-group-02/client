@@ -4,33 +4,24 @@
   &.base {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   &.container {
     height: 700px;
-    // border-style: solid;
-    // border-color: black;
+    width: 45em;
     overflow-y: scroll;
   }
   &.box {
     border-style: none none dashed none;
-    // border-color: black;
     display: flex;
     flex-direction: row;
-
   }
   &.info {
     color: white;
     position: relative;
     top: 10px;
-    margin-left: 20px;
-    margin-right: 10px;
-  }
-  &.button {
-    position: relative;
-    left: 5em;
-  }
-  &.back-button {
-    justify-content: center;
+    margin-left: 10px;
+    margin-right: 30px;
   }
 }

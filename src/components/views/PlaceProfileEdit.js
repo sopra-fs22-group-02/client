@@ -189,7 +189,13 @@ const FormField = props => {
             />
             <div className="placeedit button-container">
               <Button
-                width="30%"
+                width="40%"
+                onClick={() => history.push(`/placeProfile/${placeId}`)}
+              >
+                return
+              </Button>
+              <Button
+                width="40%"
                 onClick={() => doUpdate()}
               >
                 Update

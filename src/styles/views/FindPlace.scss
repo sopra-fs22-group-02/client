@@ -1,40 +1,50 @@
 @import 'styles/theme';
 
 .find {
-  &.text {
+  &.container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    height: 50em;
   }
-  &.frame h1 {
-    font-weight: 400;
+  &.title {
+    font-weight: bold;
     font-style: normal;
     color: #ffffff;
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: 0px;
-    line-height: 1.2;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-left: 10px;
     text-transform: uppercase;
     text-align: center;
-
+    background-color: #1f4f59;
+    width: 20em;
+    height: 2em;
+    border-radius: 0.25em;
   }
   &.text h1 {
-    font-weight: bold;
+    font-weight: 400;
+    width: 10em;
+    height: 30px;
     text-transform: uppercase;
     white-space: pre-wrap;
     word-wrap: break-word;
     word-break: break-word;
-    font-weight: 400;
     font-style: normal;
     font-family: "Bungee", serif;
     color: #1f4f59;
-    font-size: 38px;
+    font-size: 30px;
     letter-spacing: 0px;
     line-height: 1.2;
     margin-left: 20px;
+    overflow: hidden;
   }
   &.text h2 {
-
     white-space: pre-wrap;
     word-wrap: break-word;
     word-break: break-word;
+    width: 15em;
+    height: 30px;
     font-weight: 400;
     font-style: normal;
     font-family: "Bungee", serif;
@@ -44,8 +54,6 @@
     line-height: 1.2;
     margin-left: 20px;
   }
-
-
   &.stack {
     flex-shrink: 0;
     height: 107px;
@@ -55,17 +63,18 @@
     align-items: center;
     overflow: visible;
   }
-  &.frame {
+  &.return {
     flex-shrink: 0;
-    width: 400px;
-    height: 70px;
-    background-color: #1f4f59;
-    overflow: hidden;
-
+    height: 107px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow: visible;
   }
   &.box {
     flex-shrink: 0;
-    height: 500px;
+    height: 30em;
+    width: 30em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,14 +84,11 @@
   }
   &.insidefields {
     box-sizing: border-box;
-    // width: 700px;
-    // height: 250px;
     display: grid;
     grid-template-columns: fit-content(300px) fit-content(300px) fit-content(300px);
     column-gap: 50px;
     align-items: center;
     background-color: rgba(84, 192, 204, 0.2);
-    overflow: visible;
     border-radius: 30px;
     border: 2px solid #222;
     margin: 0.5em 0;
@@ -90,16 +96,18 @@
     max-width: 600px;
   }
   &.avatar {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     border-radius: 1000px;
     margin-top: 2%;
     margin-bottom: 2%;
     margin-left: 2%;
-    // left: 15%;
-    // margin-left: 20px;
     border: 2px solid #1F4F59FF;
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  }
+  &.filter {
+    width: auto;
+    margin: 10px;
   }
 
   @media (max-width: 500px) {
@@ -114,8 +122,6 @@
       width: 120px;
       height: 120px;
     }
-    // &.form2 { grid-row-start: 1; }
-    // &.field { grid-template-columns: auto; }
   }
 
 }
