@@ -30,7 +30,7 @@ const PlaceBox = ({ place, history }) => {
             ><NightShelter style={{fontSize: 80}} />
             </Avatar>
             <div className = "find text" >
-                <h1>{place.name}</h1>
+                <h1>{place.name}{isOwnPlace ? " (your place) ": ""}</h1>
                 <h2>Nearest campus: {place.closestCampus}</h2>
             </div>
             <Button
@@ -95,16 +95,25 @@ const FindPlace = () => {
     let placeContent = <EmptyPlaceBox/>
     if (places) {
         placeContent = (
+            places.length > 0 ?
             places.map(place => (
-
                 <PlaceBox key={place.placeId} place={place} history={history}/>
             ))
+            : (<h3>No places for this facet.</h3>)
         );
     }
     return (
             <BaseContainer>
+                <div className = "find return" >
+                        <Button 
+                            className="find find-return-button"
+                            onClick={() => history.push('/home')}
+                        >
+                            Return
+                        </Button>
+                </div>
                 <div className= "find title" >
-                        Choose your place      
+                        <h1>Choose your place </h1>     
                 </div>
                 <div className='find result'>
                     <div className='find filter'>
@@ -153,15 +162,6 @@ const FindPlace = () => {
                     <div className = "find box" >
                         {placeContent}
                     </div>
-                </div>
-                <div className = "find return" >
-                        <Button 
-                            className="find return-button"
-                            width='100%'
-                            onClick={() => history.push('/home')}
-                        >
-                            Return
-                        </Button>
                 </div>
         </BaseContainer>
     );
