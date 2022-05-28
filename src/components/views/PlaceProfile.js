@@ -74,7 +74,7 @@ const ProfileField = props => {
       <BaseContainer>
           <div className = "placeprofile return" >
               <Button
-                  className="placeprofile placeedit-return-button"
+                  className="placeprofile placeprofile-return-button"
                   onClick={() => history.push("/")}
               >
                   Return

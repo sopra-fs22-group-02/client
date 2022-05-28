@@ -8,9 +8,10 @@
     border-radius: 30px;
     display: grid;
     // height: 600px;
-    width: auto;
+    // width: auto;
     grid-template-columns: 600px auto;
     column-gap: 10px;
+
 
   }
   &.form {
@@ -23,18 +24,17 @@
     grid-template-columns: auto auto;
     column-gap: 5px;
     margin-top: 20px;
+
   }
   &.input {
     height: 60px;
     width: 280px;
     margin-top: 20px;
     background-color: rgba(31, 79, 89, 0.2);
+    color: #053f3c;
     font-size: 18px;
     overflow-y: scroll;
     text-align: left;
-    border-radius: 0.75em;
-    border: none;
-
   }
   &.select {
     height: 55px;
@@ -48,6 +48,7 @@
     background-color: rgba(31, 79, 89, 0.2);
     color: #127570;
     margin-top: 25px;
+
   }
   &.primary-box {
     height: 60px;
@@ -68,7 +69,7 @@
   &.button-container {
     margin-left: 40%;
     margin-right: auto;
-    margin-top: 30px;
+
 
   }
   &.picture {
@@ -79,6 +80,7 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
+
   }
   &.title {
     flex-shrink: 0;
@@ -89,6 +91,7 @@
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
+
   }
   &.title h1 {
     font-weight: 400;
@@ -100,13 +103,26 @@
     line-height: 1.2;
     text-transform: uppercase;
     text-align: center;
+
   }
   &.image-button {
     margin-left: 45%;
     margin-right: auto;
+
   }
   &.selectfield {
     margin-left: 100px;
+  }
+  &.placeregister-return-button {
+    width: 75px;
+  }
+  &.return {
+    flex-shrink: 0;
+    // height: 107px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (max-width: 800px) {
