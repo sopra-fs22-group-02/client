@@ -219,13 +219,13 @@ const FormField = props => {
               <input type="file" onChange={handleImageChange}/>
             </div>
 
-            <button 
+            <Button 
               className='placeedit image-button'
               onClick={handleSubmit}
-              width="50%"
+              width="40%"
             >
               Upload Image
-            </button>
+            </Button>
           </div>
         </div>
       </BaseContainer>
