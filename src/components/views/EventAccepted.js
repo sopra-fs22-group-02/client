@@ -186,7 +186,11 @@ const EventAccepted = ({ sleepEvent }) => {
                     <div className= "accept insidebox" >
                         <Avatar className = "accept ima" src={userPicPath} alt="user profile img" />
                         <div className= "accept  textboxprof">
-                            <p className = "profile text" > { sl.provider.bio } </p>
+                            <p className = "profile text" >
+                                Username: { sl.provider.username }
+                                <br />
+                                Bio: { sl.provider.bio } 
+                            </p>
                         </div>
                     </div>
                 </div>
