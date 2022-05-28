@@ -47,8 +47,9 @@
 
   }
   &.button-container {
-    margin-left: 40%;
-    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
   }
   &.frame {
     flex-shrink: 0;
@@ -99,6 +100,7 @@
   &.event-button {
     margin-left: 25%;
     margin-right: auto;
+    margin-top: 8%;
   }
   &.placeprofile-return-button {
     width: 75px;

@@ -67,10 +67,8 @@
 
   }
   &.button-container {
-    margin-left: 40%;
-    margin-right: auto;
-
-
+    display: flex;
+    justify-content: center;
   }
   &.picture {
     margin-left: auto;

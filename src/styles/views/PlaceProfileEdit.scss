@@ -63,9 +63,9 @@
 
   }
   &.button-container {
-    margin-left: 40%;
-    margin-right: auto;
-
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
   }
   &.picture {
     margin-left: auto;
