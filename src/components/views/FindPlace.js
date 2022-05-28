@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import BaseContainer from '../ui/BaseContainer';
 import {Button} from '../ui/Button';
-import {Box} from '../ui/Box';
 import {api, handleError} from "../../helpers/api";
 import "styles/views/FindPlace.scss";
 import {useHistory} from 'react-router-dom';
-import Place from "models/Place";
 import PropTypes from "prop-types";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
@@ -13,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 
 const PlaceBox = ({ place, history }) => {
     const [url, setUrl] = useState(null);
+    let isOwnPlace = place.providerId == localStorage.getItem('loggedInUserId');
     getDownloadURL(ref(storage, `place/user-${place.providerId}`))
       .then((url) => {
         setUrl(url);
@@ -34,6 +33,7 @@ const PlaceBox = ({ place, history }) => {
             </div>
             <Button
                 onClick={() => selectPlace()}
+                disabled={isOwnPlace}
             >
                 Select
             </Button>
@@ -55,6 +55,7 @@ PlaceBox.propTypes = {
 const FindPlace = () => {
 
     const [places, setPlaces] = useState(null); 
+    const [allPlaces, setAllPlaces] = useState(null); 
     const history = useHistory();
 
     useEffect( () => {
@@ -63,6 +64,7 @@ const FindPlace = () => {
                 const response = await api.get('/places');
                 console.log(response.data); 
                 setPlaces(response.data);
+                setAllPlaces(response.data);
                 console.log(places);  
             } catch (error) {
                 alert(`Something went wrong during the fetching: \n${handleError(error)}`);
@@ -74,8 +76,8 @@ const FindPlace = () => {
 
     const filterPlace = closestCampus => {
         let filteredPlaces = [];
-        if (places) {
-            places.map((place) => {
+        if (allPlaces) {
+            allPlaces.map((place) => {
                 if (place.closestCampus == closestCampus) {
                     filteredPlaces.push(place)
                     console.log(place)
@@ -84,11 +86,15 @@ const FindPlace = () => {
             setPlaces(filteredPlaces)
         }
     }
+    const getAllPlaces = () => {
+        setPlaces(allPlaces);
+    }
 
     let placeContent = <EmptyPlaceBox/>
     if (places) {
         placeContent = (
             places.map(place => (
+
                 <PlaceBox key={place.placeId} place={place} history={history}/>
             ))
         );
@@ -102,7 +108,7 @@ const FindPlace = () => {
                 <fieldset>
                     <label> Oerlikon
                         <input 
-                            name='x'
+                            name='campus'
                             type="radio"
                             value="OERLIKON"
                             onClick={e => filterPlace(e.target.value)}
@@ -110,17 +116,34 @@ const FindPlace = () => {
                     </label>
                     <label> Irchel
                         <input 
-                            name='x'
+                            name='campus'
                             type="radio"
                             value="IRCHEL"
                             onClick={e => filterPlace(e.target.value)}
                         /> 
                     </label>
-                    <label> Zentrum
-                        <input type="radio" name='x'/> 
+                    <label> Center
+                        <input 
+                            name='campus'
+                            type="radio"
+                            value="CENTER"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
                     </label>
-                    <label> Hoennggeberg
-                        <input type="radio" name='x'/> 
+                    <label> Hoenggeberg
+                        <input 
+                            name='campus'
+                            type="radio"
+                            value="HOENGGERBERG"
+                            onClick={e => filterPlace(e.target.value)}
+                        /> 
+                    </label>
+                    <label> Show All
+                        <input 
+                            name='campus'
+                            type="radio"
+                            onClick={() => getAllPlaces()}
+                        /> 
                     </label>
                 </fieldset>
             </div>
