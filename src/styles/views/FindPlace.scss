@@ -1,12 +1,19 @@
 @import 'styles/theme';
 
 .find {
+  &.primary-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
   &.container {
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     height: 50em;
+    position: relative;
+    left: 20em;
   }
   &.title {
     font-weight: bold;
@@ -108,8 +115,19 @@
   &.filter {
     width: auto;
     margin: 10px;
+    position: relative;
+    left: 22em;
+    top: 55px;
   }
-
+  &.set {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    border-style: solid;
+    border-color: #1f4f59;
+    border-radius: 5%;
+    background-color: #bdf0eb;
+  }
   @media (max-width: 500px) {
 
     &.insidefields {
