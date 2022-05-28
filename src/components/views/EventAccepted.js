@@ -47,9 +47,12 @@ const MapFrame = (props) => {
         </a>
         </small> */}
         {/* Currently only this appears possible due to security restrictions */}
-        <Button onClick={()=> window.open(`https://www.openstreetmap.org/?mlat=${inferredAddress.lat}&amp;mlon=${inferredAddress.lon}`, "_blank")}>
-            Show Place on Map
-        </Button>
+        <div className= "accept show-place-box"   >
+            <Button onClick={()=> window.open(`https://www.openstreetmap.org/?mlat=${inferredAddress.lat}&amp;mlon=${inferredAddress.lon}`, "_blank")}>
+                Show Place on Map
+            </Button>
+        </div>
+
         </>
         )
 
