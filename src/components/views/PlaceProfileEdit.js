@@ -166,24 +166,24 @@ const FormField = props => {
         <div className="placeedit container">
           <div className="placeedit form">
             <FormField
-              label="Name of Place"
+              label="Name of Place:"
               defaultValue={place.name}
               // value={place.name}
               onChange={n => setName(n)}
             />
             {/* TODO: Change to dropdown */}
             <SelectField
-              label="Nearest To"
+              label="Nearest To:"
               value={place.closestCampus}
               onChange={nt => setClosestCampus(nt)}
             />
             <FormField
-              label="Address"
+              label="Address:"
               defaultValue={place.address}
               onChange={ads => setAddress(ads)}
             />
             <FormField
-              label="Description"
+              label="Description:"
               defaultValue={place.description}
               onChange={des => setDescription(des)}
             />
