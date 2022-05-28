@@ -106,7 +106,7 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                         ))
                         : sl.confirmedApplicant !== 0 
                         ? (
-                            <>
+                            <div className="applied accepted-applicant-container">
                             <h1>Accepted Applicant</h1>
                             <Avatar
                                 className='applied big-avatar'
@@ -115,7 +115,7 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                             />
                             <h3>Username: { sl.confirmedApplicantEntity ? sl.confirmedApplicantEntity.username : "n.A." }</h3>
                             <h3>Bio: { sl.confirmedApplicantEntity && sl.confirmedApplicantEntity.bio ? sl.confirmedApplicantEntity.bio : "No bio available" }</h3>
-                            </>
+                            </div>
                           )
                         : (<><h1>No applicants.</h1></>)
                         } 
