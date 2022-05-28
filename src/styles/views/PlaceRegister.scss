@@ -6,7 +6,6 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
-    margin-top: 20px;
     display: grid;
     // height: 600px;
     width: auto;
@@ -16,7 +15,6 @@
   }
   &.form {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
   }
   &.field {
@@ -61,7 +59,6 @@
   }
   &.form2 {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
 
   }

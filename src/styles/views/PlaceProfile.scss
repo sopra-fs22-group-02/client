@@ -6,7 +6,6 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
-    margin-top: 20px;
     display: grid;
     // height: 600px;
     // width: auto;
@@ -48,7 +47,8 @@
 
   }
   &.button-container {
-    margin-left: 25%;
+    margin-left: 40%;
+    margin-right: auto;
   }
   &.frame {
     flex-shrink: 0;
@@ -99,6 +99,17 @@
   &.event-button {
     margin-left: 25%;
     margin-right: auto;
+  }
+  &.placeedit-return-button {
+    width: 75px;
+  }
+  &.return {
+    flex-shrink: 0;
+    // height: 107px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (max-width: 1000px) {
