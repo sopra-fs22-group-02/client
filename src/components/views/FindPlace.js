@@ -102,69 +102,68 @@ const FindPlace = () => {
         );
     }
     return (
-        <div className='find primary-container'>
-            <BaseContainer className="find container">
+            <BaseContainer>
                 <div className= "find title" >
                         Choose your place      
                 </div>
                 <div className='find result'>
+                    <div className='find filter'>
+                        <fieldset className='find set'>
+                            <label> Oerlikon
+                                <input 
+                                    name='campus'
+                                    type="radio"
+                                    value="OERLIKON"
+                                    onClick={e => filterPlace(e.target.value)}
+                                /> 
+                            </label>
+                            <label> Irchel
+                                <input 
+                                    name='campus'
+                                    type="radio"
+                                    value="IRCHEL"
+                                    onClick={e => filterPlace(e.target.value)}
+                                /> 
+                            </label>
+                            <label> Center
+                                <input 
+                                    name='campus'
+                                    type="radio"
+                                    value="CENTER"
+                                    onClick={e => filterPlace(e.target.value)}
+                                /> 
+                            </label>
+                            <label> Hoenggerberg
+                                <input 
+                                    name='campus'
+                                    type="radio"
+                                    value="HOENGGERBERG"
+                                    onClick={e => filterPlace(e.target.value)}
+                                /> 
+                            </label>
+                            <label> Show All
+                                <input 
+                                    name='campus'
+                                    type="radio"
+                                    onClick={() => getAllPlaces()}
+                                /> 
+                            </label>
+                        </fieldset>
+                    </div>
                     <div className = "find box" >
                         {placeContent}
                     </div>
-                    <div className = "find return" >
+                </div>
+                <div className = "find return" >
                         <Button 
+                            className="find return-button"
                             width='100%'
                             onClick={() => history.push('/home')}
                         >
                             Return
                         </Button>
-                    </div>
                 </div>
-            </BaseContainer>
-            <div className='find filter'>
-                <fieldset className='find set'>
-                    <label> Oerlikon
-                        <input 
-                            name='campus'
-                            type="radio"
-                            value="OERLIKON"
-                            onClick={e => filterPlace(e.target.value)}
-                        /> 
-                    </label>
-                    <label> Irchel
-                        <input 
-                            name='campus'
-                            type="radio"
-                            value="IRCHEL"
-                            onClick={e => filterPlace(e.target.value)}
-                        /> 
-                    </label>
-                    <label> Center
-                        <input 
-                            name='campus'
-                            type="radio"
-                            value="CENTER"
-                            onClick={e => filterPlace(e.target.value)}
-                        /> 
-                    </label>
-                    <label> Hoenggerberg
-                        <input 
-                            name='campus'
-                            type="radio"
-                            value="HOENGGERBERG"
-                            onClick={e => filterPlace(e.target.value)}
-                        /> 
-                    </label>
-                    <label> Show All
-                        <input 
-                            name='campus'
-                            type="radio"
-                            onClick={() => getAllPlaces()}
-                        /> 
-                    </label>
-                </fieldset>
-            </div>
-        </div>
+        </BaseContainer>
     );
 };
 
