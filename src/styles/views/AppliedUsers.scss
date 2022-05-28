@@ -142,6 +142,7 @@
     margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
+    margin-bottom: 2%;
   }
   &.insideboxesframe h1 {
     font-weight: 400;
@@ -164,6 +165,10 @@
     margin-bottom: auto;
     margin-top: auto;
     margin-left: 10px;
+  }
+
+  &.accepted-applicant-container {
+    margin: 10px;
   }
 
   &.box1 h1 {
