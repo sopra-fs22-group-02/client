@@ -67,7 +67,8 @@
 
   }
   &.button-container {
-    margin-left: 25%;
+    margin-left: 40%;
+    margin-right: auto;
 
   }
   &.picture {
@@ -106,6 +107,18 @@
   }
   &.selectfield {
     margin-left: 100px;
+  }
+
+  &.placeedit-return-button {
+    width: 75px;
+  }
+  &.return {
+    flex-shrink: 0;
+    // height: 107px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (max-width: 800px) {

@@ -163,6 +163,14 @@ const FormField = props => {
   
     return (
       <BaseContainer>
+        <div className = "placeedit return" >
+          <Button
+              className="placeedit placeedit-return-button"
+              onClick={() => history.push(`/placeProfile/${placeId}`)}
+          >
+            Return
+          </Button>
+        </div>
         <div className="placeedit container">
           <div className="placeedit form">
             <FormField
@@ -188,12 +196,6 @@ const FormField = props => {
               onChange={des => setDescription(des)}
             />
             <div className="placeedit button-container">
-              <Button
-                width="40%"
-                onClick={() => history.push(`/placeProfile/${placeId}`)}
-              >
-                return
-              </Button>
               <Button
                 width="40%"
                 onClick={() => doUpdate()}
