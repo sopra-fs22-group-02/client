@@ -102,12 +102,29 @@ const FindPlace = () => {
         );
     }
     return (
-        <BaseContainer className="find container">
-            <div className= "find title" >
-                    Choose your place      
-            </div>
+        <div className='find primary-container'>
+            <BaseContainer className="find container">
+                <div className='find top-stack'>
+                    <div className='find top-return'>
+                        <Button 
+                            width='20%'
+                            onClick={() => history.push('/home')}
+                        >
+                            Return
+                        </Button>
+                    </div>
+                    <div className= "find title" >
+                            Choose your place      
+                    </div>
+                </div>
+                <div className='find result'>
+                    <div className = "find box" >
+                        {placeContent}
+                    </div>           
+                </div>
+            </BaseContainer>
             <div className='find filter'>
-                <fieldset>
+                <fieldset className='find set'> 
                     <label> Oerlikon
                         <input 
                             name='campus'
@@ -132,7 +149,7 @@ const FindPlace = () => {
                             onClick={e => filterPlace(e.target.value)}
                         /> 
                     </label>
-                    <label> Hoenggeberg
+                    <label> Hoenggerberg
                         <input 
                             name='campus'
                             type="radio"
@@ -149,20 +166,7 @@ const FindPlace = () => {
                     </label>
                 </fieldset>
             </div>
-            <div className='find result'>
-                <div className = "find box" >
-                    {placeContent}
-                </div>
-                <div className = "find return" >
-                    <Button 
-                        width='100%'
-                        onClick={() => history.push('/home')}
-                    >
-                        Return
-                    </Button>
-                </div>
-            </div>
-        </BaseContainer>
+        </div>
     );
 };
 
