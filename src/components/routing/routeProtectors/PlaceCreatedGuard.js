@@ -1,6 +1,5 @@
 import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 /**
  *

@@ -131,10 +131,6 @@ const ProfileField = props => {
 
     // do we really need placeId?
     let {placeId, eventId} = useParams();
-    // let {eventId} = useParams();
-    const goBack = () => {
-        history.push("/")
-    }
 
     const toEdit = () => {
       history.push(`/eventupdate/${placeId}/${eventId}`)

@@ -7,9 +7,7 @@ import {Box} from "../ui/Box";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
-import {useHistory} from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import SleepEvent from 'models/SleepEvent';
+import {useHistory, useParams} from 'react-router-dom';
 
 
 const ApplicantBox = ({ applicant, history, eventId }) => {
