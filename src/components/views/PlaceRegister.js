@@ -132,16 +132,24 @@ const FormFieldAddress = props => {
 
     return (
       <BaseContainer alerts={[{message:"Please create place with real address, otherwise it will not be displayed in the map!", severity:"info"}]}>
+        <div className = "placeregister return" >
+          <Button
+              className="placeregister placeregister-return-button"
+              onClick={() => history.push('/home')}
+          >
+            Return
+          </Button>
+        </div>
         <div className="placeregister container">
           <div className="placeregister form">
             <FormField
-              label="Name of Place"
+              label="Name of Place:"
               value={name}
               onChange={n => setName(n)}
             />
             {/* TODO: This is supposed to be a dropdown of 4 options. */}
             <SelectField
-              label="Nearest To"
+              label="Nearest To:"
               value={closestCampus}
               onChange={nt => setClosestCampus(nt)}
             />
@@ -151,22 +159,16 @@ const FormFieldAddress = props => {
               onChange={nt => setClosestCampus(nt)}
             /> */}
             <FormFieldAddress
-              label="Address"
+              label="Address:"
               value={address}
               onChange={ads => setAddress(ads)}
             />
             <FormField
-              label="Description"
+              label="Description:"
               value={description}
               onChange={des => setDescription(des)}
             />
             <div className="placeregister button-container">
-              <Button
-                width="40%"
-                onClick={() => history.push('/home')}
-              >
-                Return
-              </Button>
               <Button
                 disabled={!closestCampus || !name || !address}
                 width="40%"
@@ -190,11 +192,13 @@ const FormFieldAddress = props => {
             <div className = "placeregister selectfield" >
               <input type="file" onChange={handleImageChange}/>
             </div>
-            <button 
+            <Button 
               className='placeregister image-button'
-              onClick={handleSubmit}>
+              width="40%"
+              onClick={handleSubmit}
+            >
               Upload Image
-            </button>
+            </Button>
           </div>
         </div>
       </BaseContainer>

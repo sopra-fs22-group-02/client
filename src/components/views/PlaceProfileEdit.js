@@ -163,37 +163,39 @@ const FormField = props => {
   
     return (
       <BaseContainer>
+        <div className = "placeedit return" >
+          <Button
+              className="placeedit placeedit-return-button"
+              onClick={() => history.push(`/placeProfile/${placeId}`)}
+          >
+            Return
+          </Button>
+        </div>
         <div className="placeedit container">
           <div className="placeedit form">
             <FormField
-              label="Name of Place"
+              label="Name of Place:"
               defaultValue={place.name}
               // value={place.name}
               onChange={n => setName(n)}
             />
             {/* TODO: Change to dropdown */}
             <SelectField
-              label="Nearest To"
+              label="Nearest To:"
               value={place.closestCampus}
               onChange={nt => setClosestCampus(nt)}
             />
             <FormField
-              label="Address"
+              label="Address:"
               defaultValue={place.address}
               onChange={ads => setAddress(ads)}
             />
             <FormField
-              label="Description"
+              label="Description:"
               defaultValue={place.description}
               onChange={des => setDescription(des)}
             />
             <div className="placeedit button-container">
-              <Button
-                width="40%"
-                onClick={() => history.push(`/placeProfile/${placeId}`)}
-              >
-                return
-              </Button>
               <Button
                 width="40%"
                 onClick={() => doUpdate()}
@@ -217,13 +219,13 @@ const FormField = props => {
               <input type="file" onChange={handleImageChange}/>
             </div>
 
-            <button 
+            <Button 
               className='placeedit image-button'
               onClick={handleSubmit}
-              width="50%"
+              width="40%"
             >
               Upload Image
-            </button>
+            </Button>
           </div>
         </div>
       </BaseContainer>

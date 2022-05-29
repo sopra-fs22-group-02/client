@@ -7,8 +7,7 @@ import {Box} from "../ui/Box";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
-import {useHistory} from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import { NightShelter } from '@mui/icons-material';
 
 const EventBox = ({ event, providerId, placeId }) => {
@@ -25,8 +24,8 @@ const EventBox = ({ event, providerId, placeId }) => {
                 const response2 = await api.post(`users/${providerId}/notifications`, requestBody);
                 console.log(response2);
             }
-            console.log(message); // click apply twice
-            const requestBody = JSON.stringify({});
+            console.log(message); 
+            // const requestBody = JSON.stringify({});
             const response3 = await api.post(`places/${localStorage.getItem('loggedInUserId')}/events/${event.eventId}`);
             console.log(response3);
         } catch (error) {

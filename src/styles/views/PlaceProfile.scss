@@ -6,31 +6,25 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
-    margin-top: 20px;
     display: grid;
     // height: 600px;
     // width: auto;
-    grid-template-columns: auto auto;
-    // max-width: 800px;
+    grid-template-columns: 600px auto;
     column-gap: 10px;
-  }
 
-  // @media (max-width: 500px) {
-  //   &.field { grid-template-columns: auto; }
-  // }
+  }
 
   &.form {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
   }
-
   &.field {
     justify-content: center;
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 5px;
     margin-top: 20px;
+
   }
   &.label-box {
     height: 60px;
@@ -48,9 +42,14 @@
     font-size: 18px;
     overflow-y: scroll;
     text-align: left;
+    border-radius: 0;
+
+
   }
   &.button-container {
-    margin-left: 25%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
   }
   &.frame {
     flex-shrink: 0;
@@ -62,8 +61,8 @@
   }
   &.form2 {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
+    width: 442px;
   }
 
   &.title {
@@ -75,9 +74,9 @@
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
+
   }
   &.title h1 {
-    font-weight: 400;
     font-style: normal;
     color: #ffffff;
     font-size: 30px;
@@ -100,6 +99,18 @@
   &.event-button {
     margin-left: 25%;
     margin-right: auto;
+    margin-top: 8%;
+  }
+  &.placeprofile-return-button {
+    width: 75px;
+  }
+  &.return {
+    flex-shrink: 0;
+    // height: 107px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (max-width: 1000px) {
@@ -107,5 +118,6 @@
     &.form2 { grid-row-start: 1; }
     &.field { grid-template-columns: auto; }
   }
+
 
 }

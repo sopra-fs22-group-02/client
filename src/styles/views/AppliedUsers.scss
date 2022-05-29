@@ -27,7 +27,6 @@
     font-style: normal;
     color: #ffffff;
     font-size: 30px;
-    font-weight: bold;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: auto;
@@ -96,7 +95,6 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
   }
   &.avatar h1 {
-    font-weight: bold;
     text-transform: uppercase;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -120,7 +118,7 @@
     margin-top: 5px;
   }
   &.box2-title h1 {
-    font-weight: 400;
+    // font-weight: 400;
     font-style: normal;
     color: #ffffff;
     font-size: 30px;
@@ -145,7 +143,6 @@
     margin-bottom: 2%;
   }
   &.insideboxesframe h1 {
-    font-weight: 400;
     font-style: normal;
     color: #1F4F59FF;
     font-size: 30px;
@@ -156,7 +153,6 @@
     margin-left: 10px;
   }
   &.insideboxesframe h1 span {
-    font-weight: 400;
     font-style: normal;
     color: #1F4F59FF;
     font-size: 30px;
