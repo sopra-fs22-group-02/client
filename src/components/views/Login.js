@@ -50,7 +50,7 @@ const FAQ = props => {
     </AccordionSummary>
     <AccordionDetails>
       <Typography>
-        FindAPlace is a student project. More information about the project and the workflow can be found @<Link target="_blank" href='https://github.com/sopra-fs22-group-02/client#Illustrations'>GITHUB</Link>
+        FindAPlace is a student project. More information about the project and the workflow can be found @<Link target="_blank" href='https://github.com/sopra-fs22-group-02/client#faq-with-illustrations'>GITHUB</Link>
       </Typography>
     </AccordionDetails>
   </Accordion>
