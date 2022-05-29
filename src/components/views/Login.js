@@ -36,7 +36,7 @@ const FAQ = props => {
     </AccordionSummary>
     <AccordionDetails>
       <Typography>
-      FindAPlace is a location-centric event-planner that allows students to quickly and easily find a place to sleep. Whether it is about taking a quick nap, or just crashing at a place to sleep after a long night of studying or partying.
+      FindAPlace is a platform that allows students to quickly and easily find a place to sleep. Whether it is about taking a quick nap, or just crashing at a place to sleep after a long night of studying or partying.
       </Typography>
     </AccordionDetails>
   </Accordion>
