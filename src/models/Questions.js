@@ -1,5 +1,5 @@
 class Questions {
-    static #questionsToProvider = 
+    static #questionsToApplicant =
         [
             {
                 id: 1,
@@ -128,10 +128,14 @@ class Questions {
             {
                 id: 32,
                 question: "Do you like literature?"
+            },
+            {
+                id: 33,
+                question: "Do you like italian cuisine?"
             }
         ]
 
-    static #questionsToApplicant =
+    static #questionsToProvider =
     [
         {
             id: 1,
@@ -143,55 +147,107 @@ class Questions {
         },
         {
             id: 3,
-            question: "Do you have any food allergies?"
+            question: "Do you have any allergies?"
         },
         {
             id: 4,
-            question: "Are you lactose intolerant?"
+            question: "Do you have any food allergies?"
         },
         {
             id: 5,
-            question: "Are you gluten intolerant?"
+            question: "Are you lactose intolerant?"
         },
         {
             id: 6,
-            question: "Do you have a garage?"
+            question: "Are you gluten intolerant?"
         },
         {
             id: 7,
-            question: "Should I bring a sleeping bag"
+            question: "Do you want to eat dinner together?"
         },
         {
             id: 8,
-            question: "Are you a bachelor student?"
+            question: "Do you want to eat breakfast together?"
         },
         {
             id: 9,
-            question: "Are you a master student?"
+            question: "Do you want to eat lunch together?"
+        },
+        {
+            id: 9,
+            question: "Do you like alocoholic drinks?"
         },
         {
             id: 10,
-            question: "Are you a PhD student?"
+            question: "Do you like italian cuisine?"
         },
         {
             id: 11,
-            question: "Do you speak German?"
+            question: " Do you like chinese food?"
         },
         {
             id: 12,
-            question: "Do you like sports?"
-        },
-        {
-            id: 13,
-            question: "Do you play an instrument?"
+            question: "Can I bring food?"
         },
         {
             id: 14,
-            question: "Do you like gaming?"
+            question: "Should I bring food?"
         },
         {
             id: 15,
+            question: "Do you have a garage?"
+        },
+        {
+            id: 16,
+            question: "Do you have a parking spot available?"
+        },
+        {
+            id: 17,
+            question: " Do you a place where I can put my bike?"
+        },
+        {
+            id: 18,
+            question: "Should I bring a sleeping bag"
+        },
+        {
+            id: 19,
+            question: "Are there bed sheets available?"
+        },
+        {
+            id: 20,
+            question: "Are you a bachelor student?"
+        },
+        {
+            id: 21,
+            question: "Are you a master student?"
+        },
+        {
+            id: 22,
+            question: "Are you a PhD student?"
+        },
+        {
+            id: 23,
+            question: "Do you speak German?"
+        },
+        {
+            id: 24,
+            question: "Do you like sports?"
+        },
+        {
+            id: 25,
+            question: "Do you play an instrument?"
+        },
+        {
+            id: 26,
+            question: "Do you like gaming?"
+        },
+        {
+            id: 27,
             question: "Do you like literature?"
+        },
+        {
+            id: 28,
+            question: "Do you like gaming?"
         }
     ] 
 
