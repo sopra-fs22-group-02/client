@@ -101,7 +101,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-left: 5%;
+    // margin-left: 5%;
 
   }  
   &.event-title {
@@ -117,7 +117,7 @@
     //   border-style: solid;
     //   border-color: black;
     //   border-radius: 2em;
-      width: 500px;
+      // width: 500px;
       height: 555px;
       text-align: center;
       // position: relative;
@@ -218,7 +218,7 @@
     background-color: #1f4f59;
     overflow: hidden;
     margin-top: 5px;
-    margin-left: 10%;
+    // margin-left: 10%;
     grid-row: 3;
     grid-column-start: 1;
     grid-column-end: 3;
@@ -250,6 +250,18 @@
 
       // flex-direction: column;
 
+    }
+
+    &.profile-container {
+      display: initial;
+    }
+
+    &.notificationbox {
+      margin-left: auto;
+    }
+
+    &.notificationbox2 {
+      margin-left: auto;
     }
 
 
