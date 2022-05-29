@@ -25,6 +25,7 @@
     height: 650px;
     margin-top: 10px;
     width: 60%;
+    justify-content: space-around;
   }
 
   @media (max-width: 1420px) {
@@ -35,6 +36,7 @@
       box-shadow: none;
       align-items: center;
       background-color: rgba(153, 238, 255, 0);
+      justify-content: initial;
     }
   }
 
