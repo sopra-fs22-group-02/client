@@ -73,7 +73,12 @@ const ProfileField = props => {
           // Creation successfully worked --> navigate to the route /PlaceProfile
           // console.log(`Retrieval worked: ${JSON.stringify(response.data)}`);
         } catch (error) {
-          alert(`Something went wrong during the login: \n${handleError(error)}`);
+          alert(`Something went wront retrieving the sleep event: \n${handleError(error)}`);
+
+          if(error.response.status == 404) {
+            history.push("/");
+          }
+
         }
       }
 
