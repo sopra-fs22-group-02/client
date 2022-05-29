@@ -175,7 +175,7 @@ class Questions {
         },
         {
             id: 9,
-            question: "Do you like alocoholic drinks?"
+            question: "Do you like alcoholic drinks?"
         },
         {
             id: 10,
@@ -244,10 +244,6 @@ class Questions {
         {
             id: 27,
             question: "Do you like literature?"
-        },
-        {
-            id: 28,
-            question: "Do you like gaming?"
         }
     ] 
 
