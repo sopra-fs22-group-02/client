@@ -6,17 +6,17 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
-    margin-top: 20px;
     display: grid;
     // height: 600px;
     // width: auto;
     grid-template-columns: 600px auto;
     column-gap: 10px;
 
+
+
   }
   &.form {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
   }
   &.field {
@@ -59,18 +59,13 @@
   }
   &.form2 {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
 
   }
-  &.image-box {
-
-  }
   &.button-container {
-    margin-left: 40%;
-    margin-right: auto;
-    margin-top: 30px;
-
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
   }
   &.picture {
     margin-left: auto;
@@ -102,12 +97,24 @@
     text-align: center;
   }
   &.image-button {
-    margin-left: 45%;
-    margin-right: auto;
+    margin-left: 30%;
   }
   &.selectfield {
     margin-left: 100px;
   }
+  &.placeedit-return-button {
+    width: 75px;
+  }
+  &.return {
+    flex-shrink: 0;
+    // height: 107px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
+  }
+
+
 
   @media (max-width: 800px) {
     &.container { grid-template-columns: repeat(1, 1fr); }

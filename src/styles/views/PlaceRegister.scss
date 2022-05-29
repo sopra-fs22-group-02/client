@@ -6,17 +6,16 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
-    margin-top: 20px;
     display: grid;
     // height: 600px;
-    width: auto;
+    // width: auto;
     grid-template-columns: 600px auto;
     column-gap: 10px;
+
 
   }
   &.form {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
   }
   &.field {
@@ -25,18 +24,17 @@
     grid-template-columns: auto auto;
     column-gap: 5px;
     margin-top: 20px;
+
   }
   &.input {
     height: 60px;
     width: 280px;
     margin-top: 20px;
     background-color: rgba(31, 79, 89, 0.2);
+    color: #053f3c;
     font-size: 18px;
     overflow-y: scroll;
     text-align: left;
-    border-radius: 0.75em;
-    border: none;
-
   }
   &.select {
     height: 55px;
@@ -50,6 +48,7 @@
     background-color: rgba(31, 79, 89, 0.2);
     color: #127570;
     margin-top: 25px;
+
   }
   &.primary-box {
     height: 60px;
@@ -61,14 +60,13 @@
   }
   &.form2 {
     flex-direction: column;
-    margin-left: 5px;
     justify-content: center;
 
   }
   &.button-container {
-    margin-left: 40%;
-    margin-right: auto;
-    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
   }
   &.picture {
     margin-left: auto;
@@ -78,6 +76,7 @@
     border-width: 2px;
     border-color: #1F4F59FF;
     border-radius: 30px;
+
   }
   &.title {
     flex-shrink: 0;
@@ -88,6 +87,7 @@
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
+
   }
   &.title h1 {
     font-style: normal;
@@ -98,13 +98,25 @@
     line-height: 1.2;
     text-transform: uppercase;
     text-align: center;
+
   }
   &.image-button {
-    margin-left: 45%;
-    margin-right: auto;
+    margin-left: 31%;
+    margin-top: 0.8%;
   }
   &.selectfield {
     margin-left: 100px;
+  }
+  &.placeregister-return-button {
+    width: 75px;
+  }
+  &.return {
+    flex-shrink: 0;
+    // height: 107px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
   }
 
   @media (max-width: 800px) {

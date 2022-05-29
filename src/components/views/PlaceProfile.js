@@ -72,6 +72,14 @@ const ProfileField = props => {
       <div>
       {/* <ProfileData/> */}
       <BaseContainer>
+          <div className = "placeprofile return" >
+              <Button
+                  className="placeprofile placeprofile-return-button"
+                  onClick={() => history.push("/")}
+              >
+                  Return
+              </Button>
+          </div>
         <div className="placeprofile container">
           <div className="placeprofile form">
             <ProfileField
@@ -91,12 +99,6 @@ const ProfileField = props => {
                 value={place.description}
             />
             <div className="placeprofile button-container">
-              <Button
-                  width="40%"
-                  onClick={() => history.push("/")}
-              >
-                  Return
-              </Button>
               <Button
                 width="40%"
                 onClick={() => toEdit()}

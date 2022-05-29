@@ -20,6 +20,11 @@
     text-transform: uppercase;
     text-align: center;
   }
+
+  &.show-place-box {
+    display: flex;
+    justify-content: center;
+  }
   &.box1h {
     width: 200px;
     height: 40px;
@@ -219,13 +224,16 @@
   &.grid-item2{
     background-color: rgba(31, 79, 89, 0.2);
     border-radius:30px;
-    width: auto;
+    width: 90%;
     height: 90px;
     border-style: solid;
     border-width: 2px;
     border-color: #1F4F59FF;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5%;
+    margin-right: 0px;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
   }
 
 
