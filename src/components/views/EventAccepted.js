@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import BaseContainer from "../ui/BaseContainer";
-
+// import BaseContainer from "../ui/BaseContainer";
 import "styles/views/EventAccepted.scss";
 import {Button} from "../ui/Button";
-import { api, handleError } from 'helpers/api';
 import axios from 'axios';
 import User from 'models/User';
-import Place from 'models/Place';
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from 'helpers/firebase';
 import { useHistory } from 'react-router-dom';

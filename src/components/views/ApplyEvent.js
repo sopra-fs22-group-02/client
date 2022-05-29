@@ -25,7 +25,6 @@ const EventBox = ({ event, providerId, placeId }) => {
                 console.log(response2);
             }
             console.log(message); 
-            // const requestBody = JSON.stringify({});
             const response3 = await api.post(`places/${localStorage.getItem('loggedInUserId')}/events/${event.eventId}`);
             console.log(response3);
         } catch (error) {

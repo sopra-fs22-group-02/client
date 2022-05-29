@@ -19,10 +19,6 @@ import ProfileEdit from "../../views/ProfileEdit";
 import FindPlace from "../../views/FindPlace";
 import ApplyEvent from "../../views/ApplyEvent";
 import QnA from "components/views/QnA";
-import EventAccepted from "../../views/EventAccepted";
-import ChooseApplicant from "components/views/ChooseApplicant";
-import AppliedUsers from "../../views/AppliedUsers";
-import Home from "components/views/Home";
 import { PlaceCreatedGuard } from "../routeProtectors/PlaceCreatedGuard";
 import Header from "components/views/Header";
 

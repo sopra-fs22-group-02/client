@@ -2,14 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import SleepEvent from 'models/SleepEvent';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
-import {Box} from 'components/ui/Box';
 import 'styles/views/EventCreation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import { useParams } from 'react-router-dom';
 import TimePicker from "react-time-picker";
 import moment from "moment";
 

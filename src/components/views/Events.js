@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import 'react-calendar/dist/Calendar.css';
-import SleepEvent from 'models/SleepEvent';
 import {useHistory, useParams} from 'react-router-dom';
 import { Box } from 'components/ui/Box';
 import { Button } from 'components/ui/Button';

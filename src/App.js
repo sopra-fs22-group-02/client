@@ -1,4 +1,3 @@
-import Header from "components/views/Header";
 import AppRouter from "components/routing/routers/AppRouter";
 import { makeServer } from "helpers/server"
 import { isProduction } from "helpers/isProduction";

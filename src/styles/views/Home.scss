@@ -13,7 +13,6 @@
     // background: $background;
     background-color: rgba(153, 238, 255, 0.2);
     // padding: 1.5em;
-    border-radius: $borderRadius;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -134,7 +133,6 @@
     text-decoration: none;
     background: #26606c;
     /* margin-bottom: 12%; */
-    padding: 0%;
     /* margin-left: 0; */
     margin: 6%;
     width: 90%;
@@ -145,9 +143,6 @@
       opacity: 1;
       color: inherit;
     }
-    &:active {
-    }
-
   }
 }
 
