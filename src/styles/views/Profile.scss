@@ -2,7 +2,6 @@
 
 .profile {
   &.card {
-    // width: 500px;
     margin: 150px auto 0;
     background-color: rgba(84, 192, 204, 0.2);
     box-shadow: 0 7px, rgba(0, 0, 0, .14);
@@ -12,14 +11,11 @@
     border: 2px solid #1F4F59FF;
     border-radius: 30px;
     width: 500px;
-
-
   }
   &.card-header {
     position: relative;
     height: 100px;
   }
-
   &.image {
     width: 200px;
     height: 200px;
@@ -29,14 +25,11 @@
     transform: translate(-50%, -50%);
     border: 2px solid #1F4F59FF;
     box-shadow: 0 0 20px rgba(0,0, 0, .2);
-
   }
   &.card-body {
     padding: 10px 40px;
   }
-
   &.textbox {
-    background-color: rgba(31, 79, 89, 0.2);
     border-radius: 0.75em;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -48,7 +41,6 @@
     background-color: rgba(31, 79, 89, 0.2);
     overflow-y: scroll;
   }
-
   &.first-name {
     font-size: 20px;
     font-weight: 600;
@@ -90,10 +82,7 @@
     margin-bottom: 20px;
 
   }
-
   @media (max-width: 500px) {
     &.card { width: 360px; }
   }
-
-
 }
