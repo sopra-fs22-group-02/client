@@ -648,7 +648,7 @@ const QnA = ( { props }) => {
                                 }}
                                 disabled={(selectedQuestion == "")||(!selectedQuestion)}
                             >
-                                Start QA
+                                Start QnA
                         </Button>)
                         :   
                         (<Button 
