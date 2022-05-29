@@ -140,7 +140,9 @@ const Home = () => {
         // embed necessary attribute place
         await updUser.embed_place()
 
-        updUser.place ? localStorage.setItem('placeIdOfLoggedInUser', updUser.place.placeId) : null
+        if(updUser.place) {
+          localStorage.setItem('placeIdOfLoggedInUser', updUser.place.placeId)
+        }
 
         setUser(updUser)
 
