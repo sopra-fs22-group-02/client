@@ -63,12 +63,10 @@
     justify-content: center;
 
   }
-  &.image-box {
-
-  }
   &.button-container {
     display: flex;
     justify-content: center;
+    margin-top: 4%;
   }
   &.picture {
     margin-left: auto;
@@ -104,9 +102,8 @@
 
   }
   &.image-button {
-    margin-left: 45%;
-    margin-right: auto;
-
+    margin-left: 31%;
+    margin-top: 0.8%;
   }
   &.selectfield {
     margin-left: 100px;

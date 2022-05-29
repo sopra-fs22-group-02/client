@@ -192,11 +192,13 @@ const FormFieldAddress = props => {
             <div className = "placeregister selectfield" >
               <input type="file" onChange={handleImageChange}/>
             </div>
-            <button 
+            <Button 
               className='placeregister image-button'
-              onClick={handleSubmit}>
+              width="40%"
+              onClick={handleSubmit}
+            >
               Upload Image
-            </button>
+            </Button>
           </div>
         </div>
       </BaseContainer>
