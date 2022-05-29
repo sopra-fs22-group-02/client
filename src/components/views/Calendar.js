@@ -87,8 +87,6 @@ const Calendar = ({ events }) => {
     element.starttime.substring(0, 10)
   );
 
-  // debugging
-  // console.log(eventsGroupedByDay);
 
   let weekDates = [];
   // first day + the additional days required
@@ -105,9 +103,6 @@ const Calendar = ({ events }) => {
     );
   }
 
-  // debugging
-  // console.log(days);
-
   // create a JSX friendly object
   // a lot of wrangling, I know :(
   let days = _.map(weekDates, (weekdate) => {
@@ -123,8 +118,6 @@ const Calendar = ({ events }) => {
     };
   });
 
-  // debugging
-  // console.log(days);
 
   return (
     <>

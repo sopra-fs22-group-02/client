@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import BaseContainer from "../ui/BaseContainer";
 import "styles/views/AppliedUsers.scss";
 import {Button} from "../ui/Button";
 import { api, handleError } from 'helpers/api';
@@ -44,7 +43,7 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
             console.log(response2);
 
             // api call to accept applicant
-            const res3 = await api.post(`/places/${aId}/events/${sleepEvent.eventId}/accept`)
+            await api.post(`/places/${aId}/events/${sleepEvent.eventId}/accept`)
 
             setCallback(!callback)
 
@@ -130,7 +129,6 @@ const AppliedUsers = ({ sleepEvent, callback, setCallback }) => {
                 </div>
             </div>
         </>
-        // {/* // </BaseContainer> */}
     );
 };
 
