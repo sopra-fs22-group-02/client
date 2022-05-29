@@ -112,6 +112,17 @@ const ProfileField = props => {
       }
   }
 
+  const deleteEvent = async () => {
+
+    try {
+
+        await api.delete(`/places/${localStorage.getItem('loggedInUserId')}/events/${eventId}`)
+
+    } catch (error) {
+        alert(`Something went wrong during application: \n${handleError(error)}`);
+    }
+}
+
     // effect hook for sleep event
     useEffect(() => {
       console.log("SL updated")
@@ -134,7 +145,8 @@ const ProfileField = props => {
     }
 
     const doDelete = () => {
-      // TODO: Implement
+      deleteEvent();
+      history.push('/')
     }
 
     const providerView = () => 
@@ -161,7 +173,13 @@ const ProfileField = props => {
                 >
                   Edit
           </Button>
-
+          <Button
+                  width="30%"
+                  onClick={() => doDelete()}
+                  disabled={sleepEvent.confirmedApplicant !== 0}
+          >
+            Delete Event
+          </Button>
       </div>
       </>
     }</>
