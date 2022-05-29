@@ -145,7 +145,7 @@ The basis for the project is create-react-app. If you use FS mounted storage (fr
     
 <summary>Why can't I ask my own questions in the QnA Session?</summary>
     
-  Depending on your `Role` (provider or applicant) in the event you can only choose from a predefined set of questions. The intent here is to keep dialogues safe and reduced to essentials. You are welcome to add some additional contact information in your biography (such as an Email address) to discuss further details with your `Applicant` / `Provider`. The QnA session can be a safe-space for initial interaction however.
+> Depending on your `Role` (provider or applicant) in the event you can only choose from a predefined set of questions. The intent here is to keep dialogues safe and reduced to essentials. You are welcome to add some additional contact information in your biography (such as an Email address) to discuss further details with your `Applicant` / `Provider`. The QnA session can be a safe-space for initial interaction however.
 
     
 </details>
@@ -154,7 +154,7 @@ The basis for the project is create-react-app. If you use FS mounted storage (fr
     
 <summary>Why does the QnASession stop if a user has not joined and I refreshed the page?</summary>
     
-For privacy reasons we do not intend to offer any persistence of users answered or asked questions. This implies this data is only stored on the clients computers. If the data is not on a joined peers computer, the data is lost. Therefore we encourage you not to refresh page while waiting for another user to join. If another user has joined and is in the session you can refresh the page, as they will pass the data to you again.
+>For privacy reasons we do not intend to offer any persistence of users answered or asked questions. This implies this data is only stored on the clients computers. If the data is not on a joined peers computer, the data is lost. Therefore we encourage you not to refresh page while waiting for another user to join. If another user has joined and is in the session you can refresh the page, as they will pass the data to you again.
     
 </details>
 
@@ -162,7 +162,7 @@ For privacy reasons we do not intend to offer any persistence of users answered 
     
 <summary>Why can I only offer and find Sleep Events for 7 days in advance?</summary>
     
-      The philosophy of FindAPlace is to allow for serendipity and spontenaety. Since the idea is P2P sharing without cost, we do not want to encourage fully planned out or right out Booking of places. This can be found on other platforms such as Couchsurfing or Airbnb.
+> The philosophy of FindAPlace is to allow for serendipity and spontenaety. Since the idea is P2P sharing without cost, we do not want to encourage fully planned out or right out Booking of places. This can be found on other platforms such as Couchsurfing or Airbnb.
     
 </details>
 
