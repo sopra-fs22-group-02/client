@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import {ReactLogo} from "components/ui/ReactLogo";
 import PropTypes from "prop-types";
 import "styles/views/Header.scss";
-import {Link, useHistory} from "react-router-dom";
-import { storage } from 'helpers/firebase';
-import { ref, getDownloadURL } from "firebase/storage";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
-import { useLocation } from "react-router-dom";
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -32,15 +28,7 @@ const isLoggedIn = () => {
 
 
 const Header = () => {
-    // const [url, setUrl] = useState(null);
     const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token") ? true : false)
-
-    // getDownloadURL(ref(storage, 'userProfile'))
-    // .then((url) => {
-    //     setUrl(url);
-    // })
-
-    const history = useHistory();
     
     const location = useLocation();
 

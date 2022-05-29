@@ -99,13 +99,13 @@ function onMessageReceived(payload) {
 
     // var messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN') {
+    // if(message.type === 'JOIN') {
         // messageElement.classList.add('event-message');
         // message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
+    // } else if (message.type === 'LEAVE') {
         // messageElement.classList.add('event-message');
         // message.content = message.sender + ' left!';
-    } else {
+    // } else {
         // messageElement.classList.add('chat-message');
 
         // var avatarElement = document.createElement('i');
@@ -119,7 +119,7 @@ function onMessageReceived(payload) {
         // var usernameText = document.createTextNode(message.sender);
         // usernameElement.appendChild(usernameText);
         // messageElement.appendChild(usernameElement);
-    }
+    // }
 
     // var textElement = document.createElement('p');
     // var messageText = document.createTextNode(message.content);

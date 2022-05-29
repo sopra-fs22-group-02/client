@@ -105,18 +105,6 @@
     justify-content: flex-start;
     overflow: visible;
   }
-  // &.box {
-  //   flex-shrink: 0;
-  //   // height: 30em;
-  //   // width: 30em;
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   background-color: rgba(84, 192, 204, 0.02);
-  //   overflow: visible;
-  //   // overflow-y: scroll;
-  // }
-
   &.box {
     flex-shrink: 0;
     display: flex;
@@ -126,11 +114,14 @@
     overflow: visible; 
     min-width: 600px;
   }
-
+  &.box h3 {
+    font-size:large;
+    font-style: normal;
+    
+  }
   &.find-return-button {
     width: 75px;
   }
-
   &.insidefields {
     box-sizing: border-box;
     display: grid;
@@ -157,7 +148,6 @@
   &.filter {
     width: auto;
     margin: 10px;
-    // position: relative;
     left: 22em;
     top: 130px;
   }

@@ -20,13 +20,9 @@ const Profile = () => {
     useEffect( () => {
         async function fetchData() {
             try {
-                const response = await api.get(`/users/${userId}/profile`); //why?
-
+                const response = await api.get(`/users/${userId}/profile`);
                 setUser(new User(response.data));
-
                 console.log(response)
-
-                // history.push(`/profileedit/${ userId }`);
             } catch (error) {
                 alert(`Something went wrong during the login: \n${handleError(error)}`);
             }

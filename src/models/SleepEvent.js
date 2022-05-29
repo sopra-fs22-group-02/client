@@ -1,6 +1,5 @@
 import { api } from "helpers/api";
 import moment from "moment";
-import Place from "./Place";
 
 /**
  * Sleep event model
@@ -20,10 +19,9 @@ import Place from "./Place";
       this.applicantsEntities = null;
       this.confirmedApplicant = null;
       this.confirmedApplicantEntity = null;
-      // this.place = new Place();
 
       this.constructDateTime = () => {
-        this.starttime =  moment(`${this.startDate} ${this.startTime}`, "YYYY-MM-DD HH:mm").toISOString(),
+        this.starttime =  moment(`${this.startDate} ${this.startTime}`, "YYYY-MM-DD HH:mm").toISOString()
         this.endtime =  moment(`${this.endDate} ${this.endTime}`, "YYYY-MM-DD HH:mm").toISOString()
       }
 
@@ -31,15 +29,8 @@ import Place from "./Place";
         if(!this.place) {
           // embedder
           try {
-            // debug
-            // console.log(this.userId)
             const res = await api.get(`/places/${this.providerId}`)
-            //debug
-            // console.log(res.data)
-            // assign first place to the user
             this.place = res.data.length > 0 ? res.data[0] : null
-            // debug
-            // console.log("Triggered")
           } catch {
             console.log("Something went wrong while fetching the users places.")
           }
@@ -50,15 +41,8 @@ import Place from "./Place";
         if(!this.provider) {
           // embedder
           try {
-            // debug
-            // console.log(this.userId)
             const res = await api.get(`/users/${this.providerId}/profile`)
-            //debug
-            // console.log(res.data)
-            // assign first place to the user
             this.provider = res.data ? res.data : null
-            // debug
-            // console.log("Triggered")
           } catch {
             console.log("Something went wrong while fetching the users places.")
           }
@@ -69,15 +53,8 @@ import Place from "./Place";
         if(this.confirmedApplicant != 0) {
           // embedder
           try {
-            // debug
-            // console.log(this.userId)
             const res = await api.get(`/users/${this.confirmedApplicant}/profile`)
-            //debug
-            // console.log(res.data)
-            // assign first place to the user
             this.confirmedApplicantEntity = res.data ? res.data : null
-            // debug
-            // console.log("Triggered")
           } catch {
             console.log("Something went wrong while fetching the users places.")
           }
@@ -89,8 +66,6 @@ import Place from "./Place";
           // embedder
           try {
             console.log("Apps" + JSON.stringify(this.applicants))
-            // debug
-            // console.log(this.userId)
             let aA = []
             for(let aId = 0; aId < this.applicants.length; aId++) {
               console.log("Calling " + `/users/${this.applicants[aId]}/profile`)
@@ -102,8 +77,6 @@ import Place from "./Place";
             console.log(aA.data)
             // assign first place to the user
             this.applicantsEntities = aA.length > 0 ? aA : null
-            // debug
-            // console.log("Triggered")
           } catch {
             console.log("Something went wrong while embedding applicants.")
           }

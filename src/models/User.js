@@ -1,6 +1,5 @@
 import { api } from "helpers/api";
 import _ from "lodash";
-import object from "sockjs-client/lib/utils/object";
 import moment from "moment";
 import { storage } from 'helpers/firebase';
 import { ref, getDownloadURL } from "firebase/storage";
@@ -17,7 +16,6 @@ class User {
     this.bio = null;
     this.token = null;
     this.status = null;
-    // this.events = null;
     this.place = null;
     this.password = null;
     this.myNotifications = null;
@@ -30,15 +28,8 @@ class User {
       if(!this.place && this.userId) {
         // embedder
         try {
-          // debug
-          // console.log(this.userId)
           const res = await api.get(`/places/${this.userId}`)
-          //debug
-          // console.log(res.data)
-          // assign first place to the user
           this.place = res.data.length > 0 ? res.data[0] : null
-          // debug
-          // console.log("Triggered")
         } catch {
           console.log("Something went wrong while fetching the users places.")
         }

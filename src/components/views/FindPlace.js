@@ -99,7 +99,7 @@ const FindPlace = () => {
             places.map(place => (
                 <PlaceBox key={place.placeId} place={place} history={history}/>
             ))
-            : (<h3>No places for this facet.</h3>)
+            : (<h3>Oops! We found no place for this facet!</h3>)
         );
     }
     return (

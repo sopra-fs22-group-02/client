@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
 import 'styles/views/ProfileEdit.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import User from 'models/User';
-import { useParams } from 'react-router-dom';
-
 import { storage } from 'helpers/firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";

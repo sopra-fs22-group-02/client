@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import Place from 'models/Place';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
 import 'styles/views/PlaceProfile.scss';
@@ -40,12 +40,11 @@ const ProfileField = props => {
     useEffect(() => {
         async function fetchData() {
               try {
-                // TODO: Get a single place, currently we are tricking
                 // const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }/${placeId}`);
                 const response = await api.get(`/places/${ localStorage.getItem('loggedInUserId') }`);
             
                   // Get the returned user and update a new object.
-                  // FIXME: This is a workaround, just getting the first place.
+                  // This is a workaround, just getting the first place.
                   setPlace(new Place(response.data[0]));
                    
                   // Creation successfully worked --> navigate to the route /PlaceProfile

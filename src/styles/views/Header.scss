@@ -56,15 +56,12 @@
   }
 
   &.navbar-item-link {
-
     color: white;
     text-align: center;
 
     &:focus, &:hover, &:visited, &:link, &:active {
-    
       text-decoration: none;
       color: white;
-
     }
   }
 
@@ -95,17 +92,10 @@
   &:hover {
     transform: translateY(-2px);
   }
-
-  &:hover {
-    transform: none;
-  }
-
-
   &.home-picture {
     width: 60px;
     height: 60px;
     margin-right: 5px;
-
   }
   &.user-picture {
     width: 55px;

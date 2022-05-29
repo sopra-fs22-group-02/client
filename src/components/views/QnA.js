@@ -1,5 +1,5 @@
 
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useHistory, useParams, useLocation} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import "styles/views/QnA.scss";
@@ -216,7 +216,6 @@ const QnA = ( { props }) => {
         }
 
         // check if type Exit => close the session and redirect back to event page
-        // TODO: Fix
         // if(message.type === "LEAVE") {
         //     doExit() 
         // }
@@ -319,8 +318,6 @@ const QnA = ( { props }) => {
                 // setSession(new QnASession(response.data));
 
                 // console.log(response)
-
-                // history.push(`/profileedit/${ userId }`);
             } catch (error) {
 
                 alert(`Something went wrong while initialising or joining the QnA session: ${error.message}`);
@@ -483,10 +480,6 @@ const QnA = ( { props }) => {
     }, [providerFlag])
 
     // let { userId = 1 } = useParams();
-
-    // const toEdit = () => {
-    //     history.push(`/profileedit/${ userId }`)
-    // }
 
     // ? (<AnswerSummary answeredQuestions={syncSession.current.answeredQsA} />)
     // (<span>{JSON.stringify(syncSession.current.answeredQsA)}<span/>)

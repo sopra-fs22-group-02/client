@@ -1,13 +1,12 @@
 import React, {useState,useEffect, useRef} from 'react';
 import {api, handleError} from 'helpers/api';
 import Place from 'models/Place';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'components/ui/Button';
 import {Box} from 'components/ui/Box';
 import 'styles/views/PlaceProfileEdit.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import { useParams } from 'react-router-dom';
 import { storage } from 'helpers/firebase';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Avatar from "@mui/material/Avatar";
@@ -52,16 +51,6 @@ const FormField = props => {
       </div>
     );
   };
-
-  const ImageHolder = props => {
-    return (
-        <img
-          className="placeedit picture"
-          src="/zuri_lake.jpeg"
-          width={props.width}
-        />
-    );
-  };
   
   FormField.propTypes = {
     label: PropTypes.string,
@@ -81,7 +70,7 @@ const FormField = props => {
     const doUpdate = async () => {
       try {
         // Only update non-null values (where the state is not null, partial update)
-        // FIXME: Potentially partial update?
+        // Potentially partial update
         const requestBody = JSON.stringify({closestCampus, name, address, description, pictureOfThePlace: refUrl.current}, 
           (key, value) => {
           if (value !== null) { return value } else { return place[key] }
@@ -179,7 +168,6 @@ const FormField = props => {
               // value={place.name}
               onChange={n => setName(n)}
             />
-            {/* TODO: Change to dropdown */}
             <SelectField
               label="Nearest To:"
               value={place.closestCampus}

@@ -78,7 +78,6 @@ const FormFieldAddress = props => {
   
     const doRegister = async () => {
       try {
-        // TODO: Make sure address and nearestTo is included
         const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), 
           closestCampus, 
           name, 
@@ -86,7 +85,6 @@ const FormFieldAddress = props => {
           description,
           pictureOfThePlace: url
         });
-        // const requestBody = JSON.stringify({providerId: localStorage.getItem('loggedInUserId'), name, description}); 
         const response = await api.post('/places', requestBody);
   
         // Get the returned user and update a new object.
@@ -101,7 +99,6 @@ const FormFieldAddress = props => {
       }
       alert(`You have successfully created a new place!  Now you can offer time slots for this place.`)
     };
-    // let { placeId } = useParams();
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState(null);
 
@@ -147,7 +144,6 @@ const FormFieldAddress = props => {
               value={name}
               onChange={n => setName(n)}
             />
-            {/* TODO: This is supposed to be a dropdown of 4 options. */}
             <SelectField
               label="Nearest To:"
               value={closestCampus}
@@ -178,7 +174,6 @@ const FormFieldAddress = props => {
               </Button>
             </div>
           </div>
-          {/* TODO: Manage image*/}
           <div className="placeregister form2">
             <div className = "placeregister title" >
               <h1> Place profile image</h1>

@@ -1,16 +1,13 @@
 import {useEffect, useState, useRef} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
-import {Button} from 'components/ui/Button';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Home.scss";
 import Calendar from './Calendar';
 import { MenuItem } from 'components/ui/MenuItem';
 import User from 'models/User';
-import { responsiveFontSizes } from '@mui/material';
-import { Link } from 'react-router-dom';
 import Message from 'models/Message';
 
 const Player = ({user}) => (
@@ -90,7 +87,6 @@ const Home = () => {
   
           console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
           console.error("Details:", error);
-          // alert("Something went wrong while fetching the users! See the console for details.");
         }
 
     }
@@ -182,13 +178,11 @@ const Home = () => {
       <>
       <div className='home column' >
         <div className='notification'>
-          {/* TODO: Possibly refactor into component */}
           <div className = "home notificationbox" >
             <h1>Notifications</h1>
           </div>
 
           <div className='notification container'>
-            {/* TODO: Only get the last 3 notifications & display as link */}
             { myNotifications ? 
               // myNotifications.reverse().slice(0,3).map((n)
                (myNotifications.reverse().map((n) => {

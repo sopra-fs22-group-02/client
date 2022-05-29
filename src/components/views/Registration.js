@@ -54,8 +54,6 @@ FormField.propTypes = {
 
 const Registration = props => {
     const history = useHistory();
-    const [firstName, setFirstName] = useState(null)
-    const [lastName, setLastName] = useState(null)
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
@@ -63,7 +61,6 @@ const Registration = props => {
 
     const register = async () => {
         try {
-            // TODO: Are firstname and lastname part of the registration?
             const requestBody = JSON.stringify({username, email, password});
             const response = await api.post('/users', requestBody);
 
@@ -89,24 +86,11 @@ const Registration = props => {
                     <div className= "registration title">
                         <h1> Registration </h1>
                     </div>
-
-                    {/* TODO: Remove
-                        <FormField
-                        label="First Name"
-                        value={firstName}
-                        onChange={fn => setFirstName(fn)}
-                    />
-                    <FormField
-                        label="Last Name"
-                        value={lastName}
-                        onChange={ln => setLastName(ln)}
-                    /> */}
                     <FormField
                         label="Username"
                         value={username}
                         onChange={u => setUsername(u)}
                     />
-                    {/* Validate UZH Email */}
                     <FormField
                         label="Email"
                         value={email}
@@ -138,8 +122,4 @@ const Registration = props => {
     );
 };
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default Registration;
